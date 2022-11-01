@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/statusIcons"/>
+    <qresource prefix="/images">
+        <file>car.jpeg</file>
+        <file>go_pedal.jpeg</file>
+        <file>stop_pedal.jpeg</file>
+        <file>battery.png</file>
+        <file>connected_icon.png</file>
+        <file>disconnected_icon.png</file>
+    </qresource>
+</RCC>
