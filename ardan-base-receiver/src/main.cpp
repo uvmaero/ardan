@@ -19,6 +19,9 @@
 
 
 // --- global variables --- //
+bool messageReceivedFlag = false;
+bool messageTransferedFlag = false;
+
 // Drive Mode Enumeration Type
 enum DriveModes
 {
@@ -102,7 +105,6 @@ portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
 // --- function headers --- //
 void GetNewData();
-void UpdateBaseStation();
 
 
 // --- setup --- //
@@ -122,33 +124,15 @@ void setup() {
   timerAttachInterrupt(timer0, &GetNewData, true);
   timerAlarmWrite(timer0, LORA_PARSE_INTERVAL, true);
   timerAlarmEnable(timer0);
-
-  timer1 = timerBegin(1, TIMER_INTERRUPT_PRESCALER, true);
-  timerAttachInterrupt(timer1, &UpdateBaseStation, true);
-  timerAlarmWrite(timer1, BASE_STATION_UPDATE_INTERVAL, true);
-  timerAlarmEnable(timer1);
 }
 
 
 // --- loop --- // 
 void loop() {
-  // try to parse packet
-  int packetSize = LoRa.parsePacket();
+  // print status messages
+  
+  // write to serial bus
 
-  // read packet
-  if (packetSize) {
-    // received a packet
-    Serial.print("Received packet '");
-
-    // read packet
-    while (LoRa.available()) {
-      Serial.print((char)LoRa.read());
-    }
-
-    // print RSSI of packet
-    Serial.print("' with RSSI ");
-    Serial.println(LoRa.packetRssi());
-  }
 }
 
 
@@ -157,14 +141,13 @@ void loop() {
  * 
  */
 void GetNewData() {
+  // try to parse packet
+  int packetSize = LoRa.parsePacket();
 
-}
+  if (packetSize) {
+    while (LoRa.available()) {
+      LoRa.readBytes((uint8_t) *carData, sizeof(carData));
+    }
 
-
-/**
- * @brief 
- * 
- */
-void UpdateBaseStation() {
-
+  }
 }
