@@ -36,7 +36,6 @@ private:
 
 
 private slots:
-
     void on_Dark_Mode_triggered(bool checked);
     void on_About_Dlg_triggered();
 };
