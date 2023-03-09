@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include "ElectricalData.h"
 #include "MechanicalData.h"
+#include "AboutDlg.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -27,9 +28,16 @@ private:
     // ui
     Ui::MainWindow *ui;
 
+    AboutDlg *m_pAboutDlg;
+
     // data classes
     ElectricalData *m_pElectricalData;
     MechanicalData *m_pMechanicalData;
 
+
+private slots:
+
+    void on_Dark_Mode_triggered(bool checked);
+    void on_About_Dlg_triggered();
 };
 #endif // MAINWINDOW_H

@@ -952,7 +952,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>571</x>
@@ -991,15 +991,13 @@
     <property name="title">
      <string>Options</string>
     </property>
-    <addaction name="separator"/>
-    <addaction name="actionDark_Mode"/>
-    <addaction name="separator"/>
-    <addaction name="actionAbout"/>
+    <addaction name="Dark_Mode"/>
+    <addaction name="About_Dlg"/>
    </widget>
    <addaction name="menuOptions"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionDark_Mode">
+  <action name="Dark_Mode">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -1007,7 +1005,7 @@
     <string>Dark Mode</string>
    </property>
   </action>
-  <action name="actionAbout">
+  <action name="About_Dlg">
    <property name="text">
     <string>About</string>
    </property>

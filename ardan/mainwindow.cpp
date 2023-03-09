@@ -21,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->setupUi(this);
     this->setWindowTitle("ARDAN Base Station");
 
+    m_pAboutDlg = new AboutDlg();
+
     // initialize images
     ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToWidth(ui->CarImage->width()));
     ui->AccelPedalImage->setPixmap(QPixmap(":/images/go_pedal.jpeg").scaledToHeight(ui->AccelPedalImage->height()));
@@ -64,12 +66,12 @@ MainWindow::~MainWindow()
 
 
 /**
- * @brief MainWindow::on_actionDark_Mode_toggled
- * @param arg1
+ * @brief MainWindow::on_Dark_Mode_triggered
+ * @param checked
  */
-void MainWindow::on_actionDark_Mode_toggled(bool state)
+void MainWindow::on_Dark_Mode_triggered(bool checked)
 {
-    if (state) {
+    if (checked) {
 
     }
 
@@ -80,10 +82,11 @@ void MainWindow::on_actionDark_Mode_toggled(bool state)
 
 
 /**
- * @brief MainWindow::on_actionAbout_triggered
+ * @brief MainWindow::on_About_Dlg_triggered
  */
-void MainWindow::on_actionAbout_triggered()
+void MainWindow::on_About_Dlg_triggered()
 {
-
+    // open about dialog
+    m_pAboutDlg->show();
 }
 

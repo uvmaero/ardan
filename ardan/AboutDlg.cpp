@@ -19,7 +19,7 @@ AboutDlg::AboutDlg(QWidget *parent) : QDialog(parent), ui(new Ui::AboutDlg)
     // Setup UI
     ui->setupUi(this);
     this->setWindowTitle("About");
-    ui->ardanLogoLbl->setPixmap(QPixmap(":/icons/lockbox.png").scaledToWidth(ui->lockboxLogoLbl->width()));
+    ui->ardanLogoLbl->setPixmap(QPixmap(":/icons/lockbox.png").scaledToWidth(ui->ardanLogoLbl->width()));
     ui->qtLogoLbl->setPixmap(QPixmap(":/icons/qt_logo.png").scaledToWidth(ui->qtLogoLbl->width()));
 
     // Fill in text boxes with information
