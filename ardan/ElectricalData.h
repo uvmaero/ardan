@@ -1,7 +1,10 @@
 #ifndef ELECTRICALDATA_H
 #define ELECTRICALDATA_H
 
+
 // includes
+#include <QReadWriteLock>
+
 
 // defines
 
@@ -49,6 +52,9 @@ public:
 
 
 private:
+    // mutex
+    QReadWriteLock m_lock;
+
     // variables
     float m_averageCellVoltage;
     float m_minCellVoltage;
