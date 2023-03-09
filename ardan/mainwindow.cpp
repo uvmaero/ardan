@@ -3,6 +3,7 @@
  * author: dominic gasperini
  * brief: this file manages the main window of the ARDAN base station program
 */
+
 // includes
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -26,6 +27,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->BrakePedalImage->setPixmap(QPixmap(":/images/stop_pedal.jpeg").scaledToHeight(ui->BrakePedalImage->height()));
     ui->BatteryImage->setPixmap(QPixmap(":/images/battery.png").scaledToWidth(ui->BatteryImage->width()));
     ui->WheelConnectionStatusImage->setPixmap(QPixmap(":/images/connected_icon.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+
+    // init classes
+    m_pElectricalData = new ElectricalData();
+    m_pMechanicalData = new MechanicalData();
 
     // Update Data
     UpdateMechanicalData();

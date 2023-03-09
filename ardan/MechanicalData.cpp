@@ -1,3 +1,8 @@
+/**
+ * file: MechanicalData.cpp
+ * author: dominic gasperini
+ * brief: this file manages the mechanical data
+*/
 
 // includes
 #include "MechanicalData.h"

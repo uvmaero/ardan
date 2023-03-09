@@ -1,7 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+// includes
 #include <QMainWindow>
+#include "ElectricalData.h"
+#include "MechanicalData.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,10 +18,18 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    // gui updates
     void UpdateMechanicalData();
     void UpdateElectricalData();
 
 private:
+    // ui
     Ui::MainWindow *ui;
+
+    // data classes
+    ElectricalData *m_pElectricalData;
+    MechanicalData *m_pMechanicalData;
+
 };
 #endif // MAINWINDOW_H

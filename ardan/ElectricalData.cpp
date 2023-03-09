@@ -1,3 +1,8 @@
+/**
+ * file: ElectricalData.cpp
+ * author: dominic gasperini
+ * brief: this file manages the electrical data
+*/
 
 // includes
 #include "ElectricalData.h"
