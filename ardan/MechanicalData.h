@@ -32,12 +32,12 @@ public:
     DriveModes getDriveMode();
 
     float getFRWheelSpeed();
-    float getFlWheelSpeed();
+    float getFLWheelSpeed();
     float getBRWheelSpeed();
     float getBLWheelSpeed();
 
     float getFRWheelHeight();
-    float getFlWheelHeight();
+    float getFLWheelHeight();
     float getBRWheelHeight();
     float getBLWheelHeight();
 
