@@ -130,3 +130,112 @@ bool ElectricalData::getWheelBoardConnectionStatus() {
 
 // --- setters --- //
 
+/**
+ * @brief ElectricalData::setAverageCellVoltage
+ * @param num
+ */
+void ElectricalData::setAverageCellVoltage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_averageCellVoltage = num;
+}
+
+/**
+ * @brief ElectricalData::setMinCellVoltage
+ * @param num
+ */
+void ElectricalData::setMinCellVoltage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_minCellVoltage = num;
+}
+
+/**
+ * @brief ElectricalData::setMaxCellVoltage
+ * @param num
+ */
+void ElectricalData::setMaxCellVoltage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_maxCellVoltage = num;
+}
+
+/**
+ * @brief ElectricalData::setBatteryPercentage
+ * @param num
+ */
+void ElectricalData::setBatteryPercentage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_batteryPercentage = num;
+}
+
+/**
+ * @brief ElectricalData::setBusVoltage
+ * @param num
+ */
+void ElectricalData::setBusVoltage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_busVoltage = num;
+}
+
+/**
+ * @brief ElectricalData::setBusCurrent
+ * @param num
+ */
+void ElectricalData::setBusCurrent(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_busCurrent = num;
+}
+
+/**
+ * @brief ElectricalData::setRinehartVoltage
+ * @param num
+ */
+void ElectricalData::setRinehartVoltage(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_rinehartVoltage = num;
+}
+
+/**
+ * @brief ElectricalData::setMinCellTemp
+ * @param num
+ */
+void ElectricalData::setMinCellTemp(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_minCellTemp = num;
+}
+
+/**
+ * @brief ElectricalData::setMaxCellTemp
+ * @param num
+ */
+void ElectricalData::setMaxCellTemp(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_maxCellTemp = num;
+}
+
+/**
+ * @brief ElectricalData::setAverageCellTemp
+ * @param num
+ */
+void ElectricalData::setAverageCellTemp(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_averageCellTemp = num;
+}
+
+/**
+ * @brief ElectricalData::setWheelBoardConnectionStatus
+ * @param status
+ */
+void ElectricalData::setWheelBoardConnectionStatus(bool status) {
+    QWriteLocker locker(&m_lock);
+
+    m_wheelBoardConnectionStatus = status;
+}

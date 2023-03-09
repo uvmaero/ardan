@@ -15,7 +15,7 @@
 class ElectricalData
 {
 public:
-    // constructor
+    // constructor & destructor
     ElectricalData();
 
     // getters
