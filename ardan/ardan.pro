@@ -10,11 +10,13 @@ CONFIG += c++17
 
 SOURCES += \
     ElectricalData.cpp \
+    MechanicalData.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     ElectricalData.h \
+    MechanicalData.h \
     mainwindow.h
 
 FORMS += \
