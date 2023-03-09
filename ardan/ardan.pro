@@ -11,19 +11,19 @@ CONFIG += c++17
 SOURCES += \
     AboutDlg.cpp \
     ElectricalData.cpp \
+    MainWindow.cpp \
     MechanicalData.cpp \
-    main.cpp \
-    mainwindow.cpp
+    main.cpp
 
 HEADERS += \
     AboutDlg.h \
     ElectricalData.h \
-    MechanicalData.h \
-    mainwindow.h
+    MainWindow.h \
+    MechanicalData.h
 
 FORMS += \
     AboutDlg.ui \
-    mainwindow.ui
+    MainWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
