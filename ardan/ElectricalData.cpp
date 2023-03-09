@@ -11,7 +11,21 @@
  */
 ElectricalData::ElectricalData()
 {
+    // init electrical data
+    m_averageCellVoltage = 0.0f;
+    m_minCellVoltage = 0.0f;
+    m_maxCellVoltage = 0.0f;
 
+    m_batteryPercentage = 0.0f;
+    m_busVoltage = 0.0f;
+    m_busCurrent = 0.0f;
+    m_rinehartVoltage = 0.0f;
+
+    m_minCellTemp = 0.0f;
+    m_maxCellTemp = 0.0f;
+    m_averageCellTemp = 0.0f;
+
+    m_wheelBoardConnectionStatus = false;
 }
 
 
