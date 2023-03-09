@@ -62,3 +62,28 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+/**
+ * @brief MainWindow::on_actionDark_Mode_toggled
+ * @param arg1
+ */
+void MainWindow::on_actionDark_Mode_toggled(bool state)
+{
+    if (state) {
+
+    }
+
+    else {
+
+    }
+}
+
+
+/**
+ * @brief MainWindow::on_actionAbout_triggered
+ */
+void MainWindow::on_actionAbout_triggered()
+{
+
+}
+
