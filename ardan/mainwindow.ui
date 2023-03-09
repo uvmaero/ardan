@@ -64,7 +64,7 @@
       <string>Accelerator Pedal Image</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_13">
+    <widget class="QLabel" name="BrakePedalLbl">
      <property name="geometry">
       <rect>
        <x>50</x>
@@ -80,7 +80,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_14">
+    <widget class="QLabel" name="AccelPedalLbl">
      <property name="geometry">
       <rect>
        <x>270</x>
@@ -96,7 +96,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QProgressBar" name="progressBar">
+    <widget class="QProgressBar" name="BrakePedalProgressBar">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -109,7 +109,7 @@
       <number>13</number>
      </property>
     </widget>
-    <widget class="QProgressBar" name="progressBar_2">
+    <widget class="QProgressBar" name="AccelPedalProgressBar">
      <property name="geometry">
       <rect>
        <x>230</x>
@@ -122,7 +122,7 @@
       <number>66</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label_29">
+    <widget class="QLabel" name="SpeedLbl">
      <property name="geometry">
       <rect>
        <x>160</x>
@@ -187,7 +187,7 @@
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
-    <widget class="QProgressBar" name="progressBar_3">
+    <widget class="QProgressBar" name="BatteryPrecentageProgressBar">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -200,7 +200,7 @@
       <number>78</number>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -209,16 +209,16 @@
        <height>101</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_5">
+     <layout class="QGridLayout" name="PrimaryVoltageGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="BusVoltageLbl">
         <property name="text">
          <string>Bus Voltage</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_5">
+       <widget class="QDoubleSpinBox" name="BusVoltageSbx">
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
@@ -231,14 +231,14 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="BusCurrentLbl">
         <property name="text">
          <string>Bus Current</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_6">
+       <widget class="QDoubleSpinBox" name="BusCurrentSbx">
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
@@ -251,14 +251,14 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_12">
+       <widget class="QLabel" name="RinehartVoltageLbl">
         <property name="text">
          <string>RInehart Voltage</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+       <widget class="QDoubleSpinBox" name="RinehartVoltageSbx">
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
@@ -272,7 +272,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -701,7 +701,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>100</x>
@@ -710,9 +710,9 @@
        <height>18</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_7">
+     <layout class="QGridLayout" name="WheelConnectionGridLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_30">
+       <widget class="QLabel" name="WheelConnectionLbl">
         <property name="text">
          <string>Steering Wheel Connection</string>
         </property>
@@ -753,16 +753,16 @@
       <height>71</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="FRWheelGridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label_4">
+      <widget class="QLabel" name="FRWheelSpeedLbl">
        <property name="text">
         <string>Wheel Speed</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="spinBox_2">
+      <widget class="QSpinBox" name="FRWheelSpeedSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -775,14 +775,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_5">
+      <widget class="QLabel" name="FRWheelHeightLbl">
        <property name="text">
         <string>Suspension</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+      <widget class="QDoubleSpinBox" name="FRWheelHeightSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -805,16 +805,16 @@
       <height>71</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_3">
+    <layout class="QGridLayout" name="BRWheelGridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label_6">
+      <widget class="QLabel" name="BRWheelSpeedLbl">
        <property name="text">
         <string>Wheel Speed</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="spinBox_3">
+      <widget class="QSpinBox" name="BRWheelSpeedSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -827,14 +827,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_7">
+      <widget class="QLabel" name="BRWheelHeightLbl">
        <property name="text">
         <string>Suspension</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+      <widget class="QDoubleSpinBox" name="BRWheelHeightSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -857,16 +857,16 @@
       <height>71</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_4">
+    <layout class="QGridLayout" name="BLWheelGridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label_8">
+      <widget class="QLabel" name="BLWheelSpeedLbl">
        <property name="text">
         <string>Wheel Speed</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="spinBox_4">
+      <widget class="QSpinBox" name="BLWheelSpeedSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -879,14 +879,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_9">
+      <widget class="QLabel" name="BLWheelHeightLbl">
        <property name="text">
         <string>Suspension</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+      <widget class="QDoubleSpinBox" name="BLWheelHeightSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -900,30 +900,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="label_10">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>10</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Drive Mode</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>30</y>
-      <width>181</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>440</x>
@@ -932,16 +909,16 @@
       <height>71</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="FLWheelGridLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="FLWheelSpeedLbl">
        <property name="text">
         <string>Wheel Speed</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QSpinBox" name="spinBox">
+      <widget class="QSpinBox" name="FLWheelSpeedSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -954,14 +931,14 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="FLWheelHeightLbl">
        <property name="text">
         <string>Suspension</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="doubleSpinBox">
+      <widget class="QDoubleSpinBox" name="FLWheelHeightSbx">
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
@@ -972,6 +949,31 @@
         <enum>QAbstractSpinBox::NoButtons</enum>
        </property>
       </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>571</x>
+      <y>11</y>
+      <width>144</width>
+      <height>47</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="DriveModeGridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="DriveModeLbl">
+       <property name="text">
+        <string>Drive Mode</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLineEdit" name="DriveModeTbx"/>
      </item>
     </layout>
    </widget>
