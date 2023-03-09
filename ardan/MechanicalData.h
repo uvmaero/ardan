@@ -45,15 +45,15 @@ public:
     void setSpeed(float num);
     void setBrakePosition(float num);
     void setAcceloratorPosition(float num);
-    void setDriveMode(float num);
+    void setDriveMode(DriveModes num);
 
     void setFRWheelSpeed(float num);
-    void setFlWheelSpeed(float num);
+    void setFLWheelSpeed(float num);
     void setBRWheelSpeed(float num);
     void setBLWheelSpeed(float num);
 
     void setFRWheelHeight(float num);
-    void setFlWheelHeight(float num);
+    void setFLWheelHeight(float num);
     void setBRWheelHeight(float num);
     void setBLWheelHeight(float num);
 
