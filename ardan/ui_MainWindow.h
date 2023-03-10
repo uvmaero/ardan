@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
+#include <QtGui/QIcon>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
@@ -135,6 +136,9 @@ public:
         MainWindow->resize(1300, 800);
         MainWindow->setMinimumSize(QSize(1300, 800));
         MainWindow->setMaximumSize(QSize(1300, 800));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/bessieIcon.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        MainWindow->setWindowIcon(icon);
         Dark_Mode = new QAction(MainWindow);
         Dark_Mode->setObjectName(QString::fromUtf8("Dark_Mode"));
         Dark_Mode->setCheckable(true);

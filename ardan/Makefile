@@ -961,12 +961,15 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: resources.qrc \
 		../../../../Qt/6.3.1/gcc_64/libexec/rcc \
-		car.jpeg \
-		disconnected_icon.png \
+		bessieIcon.ico \
+		qt_logo.png \
 		go_pedal.jpeg \
 		stop_pedal.jpeg \
 		battery.png \
-		connected_icon.png
+		car.jpeg \
+		disconnected_icon.png \
+		connected_icon.png \
+		bessie.png
 	/home/dom_gasperini/Qt/6.3.1/gcc_64/libexec/rcc -name resources resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -1748,6 +1751,7 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		ui_MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QVariant \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QAction \
+		../../../../Qt/6.3.1/gcc_64/include/QtGui/QIcon \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qapplication.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcoreapplication.h \

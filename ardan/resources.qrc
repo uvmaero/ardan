@@ -1,5 +1,4 @@
 <RCC>
-    <qresource prefix="/statusIcons"/>
     <qresource prefix="/images">
         <file>car.jpeg</file>
         <file>go_pedal.jpeg</file>
@@ -7,6 +6,9 @@
         <file>battery.png</file>
         <file>connected_icon.png</file>
         <file>disconnected_icon.png</file>
+        <file>bessieIcon.ico</file>
+        <file>bessie.png</file>
+        <file>qt_logo.png</file>
     </qresource>
     <qresource prefix="/customWidgets"/>
 </RCC>
