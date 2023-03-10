@@ -1638,7 +1638,7 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QDesktopServices \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/qdesktopservices.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QUrl \
-		ui_mainwindow.h \
+		ui_MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QVariant \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QAction \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QApplication \
@@ -1662,9 +1662,6 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/qinputmethod.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qlocale.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/qguiapplication_platform.h \
-		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QDial \
-		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qdial.h \
-		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qabstractslider.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QDoubleSpinBox \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qspinbox.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qabstractspinbox.h \
@@ -1678,6 +1675,8 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QGroupBox \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qgroupbox.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qframe.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QLCDNumber \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qlcdnumber.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QLabel \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qlabel.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/qpicture.h \

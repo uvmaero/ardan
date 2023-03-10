@@ -28,7 +28,8 @@ public:
     // getters
     float getSpeed();
     float getBrakePosition();
-    float getAcceloratorPosition();
+    float getAcceleratorPosition();
+    float getSteeringWheelPosition();
     DriveModes getDriveMode();
 
     float getFRWheelSpeed();
@@ -44,7 +45,8 @@ public:
     // setters
     void setSpeed(float num);
     void setBrakePosition(float num);
-    void setAcceloratorPosition(float num);
+    void setAcceleratorPosition(float num);
+    void setSteeringWheelPosition(float num);
     void setDriveMode(DriveModes num);
 
     void setFRWheelSpeed(float num);
@@ -65,7 +67,8 @@ private:
     // variables
     float m_speed;
     float m_brakePosition;
-    float m_acceloratorPosition;
+    float m_acceleratorPosition;
+    float m_steeringWheelPosition;
     DriveModes m_driveMode;
 
     float m_FRWheelSpeed;

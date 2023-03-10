@@ -12,10 +12,10 @@
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QDial>
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
+#include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -35,7 +35,7 @@ public:
     QAction *Dark_Mode;
     QAction *About_Dlg;
     QWidget *centralwidget;
-    QGroupBox *groupBox;
+    QGroupBox *MechanicalDataGroupBox;
     QLabel *BrakePedalImage;
     QLabel *AccelPedalImage;
     QLabel *BrakePedalLbl;
@@ -43,7 +43,7 @@ public:
     QProgressBar *BrakePedalProgressBar;
     QProgressBar *AccelPedalProgressBar;
     QLabel *SpeedLbl;
-    QDial *dial;
+    QLCDNumber *CurrentSpeedLCD;
     QGroupBox *groupBox_2;
     QGroupBox *groupBox_3;
     QLabel *BatteryImage;
@@ -142,37 +142,38 @@ public:
         About_Dlg->setObjectName(QString::fromUtf8("About_Dlg"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
-        groupBox = new QGroupBox(centralwidget);
-        groupBox->setObjectName(QString::fromUtf8("groupBox"));
-        groupBox->setGeometry(QRect(10, 10, 411, 741));
-        BrakePedalImage = new QLabel(groupBox);
+        MechanicalDataGroupBox = new QGroupBox(centralwidget);
+        MechanicalDataGroupBox->setObjectName(QString::fromUtf8("MechanicalDataGroupBox"));
+        MechanicalDataGroupBox->setGeometry(QRect(10, 10, 411, 741));
+        BrakePedalImage = new QLabel(MechanicalDataGroupBox);
         BrakePedalImage->setObjectName(QString::fromUtf8("BrakePedalImage"));
         BrakePedalImage->setGeometry(QRect(50, 520, 101, 151));
-        AccelPedalImage = new QLabel(groupBox);
+        AccelPedalImage = new QLabel(MechanicalDataGroupBox);
         AccelPedalImage->setObjectName(QString::fromUtf8("AccelPedalImage"));
         AccelPedalImage->setGeometry(QRect(270, 520, 111, 151));
-        BrakePedalLbl = new QLabel(groupBox);
+        BrakePedalLbl = new QLabel(MechanicalDataGroupBox);
         BrakePedalLbl->setObjectName(QString::fromUtf8("BrakePedalLbl"));
         BrakePedalLbl->setGeometry(QRect(50, 710, 62, 16));
         BrakePedalLbl->setAlignment(Qt::AlignCenter);
-        AccelPedalLbl = new QLabel(groupBox);
+        AccelPedalLbl = new QLabel(MechanicalDataGroupBox);
         AccelPedalLbl->setObjectName(QString::fromUtf8("AccelPedalLbl"));
         AccelPedalLbl->setGeometry(QRect(270, 710, 81, 20));
         AccelPedalLbl->setAlignment(Qt::AlignCenter);
-        BrakePedalProgressBar = new QProgressBar(groupBox);
+        BrakePedalProgressBar = new QProgressBar(MechanicalDataGroupBox);
         BrakePedalProgressBar->setObjectName(QString::fromUtf8("BrakePedalProgressBar"));
         BrakePedalProgressBar->setGeometry(QRect(10, 680, 161, 23));
         BrakePedalProgressBar->setValue(13);
-        AccelPedalProgressBar = new QProgressBar(groupBox);
+        AccelPedalProgressBar = new QProgressBar(MechanicalDataGroupBox);
         AccelPedalProgressBar->setObjectName(QString::fromUtf8("AccelPedalProgressBar"));
         AccelPedalProgressBar->setGeometry(QRect(230, 680, 171, 23));
         AccelPedalProgressBar->setValue(66);
-        SpeedLbl = new QLabel(groupBox);
+        SpeedLbl = new QLabel(MechanicalDataGroupBox);
         SpeedLbl->setObjectName(QString::fromUtf8("SpeedLbl"));
-        SpeedLbl->setGeometry(QRect(160, 230, 91, 16));
-        dial = new QDial(groupBox);
-        dial->setObjectName(QString::fromUtf8("dial"));
-        dial->setGeometry(QRect(120, 70, 161, 141));
+        SpeedLbl->setGeometry(QRect(160, 300, 91, 16));
+        CurrentSpeedLCD = new QLCDNumber(MechanicalDataGroupBox);
+        CurrentSpeedLCD->setObjectName(QString::fromUtf8("CurrentSpeedLCD"));
+        CurrentSpeedLCD->setGeometry(QRect(20, 40, 381, 251));
+        CurrentSpeedLCD->setSmallDecimalPoint(false);
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
         groupBox_2->setGeometry(QRect(890, 10, 401, 741));
@@ -594,7 +595,7 @@ public:
 
         layoutWidget5 = new QWidget(centralwidget);
         layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
-        layoutWidget5->setGeometry(QRect(571, 11, 144, 47));
+        layoutWidget5->setGeometry(QRect(571, 11, 144, 48));
         DriveModeGridLayout = new QGridLayout(layoutWidget5);
         DriveModeGridLayout->setObjectName(QString::fromUtf8("DriveModeGridLayout"));
         DriveModeGridLayout->setContentsMargins(0, 0, 0, 0);
@@ -606,6 +607,8 @@ public:
 
         DriveModeTbx = new QLineEdit(layoutWidget5);
         DriveModeTbx->setObjectName(QString::fromUtf8("DriveModeTbx"));
+        DriveModeTbx->setAlignment(Qt::AlignCenter);
+        DriveModeTbx->setReadOnly(true);
 
         DriveModeGridLayout->addWidget(DriveModeTbx, 1, 0, 1, 1);
 
@@ -634,7 +637,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         Dark_Mode->setText(QCoreApplication::translate("MainWindow", "Dark Mode", nullptr));
         About_Dlg->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
-        groupBox->setTitle(QCoreApplication::translate("MainWindow", "Mechanical Data", nullptr));
+        MechanicalDataGroupBox->setTitle(QCoreApplication::translate("MainWindow", "Mechanical Data", nullptr));
         BrakePedalImage->setText(QCoreApplication::translate("MainWindow", "Brake Pedal Image", nullptr));
         AccelPedalImage->setText(QCoreApplication::translate("MainWindow", "Accelerator Pedal Image", nullptr));
         BrakePedalLbl->setText(QCoreApplication::translate("MainWindow", "Brake", nullptr));

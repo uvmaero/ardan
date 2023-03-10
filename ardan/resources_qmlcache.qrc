@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<RCC>
+    <qresource prefix="/statusIcons"/>
+    <qresource prefix="/images">
+        <file alias="car.jpeg">car.jpeg</file>
+        <file alias="go_pedal.jpeg">go_pedal.jpeg</file>
+        <file alias="stop_pedal.jpeg">stop_pedal.jpeg</file>
+        <file alias="battery.png">battery.png</file>
+        <file alias="connected_icon.png">connected_icon.png</file>
+        <file alias="disconnected_icon.png">disconnected_icon.png</file>
+    </qresource>
+    <qresource prefix="/customWidgets">
+        <file alias="Speedometer.qml">Speedometer.qml</file>
+    </qresource>
+</RCC>

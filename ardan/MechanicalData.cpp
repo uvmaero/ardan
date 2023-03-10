@@ -19,7 +19,8 @@ MechanicalData::MechanicalData()
     // init variables
     m_speed = 0.0f;
     m_brakePosition = 0.0f;
-    m_acceloratorPosition = 0.0f;
+    m_acceleratorPosition = 0.0f;
+    m_steeringWheelPosition = 0.0f;
     m_driveMode = SLOW;
 
     m_FRWheelSpeed = 0.0f;
@@ -60,10 +61,20 @@ float MechanicalData::getBrakePosition() {
  * @brief MechanicalData::getAcceloratorPosition
  * @return
  */
-float MechanicalData::getAcceloratorPosition() {
+float MechanicalData::getAcceleratorPosition() {
     QReadLocker locker(&m_lock);
 
-    return m_acceloratorPosition;
+    return m_acceleratorPosition;
+}
+
+/**
+ * @brief MechanicalData::getSteeringWheelPosition
+ * @return
+ */
+float MechanicalData::getSteeringWheelPosition() {
+    QReadLocker locker(&m_lock);
+
+    return m_steeringWheelPosition;
 }
 
 /**
@@ -183,10 +194,20 @@ void MechanicalData::setBrakePosition(float num) {
  * @brief MechanicalData::setAcceloratorPosition
  * @param num
  */
-void MechanicalData::setAcceloratorPosition(float num) {
+void MechanicalData::setAcceleratorPosition(float num) {
     QWriteLocker locker(&m_lock);
 
-    m_acceloratorPosition = num;
+    m_acceleratorPosition = num;
+}
+
+/**
+ * @brief MechanicalData::setSteeringWheelPosition
+ * @param num
+ */
+void MechanicalData::setSteeringWheelPosition(float num) {
+    QWriteLocker locker(&m_lock);
+
+    m_steeringWheelPosition = num;
 }
 
 /**

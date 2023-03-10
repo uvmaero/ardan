@@ -3,6 +3,8 @@
 
 // includes
 #include <QMainWindow>
+#include <QTimer>
+#include <QStyleFactory>
 #include "ElectricalData.h"
 #include "MechanicalData.h"
 #include "AboutDlg.h"
@@ -27,8 +29,13 @@ public:
 private:
     // ui
     Ui::MainWindow *ui;
+    QPalette m_defaultPalette;
 
+    // dialogs
     AboutDlg *m_pAboutDlg;
+
+    // timers
+    QTimer *m_pUpdateDataTimer;
 
     // data classes
     ElectricalData *m_pElectricalData;
@@ -36,6 +43,7 @@ private:
 
 
 private slots:
+    void UpdateWindow();
     void on_Dark_Mode_triggered(bool checked);
     void on_About_Dlg_triggered();
 };

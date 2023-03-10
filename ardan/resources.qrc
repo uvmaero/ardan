@@ -8,4 +8,5 @@
         <file>connected_icon.png</file>
         <file>disconnected_icon.png</file>
     </qresource>
+    <qresource prefix="/customWidgets"/>
 </RCC>
