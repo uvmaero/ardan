@@ -53,6 +53,7 @@ OBJECTS_DIR   = ./
 ####### Files
 
 SOURCES       = AboutDlg.cpp \
+		DataManager.cpp \
 		ElectricalData.cpp \
 		MainWindow.cpp \
 		MechanicalData.cpp \
@@ -60,6 +61,7 @@ SOURCES       = AboutDlg.cpp \
 		moc_AboutDlg.cpp \
 		moc_MainWindow.cpp
 OBJECTS       = AboutDlg.o \
+		DataManager.o \
 		ElectricalData.o \
 		MainWindow.o \
 		MechanicalData.o \
@@ -339,9 +341,11 @@ DIST          = ../../../../Qt/6.3.1/gcc_64/mkspecs/features/spec_pre.prf \
 		../../../../Qt/6.3.1/gcc_64/mkspecs/features/yacc.prf \
 		../../../../Qt/6.3.1/gcc_64/mkspecs/features/lex.prf \
 		ardan.pro AboutDlg.h \
+		DataManager.h \
 		ElectricalData.h \
 		MainWindow.h \
 		MechanicalData.h AboutDlg.cpp \
+		DataManager.cpp \
 		ElectricalData.cpp \
 		MainWindow.cpp \
 		MechanicalData.cpp \
@@ -926,8 +930,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/6.3.1/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents AboutDlg.h ElectricalData.h MainWindow.h MechanicalData.h $(DISTDIR)/
-	$(COPY_FILE) --parents AboutDlg.cpp ElectricalData.cpp MainWindow.cpp MechanicalData.cpp main.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents AboutDlg.h DataManager.h ElectricalData.h MainWindow.h MechanicalData.h $(DISTDIR)/
+	$(COPY_FILE) --parents AboutDlg.cpp DataManager.cpp ElectricalData.cpp MainWindow.cpp MechanicalData.cpp main.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents AboutDlg.ui MainWindow.ui $(DISTDIR)/
 
 
@@ -1250,6 +1254,11 @@ moc_MainWindow.cpp: MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QTransform \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qnativeinterface.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QTimer \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QStyleFactory \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qstylefactory.h \
 		ElectricalData.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QReadWriteLock \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qreadwritelock.h \
@@ -1466,6 +1475,99 @@ AboutDlg.o: AboutDlg.cpp AboutDlg.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o AboutDlg.o AboutDlg.cpp
 
+DataManager.o: DataManager.cpp DataManager.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QThread \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qthread.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qobject.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qobjectdefs.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qnamespace.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qglobal.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qconfig.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtcore-config.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtcoreexports.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qsystemdetection.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qprocessordetection.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcompilerdetection.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtypeinfo.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcontainerfwd.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qsysinfo.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qlogging.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qflags.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcompare_impl.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qatomic.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbasicatomic.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qgenericatomic.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qatomic_cxx11.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qglobalstatic.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qnumeric.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qversiontagging.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtmetamacros.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstring.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qchar.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringview.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbytearray.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qrefcount.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qarraydata.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qpair.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qarraydatapointer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qarraydataops.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcontainertools_impl.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbytearrayalgorithms.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbytearrayview.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringliteral.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringalgorithms.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qanystringview.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qutf8stringview.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringtokenizer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringbuilder.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qlist.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qhashfunctions.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qiterator.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbytearraylist.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringlist.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qalgorithms.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringmatcher.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcoreevent.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qscopedpointer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qmetatype.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcompare.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qvarlengtharray.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qscopeguard.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qdatastream.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qiodevicebase.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qiterable.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qmetacontainer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcontainerinfo.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtaggedpointer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qmath.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qobject_impl.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbindingstorage.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QTimer \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QDebug \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qdebug.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qhash.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qmap.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qshareddata.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qshareddata_impl.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtextstream.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qstringconverter.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qset.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qcontiguouscache.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qsharedpointer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		MechanicalData.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QReadWriteLock \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qreadwritelock.h \
+		ElectricalData.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o DataManager.o DataManager.cpp
+
 ElectricalData.o: ElectricalData.cpp ElectricalData.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QReadWriteLock \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qreadwritelock.h \
@@ -1628,6 +1730,11 @@ MainWindow.o: MainWindow.cpp MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QTransform \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qnativeinterface.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QTimer \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QStyleFactory \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qstylefactory.h \
 		ElectricalData.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QReadWriteLock \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qreadwritelock.h \
@@ -1862,6 +1969,11 @@ main.o: main.cpp MainWindow.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtGui/QTransform \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qnativeinterface.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/QTimer \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qtimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtCore/qbasictimer.h \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/QStyleFactory \
+		../../../../Qt/6.3.1/gcc_64/include/QtWidgets/qstylefactory.h \
 		ElectricalData.h \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/QReadWriteLock \
 		../../../../Qt/6.3.1/gcc_64/include/QtCore/qreadwritelock.h \

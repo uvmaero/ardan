@@ -12,6 +12,7 @@ UI_DIR = $$PWD
 
 SOURCES += \
     AboutDlg.cpp \
+    DataManager.cpp \
     ElectricalData.cpp \
     MainWindow.cpp \
     MechanicalData.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     AboutDlg.h \
+    DataManager.h \
     ElectricalData.h \
     MainWindow.h \
     MechanicalData.h

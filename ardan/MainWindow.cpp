@@ -97,6 +97,7 @@ void MainWindow::UpdateMechanicalData() {
         break;
 
     default:
+        ui->DriveModeTbx->setText("ERROR Mode");
         break;
     }
 }
