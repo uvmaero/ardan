@@ -46,6 +46,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_pUpdateDataTimer->setInterval(DISPLAY_UPDATE_INTERVAL);
     connect(m_pUpdateDataTimer, SIGNAL(timeout()), this, SLOT(UpdateWindow()));
     m_pUpdateDataTimer->start();
+
+    // start serial thread
+    m_pDataManager->start();
 }
 
 

@@ -6,11 +6,10 @@
 
 // includes
 #include <QThread>
-#include <QTimer>
+#include <QtSerialBus/QtSerialBus>
 #include <QDebug>
 #include "MechanicalData.h"
 #include "ElectricalData.h"
-//#include "RadioHead/RadioHead.h"
 
 
 /**
@@ -19,7 +18,7 @@
 class DataManager : public QThread
 {
 public:
-    DataManager();
+    DataManager(MechanicalData *mechanicalData, ElectricalData *electricalData);
 
 
 private:
@@ -30,12 +29,9 @@ private:
     MechanicalData *m_pMechanicalData;
     ElectricalData *m_pElectricalData;
 
-    // timers
-    QTimer *m_pReadTimer;
-
     // variables
-
-
+    QSerialPort *m_esp;
+    bool m_serialConnected;
 
 
 private slots:

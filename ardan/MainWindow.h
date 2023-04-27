@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QStyleFactory>
+#include "DataManager.h"
 #include "ElectricalData.h"
 #include "MechanicalData.h"
 #include "AboutDlg.h"
@@ -40,6 +41,7 @@ private:
     // data classes
     ElectricalData *m_pElectricalData;
     MechanicalData *m_pMechanicalData;
+    DataManager *m_pDataManager;
 
 
 private slots:
