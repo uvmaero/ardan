@@ -415,7 +415,72 @@ void PrintSerialDebug() {
  * 
  */
 void PrintRecieverDebug() {
+  // driving data
+  Serial.printf("Driving Data:\n");
 
+  Serial.printf("RTD: %s | Inverter Enable: %d | Precharge State: %d\n", carData.drivingData.readyToDrive ? "Ready!" : "Not Ready :(", 
+  carData.drivingData.enableInverter ? "Enabled" : "Disabled", carData.drivingData.prechargeState);
+
+  Serial.printf("Faults:\nIMD: %s | BMS: %s\n", carData.drivingData.imdFault ? "Faulted" : "Cleared", carData.drivingData.bmsFault ? "Faulted" : "Cleared");
+
+  Serial.printf("Commanded Torque: %d | Drive Mode: %d | Speed (MPH): %f | Direction: %d\n", carData.drivingData.commandedTorque, carData.drivingData.driveMode, carData.drivingData.currentSpeed, carData.drivingData.driveDirection);
+
+
+  // battery Status
+  Serial.printf("Battery Status:\n");
+  // .batteryChargeState = 0,
+  // .busVoltage = 0,
+  // .rinehartVoltage = 0,
+  // .pack1Temp = 0.0f,
+  // .pack2Temp = 0.0f,
+  // .packCurrent = 0.0f,
+  // .minCellVoltage = 0.0f,
+  // .maxCellVoltage = 0.0f,
+
+  // Sensors
+  Serial.printf("Sensor Inputs:\n");
+  // .rpmCounterFR = 0,
+  // .rpmCounterFL = 0,
+  // .rpmCounterBR = 0,
+  // .rpmCounterBL = 0,
+  // .rpmTimeFR = 0,
+  // .rpmTimeFL = 0,
+  // .rpmTimeBR = 0,
+  // .rpmTimeBL = 0,
+
+  // .wheelSpeedFR = 0.0f,
+  // .wheelSpeedFL = 0.0f,
+  // .wheelSpeedBR = 0.0f,
+  // .wheelSpeedBL = 0.0f,
+
+  // .wheelHeightFR = 0.0f,
+  // .wheelHeightFL = 0.0f,
+  // .wheelHeightBR = 0.0f,
+  // .wheelHeightBL = 0.0f,
+
+  // .steeringWheelAngle = 0,
+
+  // .vicoreTemp = 0.0f,
+  // .pumpTempIn = 0.0f,
+  // .pumpTempOut = 0.0f,
+
+  // Inputs  
+  Serial.printf("Outputs:\n");
+
+  // .pedal0 = 0,
+  // .pedal1 = 0,
+  // .brakeFront = 0,
+  // .brakeRear = 0,
+  // .brakeRegen = 0,
+  // .coastRegen = 0,
+
+  // Outputs
+  Serial.printf("Outputs:\n");
+  // .buzzerActive = false,
+  // .buzzerCounter = 0,
+  // .brakeLight = false,
+  // .fansActive = false,
+  // .pumpActive = false,
 }
 
 
