@@ -22,9 +22,9 @@
 #include <esp_now.h>
 #include <WiFi.h>
 #include <esp_wifi.h>
-#include "driver/can.h"
 #include "rtc.h"
 #include "rtc_clk_common.h"
+#include <string>
 
 #include <data_types.h>
 #include <pin_config.h>
@@ -67,9 +67,9 @@
 Debugger debugger = {
   // debug toggle
   .debugEnabled = ENABLE_DEBUG,
-  .reciever_debugEnabled = false,
+  .reciever_debugEnabled = true,
   .serial_debugEnabled = false,
-  .scheduler_debugEnable = true,
+  .scheduler_debugEnable = false,
 
   // debug data
   .recievedMessage = {},
@@ -414,73 +414,210 @@ void PrintSerialDebug() {
  * @brief 
  * 
  */
-void PrintRecieverDebug() {
+void PrintRecieverDebug_Better() {
+  // spacer
+  std::string text = "test";
+
   // driving data
-  Serial.printf("Driving Data:\n");
+  text += "--- Driving Data ---";
 
-  Serial.printf("RTD: %s | Inverter Enable: %d | Precharge State: %d\n", carData.drivingData.readyToDrive ? "Ready!" : "Not Ready :(", 
-  carData.drivingData.enableInverter ? "Enabled" : "Disabled", carData.drivingData.prechargeState);
+  text += "RTD: ";
+  if (carData.drivingData.readyToDrive) {
+    text += "Ready!";
+  }
+  else {
+    text += "Not Ready :/";
+  }
 
-  Serial.printf("Faults:\nIMD: %s | BMS: %s\n", carData.drivingData.imdFault ? "Faulted" : "Cleared", carData.drivingData.bmsFault ? "Faulted" : "Cleared");
+  text += " | ";
+
+  text += "Inverter Enabled: ";
+  if (carData.drivingData.enableInverter) {
+    text += "Enabled";
+  }
+  else {
+    text += "Disabled";
+  }
+
+  text += " | ";
+
+  text += "Precharge State: " + std::to_string((int)carData.drivingData.prechargeState) + "\n";
+
+  text += "IMD Fault: ";
+  if (carData.drivingData.imdFault) {
+    text += "Faulted";
+  }
+  else {
+    text += "Cleared";
+  }
+
+  text += " | ";
+
+  text += "BMS Fault: ";
+  if (carData.drivingData.imdFault) {
+    text += "Faulted\n";
+  }
+  else {
+    text += "Cleared\n";
+  }
+
+  text += "Commanded Torque: " + std::to_string(carData.drivingData.commandedTorque) + "\n";
+
+  text += "Drive Mode: " + std::to_string(carData.drivingData.driveMode) + "\n";
+
+  text += "Speed (MPH): " + std::to_string(carData.drivingData.currentSpeed) + "\n";
+
+  text += "Drive Direction: " + std::to_string(carData.drivingData.driveDirection) + "\n";
+
+  // battery Status
+  text += "\n --- Battery Status ---\n";
+
+  text += "Bus Voltage: " + std::to_string(carData.batteryStatus.busVoltage) + "\n";
+
+  text += "Rinehart Voltage: " + std::to_string(carData.batteryStatus.rinehartVoltage) + "\n";
+
+  text += "Current: " + std::to_string(carData.batteryStatus.packCurrent) + "\n";
+
+  text += "Pack 1 Temp: " + std::to_string(carData.batteryStatus.pack1Temp) + "\n";
+  text += "Pack 2 Temp: " + std::to_string(carData.batteryStatus.pack2Temp) + "\n";
+  text += "Cell Voltage: " + std::to_string(carData.batteryStatus.minCellVoltage) + "\n";
+  text += "Cell Voltage: " + std::to_string(carData.batteryStatus.maxCellVoltage) + "\n";
+
+  // Sensors
+  text += "\n--- Sensor Inputs ---\n";
+  text += "FR Wheel Speed: " + std::to_string(carData.sensors.wheelSpeedFR) + "\n";
+  text += "FL Wheel Speed: " + std::to_string(carData.sensors.wheelSpeedFL) + "\n";
+  text += "BR Wheel Speed: " + std::to_string(carData.sensors.wheelSpeedBR) + "\n";
+  text += "BL Wheel Speed: " + std::to_string(carData.sensors.wheelSpeedBL) + "\n";
+
+  text += "FR Wheel Height: " + std::to_string(carData.sensors.wheelHeightFR) + "\n";
+  text += "FL Wheel Height: " + std::to_string(carData.sensors.wheelHeightFL) + "\n";
+  text += "BR Wheel Height: " + std::to_string(carData.sensors.wheelHeightBR) + "\n";
+  text += "BL Wheel Height: " + std::to_string(carData.sensors.wheelHeightBL) + "\n";
+
+  text += "Steering Wheel Angle: " + std::to_string(carData.sensors.steeringWheelAngle) + "\n";
+
+  text += "Vicore Temp: " + std::to_string(carData.sensors.vicoreTemp) + "\n";
+  text += "Pump In Temp: " + std::to_string(carData.sensors.pumpTempIn) + "\n";
+  text += "Pump Out Temp: " + std::to_string(carData.sensors.pumpTempOut) + "\n";
+
+  // Inputs  
+  text += "\n--- Inputs ---\n";
+  text += "Pedal 0: " + std::to_string(carData.inputs.pedal0);
+  text += " | ";
+  text += "Pedal 1: " + std::to_string(carData.inputs.pedal1) + "\n";
+
+  text += "Brake Front: ", std::to_string(carData.inputs.brakeFront);
+  text += " | ";
+  text += "Brake Rear: " + std::to_string(carData.inputs.brakeRear) + "\n";
+
+  text += "Coast Regen: " + std::to_string(carData.inputs.coastRegen);
+  text += " | ";
+  text += "Brake Regen: " + std::to_string(carData.inputs.brakeRegen) + "\n";
+
+  // Outputs
+  text += "\n--- Outputs ---\n";
+  text += "Buzzer: ";
+  if (carData.outputs.buzzerActive) {
+    text += "Active";
+  }
+  else {
+    text += "Inactive";
+  }
+  text += " | ";
+  text += "Buzzer Counter: " + std::to_string(carData.outputs.buzzerCounter) + "\n";
+
+  text += "Brake Light: ";
+  if (carData.outputs.brakeLight) {
+    text += "On\n";
+  }
+  else {
+    text += "Off\n";
+  }
+
+  text += "Fans: ";
+  if (carData.outputs.fansActive) {
+    text += "Running\n";
+  }
+  else {
+    text += "Off\n";
+  }
+
+  text += "Pump: ";
+  if (carData.outputs.pumpActive) {
+    text += "Running\n";
+  }
+  else {
+    text += "Off\n";
+  }
+
+  // print it
+  Serial.printf("%s\r", text.c_str());
+}
+
+
+/**
+ * @brief 
+ * 
+ */
+void PrintRecieverDebug() {
+  // spacer
+  std::string text = "";
+  short newLines = 50;
+  for (int i = 0; i < newLines; ++i) {
+    Serial.printf("\n");
+  }
+
+  // driving data
+  Serial.printf("--- Driving Data ---\n");
+
+  Serial.printf("RTD: %s | Inverter Enable: %s | Precharge State: %d\n", carData.drivingData.readyToDrive ? "Ready!" : "Not Ready :(", 
+  carData.drivingData.enableInverter ? "Enabled" : "Disabled", (int)carData.drivingData.prechargeState);
+
+  Serial.printf("IMD Fault: %s | BMS Fault: %s\n", carData.drivingData.imdFault ? "Faulted" : "Cleared", carData.drivingData.bmsFault ? "Faulted" : "Cleared");
 
   Serial.printf("Commanded Torque: %d | Drive Mode: %d | Speed (MPH): %f | Direction: %d\n", carData.drivingData.commandedTorque, carData.drivingData.driveMode, carData.drivingData.currentSpeed, carData.drivingData.driveDirection);
 
-
   // battery Status
-  Serial.printf("Battery Status:\n");
-  // .batteryChargeState = 0,
-  // .busVoltage = 0,
-  // .rinehartVoltage = 0,
-  // .pack1Temp = 0.0f,
-  // .pack2Temp = 0.0f,
-  // .packCurrent = 0.0f,
-  // .minCellVoltage = 0.0f,
-  // .maxCellVoltage = 0.0f,
+  Serial.printf("\n --- Battery Status ---\n");
+  Serial.printf("Bus Voltage: %f\n", carData.batteryStatus.busVoltage);
+  Serial.printf("Rinehart Voltage: %f\n", carData.batteryStatus.rinehartVoltage); 
+  Serial.printf("Current: %f\n", carData.batteryStatus.packCurrent);
+  Serial.printf("Pack 1 Temp: %f\n", carData.batteryStatus.pack1Temp);
+  Serial.printf("Pack 2 Temp: %f\n", carData.batteryStatus.pack2Temp);
+  Serial.printf("Cell Voltage%f\n", carData.batteryStatus.minCellVoltage);
+  Serial.printf("Cell Voltage%f\n", carData.batteryStatus.maxCellVoltage);
 
   // Sensors
-  Serial.printf("Sensor Inputs:\n");
-  // .rpmCounterFR = 0,
-  // .rpmCounterFL = 0,
-  // .rpmCounterBR = 0,
-  // .rpmCounterBL = 0,
-  // .rpmTimeFR = 0,
-  // .rpmTimeFL = 0,
-  // .rpmTimeBR = 0,
-  // .rpmTimeBL = 0,
+  Serial.printf("\n--- Sensor Inputs ---\n");
+  printf("FR Wheel Speed: %f\n", carData.sensors.wheelSpeedFR);
+  printf("FL Wheel Speed: %f\n", carData.sensors.wheelSpeedFL);
+  printf("BR Wheel Speed: %f\n", carData.sensors.wheelSpeedBR);
+  printf("BL Wheel Speed: %f\n", carData.sensors.wheelSpeedBL);
 
-  // .wheelSpeedFR = 0.0f,
-  // .wheelSpeedFL = 0.0f,
-  // .wheelSpeedBR = 0.0f,
-  // .wheelSpeedBL = 0.0f,
+  printf("FR Wheel Height: %f\n", carData.sensors.wheelHeightFR);
+  printf("FL Wheel Height: %f\n", carData.sensors.wheelHeightFL);
+  printf("BR Wheel Height: %f\n", carData.sensors.wheelHeightBR);
+  printf("BL Wheel Height: %f\n", carData.sensors.wheelHeightBL);
 
-  // .wheelHeightFR = 0.0f,
-  // .wheelHeightFL = 0.0f,
-  // .wheelHeightBR = 0.0f,
-  // .wheelHeightBL = 0.0f,
+  printf("Steering Wheel Angle: %f\n", carData.sensors.steeringWheelAngle);
 
-  // .steeringWheelAngle = 0,
-
-  // .vicoreTemp = 0.0f,
-  // .pumpTempIn = 0.0f,
-  // .pumpTempOut = 0.0f,
+  printf("Vicore Temp: %f\n", carData.sensors.vicoreTemp);
+  printf("Pump In Temp: %f\n", carData.sensors.pumpTempIn);
+  printf("Pump Out Temp: %f\n", carData.sensors.pumpTempOut);
 
   // Inputs  
-  Serial.printf("Outputs:\n");
-
-  // .pedal0 = 0,
-  // .pedal1 = 0,
-  // .brakeFront = 0,
-  // .brakeRear = 0,
-  // .brakeRegen = 0,
-  // .coastRegen = 0,
+  Serial.printf("\n--- Inputs ---\n");
+  printf("Pedal 0: %d | Pedal 1: %d\n", carData.inputs.pedal0, carData.inputs.pedal1);
+  printf("Brake 0: %d | Brake 1: %d\n", carData.inputs.brakeFront, carData.inputs.brakeRear);
+  printf("Coast Regen: %d | Brake Regen: %d\n", carData.inputs.coastRegen, carData.inputs.brakeRegen);
 
   // Outputs
-  Serial.printf("Outputs:\n");
-  // .buzzerActive = false,
-  // .buzzerCounter = 0,
-  // .brakeLight = false,
-  // .fansActive = false,
-  // .pumpActive = false,
+  Serial.printf("\n--- Outputs ---\n");
+  printf("Buzzer: %s | Buzzer Counter: %d\n", carData.outputs.buzzerActive ? "Active" : "Inactive", carData.outputs.buzzerCounter);
+  printf("Brake Light: %s\n", carData.outputs.brakeLight ? "On" : "Off");
+  printf("Fans: %s\n", carData.outputs.fansActive ? "Running" : "Off");
+  printf("Pump: %s\n", carData.outputs.pumpActive ? "Running" : "Off");
 }
 
 

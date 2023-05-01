@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_pUpdateDataTimer->start();
 
     // start serial thread
-    m_pDataManager->start();
+//    m_pDataManager->start();
 }
 
 

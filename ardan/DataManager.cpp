@@ -19,17 +19,17 @@ DataManager::DataManager(MechanicalData *mechanicalData, ElectricalData *electri
     m_serialConnected = false;
 
     // init serial port
-    m_esp = new QSerialPort();
-    m_esp->setPortName("esp32");
-    m_esp->open(QSerialPort::ReadOnly);
-    m_esp->setBaudRate(9600);
-    m_esp->setDataBits(QSerialPort::Data8);
-    m_esp->setParity(QSerialPort::NoParity);
-    m_esp->setStopBits(QSerialPort::OneStop);
-    m_esp->setFlowControl(QSerialPort::NoFlowControl);
+//    m_esp = new QSerialPort();
+//    m_esp->setPortName("esp32");
+//    m_esp->open(QSerialPort::ReadOnly);
+//    m_esp->setBaudRate(9600);
+//    m_esp->setDataBits(QSerialPort::Data8);
+//    m_esp->setParity(QSerialPort::NoParity);
+//    m_esp->setStopBits(QSerialPort::OneStop);
+//    m_esp->setFlowControl(QSerialPort::NoFlowControl);
 
     // call parse data
-    parseData();
+//    parseData();
 }
 
 

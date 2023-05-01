@@ -148,4 +148,4 @@ typedef struct Debugger
 // debug functions
 void PrintDebug();
 void PrintSerialDebug();
-void PrintRecieverDebug();
+void PrintRecieverDebug_Better();
