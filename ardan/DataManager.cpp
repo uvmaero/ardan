@@ -143,7 +143,7 @@ void DataManager::parseData(QByteArray incomingData)
     // inputs
     m_pCarData->setPedal0(carData.inputs.pedal0);
     m_pCarData->setPedal1(carData.inputs.pedal1);
-    m_pCarData->setBrakeFront(carData.inputs.brakeRear);
+    m_pCarData->setBrakeFront(carData.inputs.brakeFront);
     m_pCarData->setBrakeRegen(carData.inputs.brakeRegen);
     m_pCarData->setCoastRegen(carData.inputs.coastRegen);
 
