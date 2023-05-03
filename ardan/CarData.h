@@ -45,7 +45,7 @@ public:
     void setDriveDirection(bool direction);
 
     DriveModes getDriveMode() ;
-    void setDiveMode(DriveModes mode);
+    void setDriveMode(DriveModes mode);
 
 
     // battery status

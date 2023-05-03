@@ -179,7 +179,7 @@ DriveModes CarData::getDriveMode()  {
     return m_driveMode;
 }
 
-void CarData::setDiveMode(DriveModes mode) {
+void CarData::setDriveMode(DriveModes mode) {
     QWriteLocker locker(&m_lock);
 
     m_driveMode = mode;

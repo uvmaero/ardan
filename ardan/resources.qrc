@@ -9,6 +9,8 @@
         <file>bessieIcon.ico</file>
         <file>bessie.png</file>
         <file>qt_logo.png</file>
+        <file>active.png</file>
+        <file>inactive.png</file>
     </qresource>
     <qresource prefix="/customWidgets"/>
 </RCC>

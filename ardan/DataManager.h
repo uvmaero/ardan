@@ -23,7 +23,7 @@ class DataManager : public QThread
 public:
     explicit DataManager(QObject *parent = nullptr);
     ~DataManager();
-    void StartDataManager(const QString &porName, int waitTimeout);
+    void StartDataManager(const QString &porName, int waitTimeout, CarData *carData);
 
 
 private:
@@ -36,7 +36,7 @@ private:
     void parseData(QByteArray incomingData);
 
     // data classes
-    CarData *m_pcarData;
+    CarData *m_pCarData;
 
     // variables
     QSerialPort *m_esp;

@@ -58,7 +58,7 @@ void MainWindow::UpdateWindow() {
     // attempt to start serial thread
     if (!m_portName.isEmpty())
     {
-        m_pDataManager->StartDataManager(m_portName, WAIT_TIMEOUT);
+        m_pDataManager->StartDataManager(m_portName, WAIT_TIMEOUT, m_pCarData);
     }
 
     // Update Data
@@ -78,8 +78,8 @@ void MainWindow::UpdateMechanicalData() {
 
 
     // update pedal values
-//    ui->AccelPedalProgressBar->setValue(m_pCarData->getAcceleratorPosition());
-//    ui->BrakePedalProgressBar->setValue(m_pCarData->getBrakePosition());
+    ui->AccelPedalProgressBar->setValue((m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2);
+    ui->BrakePedalProgressBar->setValue((m_pCarData->getBrakeFront() + m_pCarData->getBrakeRear()) / 2);
 
     // update wheel speed values
     ui->FRWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedFR());
@@ -118,6 +118,85 @@ void MainWindow::UpdateMechanicalData() {
  * @brief MainWindow::UpdateElectricalData
  */
 void MainWindow::UpdateElectricalData() {
+    // ready to drive
+    if (m_pCarData->getReadyToDrive()) {
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+    else {
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+
+    // faults
+    if (m_pCarData->getImdFault()) {
+        ui->IMDFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+    else {
+        ui->IMDFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+
+    if (m_pCarData->getBmsFault()) {
+        ui->BMSFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+    else {
+        ui->BMSFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+
+    // drive direction
+    if (!m_pCarData->getDriveDirection()) {      // forward is false
+        ui->DriveDirectionTbx->setText("FORWARD");
+    }
+    else {
+        ui->DriveDirectionTbx->setText("REVERSE");
+    }
+
+    // inverter
+    if (m_pCarData->getEnableInverter()) {
+        ui->InverterStatusLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+    else {
+        ui->InverterStatusLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+    }
+
+
+    // commanded torque
+    ui->CommandedTorqueSbx->setValue(m_pCarData->getCommandedTorque());
+
+
+    // voltages
+    ui->RinehartVoltageSbx->setValue(m_pCarData->getRinehartVoltage());
+    ui->BusVoltageSbx->setValue(m_pCarData->getBusVoltage());
+
+
+
+    // current
+    ui->BusCurrentSbx->setValue(m_pCarData->getPackCurrent());
+
+
+    // temps
+
+
+    // precharge
+    switch (m_pCarData->getPrechargeState()) {
+    case PRECHARGE_OFF:
+        ui->prechargeStateTbx->setText("OFF");
+        break;
+
+    case PRECHARGE_ON:
+        ui->prechargeStateTbx->setText("ON");
+        break;
+
+    case PRECHARGE_DONE:
+        ui->prechargeStateTbx->setText("DONE");
+        break;
+
+    case PRECHARGE_ERROR:
+        ui->prechargeStateTbx->setText("ERROR");
+        break;
+
+    default:
+        ui->prechargeStateTbx->setText("BROKEN :/");
+        break;
+    }
 
 }
 

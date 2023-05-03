@@ -26,16 +26,27 @@ DataManager::~DataManager()
 }
 
 
-void DataManager::StartDataManager(const QString &portName, int waitTimeout)
+/**
+ * @brief DataManager::StartDataManager
+ * @param portName
+ * @param waitTimeout
+ * @param carData
+ */
+void DataManager::StartDataManager(const QString &portName, int waitTimeout, CarData *carData)
 {
     m_portName = portName;
     m_waitTimeout = waitTimeout;
 
     if (!isRunning())
         start();
+
+    m_pCarData = carData;
 }
 
 
+/**
+ * @brief DataManager::run
+ */
 void DataManager::run()
 {
     bool currentPortNameChanged = false;
@@ -70,10 +81,10 @@ void DataManager::run()
             {
                 incomingData += serial.readAll();
             }
-            qDebug() << incomingData;
+//            qDebug() << incomingData;
 
             // parse out data
-//            parseData(incomingData);
+            parseData(incomingData);
 
         } else {
             emit timeout(tr("Wait read request timeout %1").arg(QTime::currentTime().toString()));
@@ -89,19 +100,57 @@ void DataManager::run()
     }
 }
 
+
+/**
+ * @brief DataManager::parseData
+ * @param incomingData
+ */
 void DataManager::parseData(QByteArray incomingData)
 {
     // inits
-    bool tmpBool;
-    PrechargeStates tmpPrechargeState;
-    uint8_t tmpUInt8;
-    uint16_t tmpUInt16;
-    uint64_t tmpUInt64;
-    float tmpFloat;
+    CarDataStruct carData;
 
-    QDataStream stream;
+    // collect struct from message
+    memcpy((uint8_t *) &carData, incomingData, sizeof(carData));
 
-    // parse data
-//    stream << incomingData;
+    qDebug() << carData.drivingData.readyToDrive;
 
+    // driving
+    m_pCarData->setReadyToDrive(carData.drivingData.readyToDrive);
+    m_pCarData->setEnableInverter(carData.drivingData.enableInverter);
+    m_pCarData->setPrechargeState(carData.drivingData.prechargeState);
+    m_pCarData->setImdFault(carData.drivingData.imdFault);
+    m_pCarData->setBmsFault(carData.drivingData.bmsFault);
+    m_pCarData->setCurrentSpeed(carData.drivingData.currentSpeed);
+    m_pCarData->setDriveDirection(carData.drivingData.driveDirection);
+    m_pCarData->setDriveMode(carData.drivingData.driveMode);
+
+    // battery status
+    m_pCarData->setBatteryChargeState(carData.batteryStatus.batteryChargeState);
+    m_pCarData->setBusVoltage(carData.batteryStatus.busVoltage);
+    m_pCarData->setRinehartVoltage(carData.batteryStatus.rinehartVoltage);
+    m_pCarData->setPack1Temp(carData.batteryStatus.pack1Temp);
+    m_pCarData->setPack2Temp(carData.batteryStatus.pack2Temp);
+    m_pCarData->setPackCurrent(carData.batteryStatus.packCurrent);
+    m_pCarData->setMinCellVoltage(carData.batteryStatus.minCellVoltage);
+    m_pCarData->setMaxCellVoltage(carData.batteryStatus.maxCellVoltage);
+
+    // sensors
+    m_pCarData->setVicoreTemp(carData.sensors.vicoreTemp);
+    m_pCarData->setPumpTempIn(carData.sensors.pumpTempIn);
+    m_pCarData->setPumpTempOut(carData.sensors.pumpTempOut);
+
+    // inputs
+    m_pCarData->setPedal0(carData.inputs.pedal0);
+    m_pCarData->setPedal1(carData.inputs.pedal1);
+    m_pCarData->setBrakeFront(carData.inputs.brakeRear);
+    m_pCarData->setBrakeRegen(carData.inputs.brakeRegen);
+    m_pCarData->setCoastRegen(carData.inputs.coastRegen);
+
+    // outputs
+    m_pCarData->setBuzzerActive(carData.outputs.buzzerActive);
+    m_pCarData->setBuzzerCounter(carData.outputs.buzzerCounter);
+    m_pCarData->setBrakeLight(carData.outputs.brakeLight);
+    m_pCarData->setFansActive(carData.outputs.fansActive);
+    m_pCarData->setPumpActive(carData.outputs.pumpActive);
 }
