@@ -1,15 +1,16 @@
-#ifndef DATAMANAGER_H
-#define DATAMANAGER_H
-
 // Dominic Gasperini
 // ARDAN
 
+#ifndef DATAMANAGER_H
+#define DATAMANAGER_H
+
 // includes
 #include <QThread>
-#include <QtSerialBus/QtSerialBus>
+#include <QWaitCondition>
+#include <QSerialPort>
+#include <QTime>
 #include <QDebug>
-#include "MechanicalData.h"
-#include "ElectricalData.h"
+#include "CarData.h"
 
 
 /**
@@ -17,25 +18,38 @@
  */
 class DataManager : public QThread
 {
+    Q_OBJECT
+
 public:
-    DataManager(MechanicalData *mechanicalData, ElectricalData *electricalData);
+    explicit DataManager(QObject *parent = nullptr);
+    ~DataManager();
+    void StartDataManager(const QString &porName, int waitTimeout);
 
 
 private:
+    void run() override;
+    QString m_portName;
+    int m_waitTimeout = 0;
+    bool m_quit = false;
+
     // functions
-    void parseData();
+    void parseData(QByteArray incomingData);
 
     // data classes
-    MechanicalData *m_pMechanicalData;
-    ElectricalData *m_pElectricalData;
+    CarData *m_pcarData;
 
     // variables
     QSerialPort *m_esp;
     bool m_serialConnected;
 
 
+signals:
+    void request(const QString &s);
+    void error(const QString &s);
+    void timeout(const QString &s);
+
+
 private slots:
-    void ReadSerial();
 };
 
 #endif // DATAMANAGER_H

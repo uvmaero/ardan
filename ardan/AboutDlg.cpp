@@ -1,5 +1,5 @@
 // Dominic Gasperini
-// ardan - about dialog
+// ARDAN - about dialog
 
 // includes
 #include "AboutDlg.h"

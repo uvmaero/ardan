@@ -1,4 +1,5 @@
 QT       += core gui
+QT	 += serialport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,22 +13,24 @@ UI_DIR = $$PWD
 
 SOURCES += \
     AboutDlg.cpp \
+    CarData.cpp \
     DataManager.cpp \
-    ElectricalData.cpp \
     MainWindow.cpp \
-    MechanicalData.cpp \
+    PortSelectDialog.cpp \
     main.cpp
 
 HEADERS += \
     AboutDlg.h \
+    CarData.h \
     DataManager.h \
-    ElectricalData.h \
     MainWindow.h \
-    MechanicalData.h
+    PortSelectDialog.h \
+    data_types.h
 
 FORMS += \
     AboutDlg.ui \
-    MainWindow.ui
+    MainWindow.ui \
+    PortSelectDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

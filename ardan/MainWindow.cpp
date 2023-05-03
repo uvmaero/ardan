@@ -1,8 +1,5 @@
-/**
- * file: mainwindow.cpp
- * author: dominic gasperini
- * brief: this file manages the main window of the ARDAN base station program
-*/
+// Dominic Gasperini
+// ARDAN
 
 // includes
 #include "MainWindow.h"
@@ -11,6 +8,7 @@
 // defines
 #define SERIAL_UPDATE_INTERVAL      10      // in milliseconds, the interval in which the serial bus is read
 #define DISPLAY_UPDATE_INTERVAL     25      // in milliseconds
+#define WAIT_TIMEOUT                10      // in milliseconds
 
 /**
  * @brief MainWindow::MainWindow
@@ -29,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // init dialogs
     m_pAboutDlg = new AboutDlg();
+    m_portSelectDialog = new PortSelectDialog();
 
     // initialize images
     ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToWidth(ui->CarImage->width()));
@@ -38,8 +37,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->WheelConnectionStatusImage->setPixmap(QPixmap(":/images/connected_icon.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
 
     // init data classes
-    m_pElectricalData = new ElectricalData();
-    m_pMechanicalData = new MechanicalData();
+    m_pCarData = new CarData();
+    m_pDataManager = new DataManager();
 
     // init timers
     m_pUpdateDataTimer = new QTimer();
@@ -47,12 +46,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(m_pUpdateDataTimer, SIGNAL(timeout()), this, SLOT(UpdateWindow()));
     m_pUpdateDataTimer->start();
 
-    // start serial thread
-//    m_pDataManager->start();
+    // connect signals and slots
+    connect(m_portSelectDialog, SIGNAL(sPortSelected(QString)), this, SLOT(GetPortName(QString)));
+
+    // init variables
+    m_portName = "";
 }
 
 
 void MainWindow::UpdateWindow() {
+    // attempt to start serial thread
+    if (!m_portName.isEmpty())
+    {
+        m_pDataManager->StartDataManager(m_portName, WAIT_TIMEOUT);
+    }
+
     // Update Data
     UpdateMechanicalData();
     UpdateElectricalData();
@@ -64,29 +72,29 @@ void MainWindow::UpdateWindow() {
  */
 void MainWindow::UpdateMechanicalData() {
     // update current speed
-    ui->CurrentSpeedLCD->display(m_pMechanicalData->getSpeed());
+    ui->CurrentSpeedLCD->display(m_pCarData->getCurrentSpeed());
 
     // update steering wheel position
 
 
     // update pedal values
-    ui->AccelPedalProgressBar->setValue(m_pMechanicalData->getAcceleratorPosition());
-    ui->BrakePedalProgressBar->setValue(m_pMechanicalData->getBrakePosition());
+//    ui->AccelPedalProgressBar->setValue(m_pCarData->getAcceleratorPosition());
+//    ui->BrakePedalProgressBar->setValue(m_pCarData->getBrakePosition());
 
     // update wheel speed values
-    ui->FRWheelSpeedSbx->setValue(m_pMechanicalData->getFRWheelSpeed());
-    ui->FLWheelSpeedSbx->setValue(m_pMechanicalData->getFLWheelSpeed());
-    ui->BRWheelSpeedSbx->setValue(m_pMechanicalData->getBRWheelSpeed());
-    ui->BLWheelSpeedSbx->setValue(m_pMechanicalData->getBLWheelSpeed());
+    ui->FRWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedFR());
+    ui->FLWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedFL());
+    ui->BRWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedBR());
+    ui->BLWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedBL());
 
     // update wheel height values
-    ui->FRWheelHeightSbx->setValue(m_pMechanicalData->getFRWheelHeight());
-    ui->FLWheelHeightSbx->setValue(m_pMechanicalData->getFLWheelHeight());
-    ui->BRWheelHeightSbx->setValue(m_pMechanicalData->getBRWheelHeight());
-    ui->BLWheelHeightSbx->setValue(m_pMechanicalData->getBLWheelHeight());
+    ui->FRWheelHeightSbx->setValue(m_pCarData->getWheelHeightFR());
+    ui->FLWheelHeightSbx->setValue(m_pCarData->getWheelHeightFL());
+    ui->BRWheelHeightSbx->setValue(m_pCarData->getWheelHeightBR());
+    ui->BLWheelHeightSbx->setValue(m_pCarData->getWheelHeightBL());
 
     // update drive mode
-    switch (m_pMechanicalData->getDriveMode()) {
+    switch (m_pCarData->getDriveMode()) {
     case SLOW:
         ui->DriveModeTbx->setText("SLOW Mode");
         break;
@@ -173,3 +181,21 @@ void MainWindow::on_About_Dlg_triggered()
     m_pAboutDlg->show();
 }
 
+
+/**
+ * @brief MainWindow::on_actionSelect_Serial_Port_triggered
+ */
+void MainWindow::on_actionSelect_Serial_Port_triggered()
+{
+    m_portSelectDialog->show();
+}
+
+/**
+ * @brief MainWindow::GetPortName
+ * @param portName
+ */
+void MainWindow::GetPortName(QString portName)
+{
+    m_portName = portName;
+    qDebug() << "Port name: " << m_portName;
+}

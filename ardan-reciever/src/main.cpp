@@ -45,7 +45,7 @@
 #define TASK_STACK_SIZE                 4096        // in bytes
 
 // debug
-#define ENABLE_DEBUG                    true       // master debug message control
+#define ENABLE_DEBUG                    false      // master debug message control
 #if ENABLE_DEBUG
   #define MAIN_LOOP_DELAY               1000        // delay in main loop
 #else
@@ -215,10 +215,8 @@ void setup() {
   // -------------------------- initialize serial connection ------------------------ //
 
   // ARDAN updates 4 times a second for a total of 8192 bits per second
-  Serial2.begin(9600);  
-  if (Serial2) {
-    setup.serialActive = true;
-  }
+
+  setup.serialActive = true;
 
   // --------------------------------------------------------------------------- //
 
@@ -358,7 +356,7 @@ void ARDANDataReceived(const uint8_t* mac, const uint8_t* incomingData, int leng
 void WriteSerialTask(void* pvParameters)
 {
   // write message to bus
-  Serial2.write((uint8_t *) &carData, sizeof(carData));
+  Serial.write((uint8_t *) &carData, sizeof(carData));
 
   // debugging
   if (debugger.debugEnabled) {

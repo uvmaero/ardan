@@ -35,6 +35,7 @@ class Ui_MainWindow
 public:
     QAction *Dark_Mode;
     QAction *About_Dlg;
+    QAction *actionSelect_Serial_Port;
     QWidget *centralwidget;
     QGroupBox *MechanicalDataGroupBox;
     QLabel *BrakePedalImage;
@@ -144,6 +145,8 @@ public:
         Dark_Mode->setCheckable(true);
         About_Dlg = new QAction(MainWindow);
         About_Dlg->setObjectName(QString::fromUtf8("About_Dlg"));
+        actionSelect_Serial_Port = new QAction(MainWindow);
+        actionSelect_Serial_Port->setObjectName(QString::fromUtf8("actionSelect_Serial_Port"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         MechanicalDataGroupBox = new QGroupBox(centralwidget);
@@ -628,6 +631,7 @@ public:
         MainWindow->setStatusBar(statusbar);
 
         menubar->addAction(menuOptions->menuAction());
+        menuOptions->addAction(actionSelect_Serial_Port);
         menuOptions->addAction(Dark_Mode);
         menuOptions->addAction(About_Dlg);
 
@@ -641,6 +645,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         Dark_Mode->setText(QCoreApplication::translate("MainWindow", "Dark Mode", nullptr));
         About_Dlg->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
+        actionSelect_Serial_Port->setText(QCoreApplication::translate("MainWindow", "Select Serial Port", nullptr));
         MechanicalDataGroupBox->setTitle(QCoreApplication::translate("MainWindow", "Mechanical Data", nullptr));
         BrakePedalImage->setText(QCoreApplication::translate("MainWindow", "Brake Pedal Image", nullptr));
         AccelPedalImage->setText(QCoreApplication::translate("MainWindow", "Accelerator Pedal Image", nullptr));
