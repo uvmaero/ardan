@@ -96,19 +96,19 @@ void MainWindow::UpdateMechanicalData() {
     // update drive mode
     switch (m_pCarData->getDriveMode()) {
     case SLOW:
-        ui->DriveModeTbx->setText("SLOW Mode");
+        ui->DriveModeTbx->setText("SLOW");
         break;
 
     case ECO:
-        ui->DriveModeTbx->setText("ECO Mode");
+        ui->DriveModeTbx->setText("ECO");
         break;
 
     case FAST:
-        ui->DriveModeTbx->setText("FAST Mode");
+        ui->DriveModeTbx->setText("FAST");
         break;
 
     default:
-        ui->DriveModeTbx->setText("ERROR Mode");
+        ui->DriveModeTbx->setText("ERROR");
         break;
     }
 }
@@ -167,7 +167,6 @@ void MainWindow::UpdateElectricalData() {
     ui->BusVoltageSbx->setValue(m_pCarData->getBusVoltage());
 
 
-
     // current
     ui->BusCurrentSbx->setValue(m_pCarData->getPackCurrent());
 
@@ -176,26 +175,21 @@ void MainWindow::UpdateElectricalData() {
 
 
     // precharge
-    switch (m_pCarData->getPrechargeState()) {
-    case PRECHARGE_OFF:
+    if (m_pCarData->getPrechargeState() == PRECHARGE_OFF) {
         ui->prechargeStateTbx->setText("OFF");
-        break;
-
-    case PRECHARGE_ON:
+    }
+    else if (m_pCarData->getPrechargeState() == PRECHARGE_ON) {
         ui->prechargeStateTbx->setText("ON");
-        break;
+    }
 
-    case PRECHARGE_DONE:
+    else if (m_pCarData->getPrechargeState() == PRECHARGE_DONE) {
         ui->prechargeStateTbx->setText("DONE");
-        break;
-
-    case PRECHARGE_ERROR:
+    }
+    else if (m_pCarData->getPrechargeState() == PRECHARGE_ERROR) {
         ui->prechargeStateTbx->setText("ERROR");
-        break;
-
-    default:
+    }
+    else {
         ui->prechargeStateTbx->setText("BROKEN :/");
-        break;
     }
 
 }

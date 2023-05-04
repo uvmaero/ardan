@@ -35,6 +35,9 @@ PortSelectDialog::~PortSelectDialog()
  */
 void PortSelectDialog::RefreshPorts()
 {
+    // clear out old ports
+    ui->comboBox->clear();
+
     // get available ports
     const auto availablePorts = QSerialPortInfo::availablePorts();
 

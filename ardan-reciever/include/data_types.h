@@ -137,6 +137,7 @@ typedef struct Debugger
   bool scheduler_debugEnable;
 
   // debug data
+  int recievedCount;
   CarData recievedMessage;
   CarData serialMessage;
 

@@ -81,7 +81,7 @@ void DataManager::run()
             {
                 incomingData += serial.readAll();
             }
-//            qDebug() << incomingData;
+            qDebug() << incomingData;
 
             // parse out data
             parseData(incomingData);

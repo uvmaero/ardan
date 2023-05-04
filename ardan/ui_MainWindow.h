@@ -54,7 +54,7 @@ public:
     QGridLayout *WheelConnectionGridLayout;
     QLabel *WheelConnectionLbl;
     QLabel *WheelConnectionStatusImage;
-    QWidget *widget;
+    QWidget *layoutWidget1;
     QVBoxLayout *verticalLayout;
     QLabel *label_2;
     QGridLayout *PrimaryVoltageGridLayout;
@@ -64,7 +64,7 @@ public:
     QDoubleSpinBox *BusCurrentSbx;
     QLabel *RinehartVoltageLbl;
     QDoubleSpinBox *RinehartVoltageSbx;
-    QWidget *widget1;
+    QWidget *layoutWidget2;
     QVBoxLayout *verticalLayout_2;
     QLabel *label_3;
     QGridLayout *gridLayout;
@@ -86,7 +86,7 @@ public:
     QSpacerItem *horizontalSpacer_11;
     QLabel *prechargeStateLbl;
     QLabel *prechargeStateTbx;
-    QWidget *widget2;
+    QWidget *layoutWidget3;
     QVBoxLayout *verticalLayout_3;
     QLabel *label;
     QGridLayout *gridLayout_2;
@@ -103,7 +103,7 @@ public:
     QLabel *minCellTempLbl;
     QLabel *maxCellTempLbl;
     QLabel *CarImage;
-    QWidget *layoutWidget1;
+    QWidget *layoutWidget4;
     QGridLayout *FRWheelGridLayout;
     QLabel *FRWheelSpeedLbl;
     QSpinBox *FRWheelSpeedSbx;
@@ -121,13 +121,13 @@ public:
     QSpinBox *BLWheelSpeedSbx;
     QLabel *BLWheelHeightLbl;
     QDoubleSpinBox *BLWheelHeightSbx;
-    QWidget *layoutWidget2;
+    QWidget *layoutWidget5;
     QGridLayout *FLWheelGridLayout;
     QLabel *FLWheelSpeedLbl;
     QSpinBox *FLWheelSpeedSbx;
     QLabel *FLWheelHeightLbl;
     QDoubleSpinBox *FLWheelHeightSbx;
-    QWidget *layoutWidget3;
+    QWidget *layoutWidget6;
     QGridLayout *DriveModeGridLayout;
     QLabel *DriveModeLbl;
     QLineEdit *DriveModeTbx;
@@ -213,13 +213,13 @@ public:
 
         WheelConnectionGridLayout->addWidget(WheelConnectionStatusImage, 0, 1, 1, 1);
 
-        widget = new QWidget(groupBox_2);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(100, 350, 191, 121));
-        verticalLayout = new QVBoxLayout(widget);
+        layoutWidget1 = new QWidget(groupBox_2);
+        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
+        layoutWidget1->setGeometry(QRect(100, 350, 191, 121));
+        verticalLayout = new QVBoxLayout(layoutWidget1);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         verticalLayout->setContentsMargins(0, 0, 0, 0);
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget1);
         label_2->setObjectName(QString::fromUtf8("label_2"));
         label_2->setAlignment(Qt::AlignCenter);
 
@@ -227,55 +227,58 @@ public:
 
         PrimaryVoltageGridLayout = new QGridLayout();
         PrimaryVoltageGridLayout->setObjectName(QString::fromUtf8("PrimaryVoltageGridLayout"));
-        BusVoltageLbl = new QLabel(widget);
+        BusVoltageLbl = new QLabel(layoutWidget1);
         BusVoltageLbl->setObjectName(QString::fromUtf8("BusVoltageLbl"));
 
         PrimaryVoltageGridLayout->addWidget(BusVoltageLbl, 0, 0, 1, 1);
 
-        BusVoltageSbx = new QDoubleSpinBox(widget);
+        BusVoltageSbx = new QDoubleSpinBox(layoutWidget1);
         BusVoltageSbx->setObjectName(QString::fromUtf8("BusVoltageSbx"));
         BusVoltageSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         BusVoltageSbx->setReadOnly(true);
         BusVoltageSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BusVoltageSbx->setMaximum(1000.000000000000000);
 
         PrimaryVoltageGridLayout->addWidget(BusVoltageSbx, 0, 1, 1, 1);
 
-        BusCurrentLbl = new QLabel(widget);
+        BusCurrentLbl = new QLabel(layoutWidget1);
         BusCurrentLbl->setObjectName(QString::fromUtf8("BusCurrentLbl"));
 
         PrimaryVoltageGridLayout->addWidget(BusCurrentLbl, 1, 0, 1, 1);
 
-        BusCurrentSbx = new QDoubleSpinBox(widget);
+        BusCurrentSbx = new QDoubleSpinBox(layoutWidget1);
         BusCurrentSbx->setObjectName(QString::fromUtf8("BusCurrentSbx"));
         BusCurrentSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         BusCurrentSbx->setReadOnly(true);
         BusCurrentSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BusCurrentSbx->setMaximum(1000.000000000000000);
 
         PrimaryVoltageGridLayout->addWidget(BusCurrentSbx, 1, 1, 1, 1);
 
-        RinehartVoltageLbl = new QLabel(widget);
+        RinehartVoltageLbl = new QLabel(layoutWidget1);
         RinehartVoltageLbl->setObjectName(QString::fromUtf8("RinehartVoltageLbl"));
 
         PrimaryVoltageGridLayout->addWidget(RinehartVoltageLbl, 2, 0, 1, 1);
 
-        RinehartVoltageSbx = new QDoubleSpinBox(widget);
+        RinehartVoltageSbx = new QDoubleSpinBox(layoutWidget1);
         RinehartVoltageSbx->setObjectName(QString::fromUtf8("RinehartVoltageSbx"));
         RinehartVoltageSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         RinehartVoltageSbx->setReadOnly(true);
         RinehartVoltageSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        RinehartVoltageSbx->setMaximum(1000.000000000000000);
 
         PrimaryVoltageGridLayout->addWidget(RinehartVoltageSbx, 2, 1, 1, 1);
 
 
         verticalLayout->addLayout(PrimaryVoltageGridLayout);
 
-        widget1 = new QWidget(groupBox_2);
-        widget1->setObjectName(QString::fromUtf8("widget1"));
-        widget1->setGeometry(QRect(10, 170, 381, 128));
-        verticalLayout_2 = new QVBoxLayout(widget1);
+        layoutWidget2 = new QWidget(groupBox_2);
+        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
+        layoutWidget2->setGeometry(QRect(10, 170, 381, 128));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget2);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);
-        label_3 = new QLabel(widget1);
+        label_3 = new QLabel(layoutWidget2);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setAlignment(Qt::AlignCenter);
 
@@ -283,37 +286,38 @@ public:
 
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        CommandedTorqueSbx = new QDoubleSpinBox(widget1);
+        CommandedTorqueSbx = new QDoubleSpinBox(layoutWidget2);
         CommandedTorqueSbx->setObjectName(QString::fromUtf8("CommandedTorqueSbx"));
         CommandedTorqueSbx->setMaximumSize(QSize(60, 16777215));
         CommandedTorqueSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         CommandedTorqueSbx->setReadOnly(true);
         CommandedTorqueSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
         CommandedTorqueSbx->setDecimals(0);
+        CommandedTorqueSbx->setMaximum(250.000000000000000);
 
         gridLayout->addWidget(CommandedTorqueSbx, 0, 6, 1, 1);
 
-        DriveDirectionTbx = new QLabel(widget1);
+        DriveDirectionTbx = new QLabel(layoutWidget2);
         DriveDirectionTbx->setObjectName(QString::fromUtf8("DriveDirectionTbx"));
 
         gridLayout->addWidget(DriveDirectionTbx, 1, 6, 1, 1);
 
-        commandedTorqueLbl = new QLabel(widget1);
+        commandedTorqueLbl = new QLabel(layoutWidget2);
         commandedTorqueLbl->setObjectName(QString::fromUtf8("commandedTorqueLbl"));
 
         gridLayout->addWidget(commandedTorqueLbl, 0, 5, 1, 1);
 
-        DriveDirectionLbl = new QLabel(widget1);
+        DriveDirectionLbl = new QLabel(layoutWidget2);
         DriveDirectionLbl->setObjectName(QString::fromUtf8("DriveDirectionLbl"));
 
         gridLayout->addWidget(DriveDirectionLbl, 1, 5, 1, 1);
 
-        InverterStatusLED = new QLabel(widget1);
+        InverterStatusLED = new QLabel(layoutWidget2);
         InverterStatusLED->setObjectName(QString::fromUtf8("InverterStatusLED"));
 
         gridLayout->addWidget(InverterStatusLED, 3, 2, 1, 2);
 
-        InverterStatusLbl = new QLabel(widget1);
+        InverterStatusLbl = new QLabel(layoutWidget2);
         InverterStatusLbl->setObjectName(QString::fromUtf8("InverterStatusLbl"));
 
         gridLayout->addWidget(InverterStatusLbl, 3, 0, 1, 2);
@@ -322,32 +326,32 @@ public:
 
         gridLayout->addItem(horizontalSpacer_2, 0, 4, 1, 1);
 
-        IMDFaultLED = new QLabel(widget1);
+        IMDFaultLED = new QLabel(layoutWidget2);
         IMDFaultLED->setObjectName(QString::fromUtf8("IMDFaultLED"));
 
         gridLayout->addWidget(IMDFaultLED, 1, 2, 1, 2);
 
-        BMSFaultLED = new QLabel(widget1);
+        BMSFaultLED = new QLabel(layoutWidget2);
         BMSFaultLED->setObjectName(QString::fromUtf8("BMSFaultLED"));
 
         gridLayout->addWidget(BMSFaultLED, 2, 2, 1, 2);
 
-        IMDFaultLbl = new QLabel(widget1);
+        IMDFaultLbl = new QLabel(layoutWidget2);
         IMDFaultLbl->setObjectName(QString::fromUtf8("IMDFaultLbl"));
 
         gridLayout->addWidget(IMDFaultLbl, 1, 0, 1, 2);
 
-        BMSFaultLbl = new QLabel(widget1);
+        BMSFaultLbl = new QLabel(layoutWidget2);
         BMSFaultLbl->setObjectName(QString::fromUtf8("BMSFaultLbl"));
 
         gridLayout->addWidget(BMSFaultLbl, 2, 0, 1, 2);
 
-        readyToDriveLbl = new QLabel(widget1);
+        readyToDriveLbl = new QLabel(layoutWidget2);
         readyToDriveLbl->setObjectName(QString::fromUtf8("readyToDriveLbl"));
 
         gridLayout->addWidget(readyToDriveLbl, 0, 0, 1, 2);
 
-        readyToDriveLED = new QLabel(widget1);
+        readyToDriveLED = new QLabel(layoutWidget2);
         readyToDriveLED->setObjectName(QString::fromUtf8("readyToDriveLED"));
 
         gridLayout->addWidget(readyToDriveLED, 0, 2, 1, 2);
@@ -364,12 +368,12 @@ public:
 
         gridLayout->addItem(horizontalSpacer_11, 3, 4, 1, 1);
 
-        prechargeStateLbl = new QLabel(widget1);
+        prechargeStateLbl = new QLabel(layoutWidget2);
         prechargeStateLbl->setObjectName(QString::fromUtf8("prechargeStateLbl"));
 
         gridLayout->addWidget(prechargeStateLbl, 2, 5, 1, 1);
 
-        prechargeStateTbx = new QLabel(widget1);
+        prechargeStateTbx = new QLabel(layoutWidget2);
         prechargeStateTbx->setObjectName(QString::fromUtf8("prechargeStateTbx"));
 
         gridLayout->addWidget(prechargeStateTbx, 2, 6, 1, 1);
@@ -377,13 +381,13 @@ public:
 
         verticalLayout_2->addLayout(gridLayout);
 
-        widget2 = new QWidget(groupBox_2);
-        widget2->setObjectName(QString::fromUtf8("widget2"));
-        widget2->setGeometry(QRect(10, 540, 381, 110));
-        verticalLayout_3 = new QVBoxLayout(widget2);
+        layoutWidget3 = new QWidget(groupBox_2);
+        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
+        layoutWidget3->setGeometry(QRect(10, 540, 390, 110));
+        verticalLayout_3 = new QVBoxLayout(layoutWidget3);
         verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        label = new QLabel(widget2);
+        label = new QLabel(layoutWidget3);
         label->setObjectName(QString::fromUtf8("label"));
         label->setAlignment(Qt::AlignCenter);
 
@@ -391,12 +395,12 @@ public:
 
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
-        minCellVoltageLbl = new QLabel(widget2);
+        minCellVoltageLbl = new QLabel(layoutWidget3);
         minCellVoltageLbl->setObjectName(QString::fromUtf8("minCellVoltageLbl"));
 
         gridLayout_2->addWidget(minCellVoltageLbl, 0, 0, 1, 1);
 
-        minCellVoltageSbx = new QDoubleSpinBox(widget2);
+        minCellVoltageSbx = new QDoubleSpinBox(layoutWidget3);
         minCellVoltageSbx->setObjectName(QString::fromUtf8("minCellVoltageSbx"));
         minCellVoltageSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         minCellVoltageSbx->setReadOnly(true);
@@ -404,12 +408,12 @@ public:
 
         gridLayout_2->addWidget(minCellVoltageSbx, 0, 1, 1, 1);
 
-        maxCellVoltageLbl = new QLabel(widget2);
+        maxCellVoltageLbl = new QLabel(layoutWidget3);
         maxCellVoltageLbl->setObjectName(QString::fromUtf8("maxCellVoltageLbl"));
 
         gridLayout_2->addWidget(maxCellVoltageLbl, 1, 0, 1, 1);
 
-        maxCellVoltageSbx = new QDoubleSpinBox(widget2);
+        maxCellVoltageSbx = new QDoubleSpinBox(layoutWidget3);
         maxCellVoltageSbx->setObjectName(QString::fromUtf8("maxCellVoltageSbx"));
         maxCellVoltageSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         maxCellVoltageSbx->setReadOnly(true);
@@ -417,12 +421,12 @@ public:
 
         gridLayout_2->addWidget(maxCellVoltageSbx, 1, 1, 1, 1);
 
-        averageCellVoltageLbl = new QLabel(widget2);
+        averageCellVoltageLbl = new QLabel(layoutWidget3);
         averageCellVoltageLbl->setObjectName(QString::fromUtf8("averageCellVoltageLbl"));
 
         gridLayout_2->addWidget(averageCellVoltageLbl, 2, 0, 1, 1);
 
-        averageCellVoltageSbx = new QDoubleSpinBox(widget2);
+        averageCellVoltageSbx = new QDoubleSpinBox(layoutWidget3);
         averageCellVoltageSbx->setObjectName(QString::fromUtf8("averageCellVoltageSbx"));
         averageCellVoltageSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         averageCellVoltageSbx->setReadOnly(true);
@@ -430,12 +434,12 @@ public:
 
         gridLayout_2->addWidget(averageCellVoltageSbx, 2, 1, 1, 1);
 
-        averageCellTempLbl = new QLabel(widget2);
+        averageCellTempLbl = new QLabel(layoutWidget3);
         averageCellTempLbl->setObjectName(QString::fromUtf8("averageCellTempLbl"));
 
         gridLayout_2->addWidget(averageCellTempLbl, 2, 2, 1, 3);
 
-        averageCellTempSbx = new QDoubleSpinBox(widget2);
+        averageCellTempSbx = new QDoubleSpinBox(layoutWidget3);
         averageCellTempSbx->setObjectName(QString::fromUtf8("averageCellTempSbx"));
         averageCellTempSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         averageCellTempSbx->setReadOnly(true);
@@ -443,7 +447,7 @@ public:
 
         gridLayout_2->addWidget(averageCellTempSbx, 2, 5, 1, 1);
 
-        maxCellTempSbx = new QDoubleSpinBox(widget2);
+        maxCellTempSbx = new QDoubleSpinBox(layoutWidget3);
         maxCellTempSbx->setObjectName(QString::fromUtf8("maxCellTempSbx"));
         maxCellTempSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         maxCellTempSbx->setReadOnly(true);
@@ -451,7 +455,7 @@ public:
 
         gridLayout_2->addWidget(maxCellTempSbx, 1, 5, 1, 1);
 
-        minCellTempSbx = new QDoubleSpinBox(widget2);
+        minCellTempSbx = new QDoubleSpinBox(layoutWidget3);
         minCellTempSbx->setObjectName(QString::fromUtf8("minCellTempSbx"));
         minCellTempSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         minCellTempSbx->setReadOnly(true);
@@ -459,12 +463,12 @@ public:
 
         gridLayout_2->addWidget(minCellTempSbx, 0, 5, 1, 1);
 
-        minCellTempLbl = new QLabel(widget2);
+        minCellTempLbl = new QLabel(layoutWidget3);
         minCellTempLbl->setObjectName(QString::fromUtf8("minCellTempLbl"));
 
         gridLayout_2->addWidget(minCellTempLbl, 0, 2, 1, 3);
 
-        maxCellTempLbl = new QLabel(widget2);
+        maxCellTempLbl = new QLabel(layoutWidget3);
         maxCellTempLbl->setObjectName(QString::fromUtf8("maxCellTempLbl"));
 
         gridLayout_2->addWidget(maxCellTempLbl, 1, 2, 1, 3);
@@ -476,31 +480,32 @@ public:
         CarImage->setObjectName(QString::fromUtf8("CarImage"));
         CarImage->setGeometry(QRect(460, 200, 381, 451));
         CarImage->setAlignment(Qt::AlignCenter);
-        layoutWidget1 = new QWidget(centralwidget);
-        layoutWidget1->setObjectName(QString::fromUtf8("layoutWidget1"));
-        layoutWidget1->setGeometry(QRect(710, 100, 161, 71));
-        FRWheelGridLayout = new QGridLayout(layoutWidget1);
+        layoutWidget4 = new QWidget(centralwidget);
+        layoutWidget4->setObjectName(QString::fromUtf8("layoutWidget4"));
+        layoutWidget4->setGeometry(QRect(710, 100, 161, 71));
+        FRWheelGridLayout = new QGridLayout(layoutWidget4);
         FRWheelGridLayout->setObjectName(QString::fromUtf8("FRWheelGridLayout"));
         FRWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        FRWheelSpeedLbl = new QLabel(layoutWidget1);
+        FRWheelSpeedLbl = new QLabel(layoutWidget4);
         FRWheelSpeedLbl->setObjectName(QString::fromUtf8("FRWheelSpeedLbl"));
 
         FRWheelGridLayout->addWidget(FRWheelSpeedLbl, 0, 0, 1, 1);
 
-        FRWheelSpeedSbx = new QSpinBox(layoutWidget1);
+        FRWheelSpeedSbx = new QSpinBox(layoutWidget4);
         FRWheelSpeedSbx->setObjectName(QString::fromUtf8("FRWheelSpeedSbx"));
         FRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FRWheelSpeedSbx->setReadOnly(true);
         FRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        FRWheelSpeedSbx->setMaximum(1000);
 
         FRWheelGridLayout->addWidget(FRWheelSpeedSbx, 0, 1, 1, 1);
 
-        FRWheelHeightLbl = new QLabel(layoutWidget1);
+        FRWheelHeightLbl = new QLabel(layoutWidget4);
         FRWheelHeightLbl->setObjectName(QString::fromUtf8("FRWheelHeightLbl"));
 
         FRWheelGridLayout->addWidget(FRWheelHeightLbl, 1, 0, 1, 1);
 
-        FRWheelHeightSbx = new QDoubleSpinBox(layoutWidget1);
+        FRWheelHeightSbx = new QDoubleSpinBox(layoutWidget4);
         FRWheelHeightSbx->setObjectName(QString::fromUtf8("FRWheelHeightSbx"));
         FRWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FRWheelHeightSbx->setReadOnly(true);
@@ -524,6 +529,7 @@ public:
         BRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         BRWheelSpeedSbx->setReadOnly(true);
         BRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BRWheelSpeedSbx->setMaximum(1000);
 
         BRWheelGridLayout->addWidget(BRWheelSpeedSbx, 0, 1, 1, 1);
 
@@ -556,6 +562,7 @@ public:
         BLWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         BLWheelSpeedSbx->setReadOnly(true);
         BLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BLWheelSpeedSbx->setMaximum(1000);
 
         BLWheelGridLayout->addWidget(BLWheelSpeedSbx, 0, 1, 1, 1);
 
@@ -572,31 +579,32 @@ public:
 
         BLWheelGridLayout->addWidget(BLWheelHeightSbx, 1, 1, 1, 1);
 
-        layoutWidget2 = new QWidget(centralwidget);
-        layoutWidget2->setObjectName(QString::fromUtf8("layoutWidget2"));
-        layoutWidget2->setGeometry(QRect(440, 100, 161, 71));
-        FLWheelGridLayout = new QGridLayout(layoutWidget2);
+        layoutWidget5 = new QWidget(centralwidget);
+        layoutWidget5->setObjectName(QString::fromUtf8("layoutWidget5"));
+        layoutWidget5->setGeometry(QRect(440, 100, 161, 71));
+        FLWheelGridLayout = new QGridLayout(layoutWidget5);
         FLWheelGridLayout->setObjectName(QString::fromUtf8("FLWheelGridLayout"));
         FLWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        FLWheelSpeedLbl = new QLabel(layoutWidget2);
+        FLWheelSpeedLbl = new QLabel(layoutWidget5);
         FLWheelSpeedLbl->setObjectName(QString::fromUtf8("FLWheelSpeedLbl"));
 
         FLWheelGridLayout->addWidget(FLWheelSpeedLbl, 0, 0, 1, 1);
 
-        FLWheelSpeedSbx = new QSpinBox(layoutWidget2);
+        FLWheelSpeedSbx = new QSpinBox(layoutWidget5);
         FLWheelSpeedSbx->setObjectName(QString::fromUtf8("FLWheelSpeedSbx"));
         FLWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FLWheelSpeedSbx->setReadOnly(true);
         FLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        FLWheelSpeedSbx->setMaximum(1000);
 
         FLWheelGridLayout->addWidget(FLWheelSpeedSbx, 0, 1, 1, 1);
 
-        FLWheelHeightLbl = new QLabel(layoutWidget2);
+        FLWheelHeightLbl = new QLabel(layoutWidget5);
         FLWheelHeightLbl->setObjectName(QString::fromUtf8("FLWheelHeightLbl"));
 
         FLWheelGridLayout->addWidget(FLWheelHeightLbl, 1, 0, 1, 1);
 
-        FLWheelHeightSbx = new QDoubleSpinBox(layoutWidget2);
+        FLWheelHeightSbx = new QDoubleSpinBox(layoutWidget5);
         FLWheelHeightSbx->setObjectName(QString::fromUtf8("FLWheelHeightSbx"));
         FLWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FLWheelHeightSbx->setReadOnly(true);
@@ -604,19 +612,19 @@ public:
 
         FLWheelGridLayout->addWidget(FLWheelHeightSbx, 1, 1, 1, 1);
 
-        layoutWidget3 = new QWidget(centralwidget);
-        layoutWidget3->setObjectName(QString::fromUtf8("layoutWidget3"));
-        layoutWidget3->setGeometry(QRect(580, 11, 144, 48));
-        DriveModeGridLayout = new QGridLayout(layoutWidget3);
+        layoutWidget6 = new QWidget(centralwidget);
+        layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(580, 11, 144, 48));
+        DriveModeGridLayout = new QGridLayout(layoutWidget6);
         DriveModeGridLayout->setObjectName(QString::fromUtf8("DriveModeGridLayout"));
         DriveModeGridLayout->setContentsMargins(0, 0, 0, 0);
-        DriveModeLbl = new QLabel(layoutWidget3);
+        DriveModeLbl = new QLabel(layoutWidget6);
         DriveModeLbl->setObjectName(QString::fromUtf8("DriveModeLbl"));
         DriveModeLbl->setAlignment(Qt::AlignCenter);
 
         DriveModeGridLayout->addWidget(DriveModeLbl, 0, 0, 1, 1);
 
-        DriveModeTbx = new QLineEdit(layoutWidget3);
+        DriveModeTbx = new QLineEdit(layoutWidget6);
         DriveModeTbx->setObjectName(QString::fromUtf8("DriveModeTbx"));
         DriveModeTbx->setAlignment(Qt::AlignCenter);
         DriveModeTbx->setReadOnly(true);

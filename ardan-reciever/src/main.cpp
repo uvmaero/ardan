@@ -41,7 +41,7 @@
 #define ARDAN_ESP_NOW_ADDRESS           {0xC4, 0xDE, 0xE2, 0xC0, 0x75, 0x83}
 
 // tasks & timers
-#define WRITE_SERIAL_INTERVAL           100000      // 0.1 seconds in microseconds
+#define WRITE_SERIAL_INTERVAL           200000      // 0.2 seconds in microseconds
 #define TASK_STACK_SIZE                 4096        // in bytes
 
 // debug
@@ -72,6 +72,7 @@ Debugger debugger = {
   .scheduler_debugEnable = false,
 
   // debug data
+  .recievedCount = 0,
   .recievedMessage = {},
 
   // scheduler data
@@ -334,6 +335,10 @@ void ARDANDataReceived(const uint8_t* mac, const uint8_t* incomingData, int leng
 
   // copy data to the wcbData struct 
   memcpy((uint8_t *) &carData, incomingData, sizeof(carData));
+
+  if (debugger.debugEnabled) {
+    debugger.recievedCount++;
+  }
 
   portEXIT_CRITICAL_ISR(&timerMux);
   
@@ -627,6 +632,7 @@ void PrintDebug() {
   // Reciever
   if (debugger.reciever_debugEnabled) {
     PrintRecieverDebug();
+    // Serial.printf("count: %d", debugger.recievedCount);
   }
 
   // Serial
