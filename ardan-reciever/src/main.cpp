@@ -583,13 +583,14 @@ void PrintRecieverDebug() {
 
   // battery Status
   Serial.printf("\n --- Battery Status ---\n");
+  Serial.printf("SOC: %f\n", carData.batteryStatus.batteryChargeState);
   Serial.printf("Bus Voltage: %f\n", carData.batteryStatus.busVoltage);
   Serial.printf("Rinehart Voltage: %f\n", carData.batteryStatus.rinehartVoltage); 
   Serial.printf("Current: %f\n", carData.batteryStatus.packCurrent);
   Serial.printf("Pack 1 Temp: %f\n", carData.batteryStatus.pack1Temp);
   Serial.printf("Pack 2 Temp: %f\n", carData.batteryStatus.pack2Temp);
-  Serial.printf("Cell Voltage%f\n", carData.batteryStatus.minCellVoltage);
-  Serial.printf("Cell Voltage%f\n", carData.batteryStatus.maxCellVoltage);
+  Serial.printf("Cell Voltage: %f\n", carData.batteryStatus.minCellVoltage);
+  Serial.printf("Cell Voltage: %f\n", carData.batteryStatus.maxCellVoltage);
 
   // Sensors
   Serial.printf("\n--- Sensor Inputs ---\n");

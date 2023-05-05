@@ -30,11 +30,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_portSelectDialog = new PortSelectDialog();
 
     // initialize images
-    ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToWidth(ui->CarImage->width()));
+    ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToHeight(ui->CarImage->height()));
     ui->AccelPedalImage->setPixmap(QPixmap(":/images/go_pedal.jpeg").scaledToHeight(ui->AccelPedalImage->height()));
     ui->BrakePedalImage->setPixmap(QPixmap(":/images/stop_pedal.jpeg").scaledToHeight(ui->BrakePedalImage->height()));
     ui->BatteryImage->setPixmap(QPixmap(":/images/battery.png").scaledToWidth(ui->BatteryImage->width()));
-    ui->WheelConnectionStatusImage->setPixmap(QPixmap(":/images/connected_icon.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
 
     // init data classes
     m_pCarData = new CarData();
@@ -120,25 +119,25 @@ void MainWindow::UpdateMechanicalData() {
 void MainWindow::UpdateElectricalData() {
     // ready to drive
     if (m_pCarData->getReadyToDrive()) {
-        ui->readyToDriveLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->readyToDriveLED->height()));
     }
     else {
-        ui->readyToDriveLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->readyToDriveLED->height()));
     }
 
     // faults
     if (m_pCarData->getImdFault()) {
-        ui->IMDFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->IMDFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->IMDFaultLED->height()));
     }
     else {
-        ui->IMDFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->IMDFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->IMDFaultLED->height()));
     }
 
     if (m_pCarData->getBmsFault()) {
-        ui->BMSFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->BMSFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->BMSFaultLED->height()));
     }
     else {
-        ui->BMSFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->BMSFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->BMSFaultLED->height()));
     }
 
     // drive direction
@@ -151,20 +150,26 @@ void MainWindow::UpdateElectricalData() {
 
     // inverter
     if (m_pCarData->getEnableInverter()) {
-        ui->InverterStatusLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->InverterStatusLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->InverterStatusLED->height()));
     }
     else {
-        ui->InverterStatusLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->WheelConnectionStatusImage->height()));
+        ui->InverterStatusLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->InverterStatusLED->height()));
     }
 
 
     // commanded torque
     ui->CommandedTorqueSbx->setValue(m_pCarData->getCommandedTorque());
 
+    // soc
+    ui->BatteryPrecentageProgressBar->setValue(m_pCarData->getBatteryChargeState());
+
 
     // voltages
     ui->RinehartVoltageSbx->setValue(m_pCarData->getRinehartVoltage());
     ui->BusVoltageSbx->setValue(m_pCarData->getBusVoltage());
+
+    ui->minCellVoltageSbx->setValue(m_pCarData->getMinCellVoltage());
+    ui->maxCellVoltageSbx->setValue(m_pCarData->getMaxCellVoltage());
 
 
     // current

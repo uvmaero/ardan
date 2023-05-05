@@ -113,7 +113,7 @@ void DataManager::parseData(QByteArray incomingData)
     // collect struct from message
     memcpy((uint8_t *) &carData, incomingData, sizeof(carData));
 
-    qDebug() << carData.drivingData.readyToDrive;
+//    qDebug() << carData.drivingData.readyToDrive;
 
     // driving
     m_pCarData->setReadyToDrive(carData.drivingData.readyToDrive);
