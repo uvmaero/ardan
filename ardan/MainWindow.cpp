@@ -119,10 +119,10 @@ void MainWindow::UpdateMechanicalData() {
 void MainWindow::UpdateElectricalData() {
     // ready to drive
     if (m_pCarData->getReadyToDrive()) {
-        ui->readyToDriveLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->readyToDriveLED->height()));
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->IMDFaultLED->height()));
     }
     else {
-        ui->readyToDriveLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->readyToDriveLED->height()));
+        ui->readyToDriveLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->IMDFaultLED->height()));
     }
 
     // faults
@@ -163,9 +163,8 @@ void MainWindow::UpdateElectricalData() {
     // soc
     ui->BatteryPrecentageProgressBar->setValue(m_pCarData->getBatteryChargeState());
 
-
     // voltages
-    ui->RinehartVoltageSbx->setValue(m_pCarData->getRinehartVoltage());
+    ui->RinehartVoltageSbx->setValue(m_pCarData->getRinehartVoltage() / 10);
     ui->BusVoltageSbx->setValue(m_pCarData->getBusVoltage());
 
     ui->minCellVoltageSbx->setValue(m_pCarData->getMinCellVoltage());
