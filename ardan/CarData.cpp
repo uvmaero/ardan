@@ -10,69 +10,56 @@
 CarData::CarData()
 {
     // init variables
-    // driving data
+    // tractive core - tractive
     m_readyToDrive = false;
     m_enableInverter = false;
     m_prechargeState = PRECHARGE_OFF;
+    m_rinehartVoltage = 0.0f;
+    m_commandedTorque = 0;
+    m_driveDirection = false;    // for
+    m_driveMode = ECO;
+    m_currentSpeed = 0.0f;
+    m_tractionControlEnable = true;
+    m_tractionControlModifier = 1.00f;
+    m_coastRegen = 0;
 
+    // tractive core - sensors
     m_imdFault = true;
     m_bmsFault = true;
+    m_coolingTempIn = 0.0f;
+    m_coolingTempOut = 0.0f;
+    m_vicoreTemp = 0.0f;
+    m_glvReading = 0.0f;
+    m_frontWheelsSpeed = 0.0f;
+    m_frontWheelSpeedCount = 0;
+    m_frontWheelSpeedTime = 0;
+    m_brWheelSpeed = 0.0f;
+    m_brWheelSpeedCount = 0;
+    m_brWheelSpeedTime = 0;
+    m_blWheelSpeed = 0.0f;
+    m_blWheelSpeedCount = 0;
+    m_blWheelSpeedTime = 0;
 
-    m_commandedTorque = 0;
-    m_currentSpeed = 0.0f;
-    m_driveDirection = false;             // true = forward | false = reverse
-    m_driveMode = ECO;
+    // tractive core - inputs
+    m_pedal0 = 0;
+    m_pedal1 = 0;
+    m_frontBrake = 0;
+    m_rearBrake = 0;
 
-    // battery status
-    m_batteryChargeState = 0.0f;
-    m_busVoltage = 0.0f;
-    m_rinehartVoltage = 0.0f;
-    m_pack1Temp = 0.0f;
-    m_pack2Temp = 0.0f;
+    // tractive core - outputs
+    m_driveModeLED = ECO;
+    m_brakeLightEnable = false;
+    m_fansEnable = false;
+    m_buzzerEnable = false;
+
+    // orion
+    m_batteryChargeState = 0;
+    m_busVoltage = 0;
     m_packCurrent = 0.0f;
     m_minCellVoltage = 0.0f;
     m_maxCellVoltage = 0.0f;
-
-    // sensors
-    m_rpmCounterFR = 0;
-    m_rpmCounterFL = 0;
-    m_rpmCounterBR = 0;
-    m_rpmCounterBL = 0;
-    m_rpmTimeFR = 0;
-    m_rpmTimeFL = 0;
-    m_rpmTimeBR = 0;
-    m_rpmTimeBL = 0;
-
-    m_wheelSpeedFR = 0.0f;
-    m_wheelSpeedFL = 0.0f;
-    m_wheelSpeedBR = 0.0f;
-    m_wheelSpeedBL = 0.0f;
-
-    m_wheelHeightFR = 0.0f;
-    m_wheelHeightFL = 0.0f;
-    m_wheelHeightBR = 0.0f;
-    m_wheelHeightBL = 0.0f;
-
-    m_steeringWheelAngle = 0;
-
-    m_vicoreTemp = 0.0f;
-    m_pumpTempIn = 0.0f;
-    m_pumpTempOut = 0.0f;
-
-    // inputs
-    m_pedal0 = 0;
-    m_pedal1 = 0;
-    m_brakeFront = 0;
-    m_brakeRear = 0;
-    m_brakeRegen = 0;
-    m_coastRegen = 0;
-
-    // outputs
-    m_buzzerActive = false;
-    m_buzzerCounter = 0;
-    m_brakeLight = false;
-    m_fansActive = false;
-    m_pumpActive = false;
+    m_minCellTemp = 0.0f;
+    m_maxCellTemp = 0.0f;
 }
 
 

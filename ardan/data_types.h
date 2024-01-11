@@ -11,12 +11,12 @@
  * @brief the different throttle modes for to modify driving behavior
  *
  */
-typedef enum DriveModes
+typedef enum DriveMode
 {
-    SLOW = 0,
-    ECO = 10,
-    FAST = 20
-} DriveModes;
+    SLOW = 1,
+    ECO = 2,
+    FAST = 3,
+} DriveMode;
 
 
 /**
@@ -33,85 +33,157 @@ typedef enum PrechargeStates
 
 
 /**
- * @brief the entire current state of the car
+ * @brief tractive state of the core
  *
  */
-typedef struct CarDataStruct
+typedef struct TractiveCoreData
 {
-  struct DrivingData
-  {
-    bool readyToDrive;
-    bool enableInverter;
-    PrechargeStates prechargeState;
+    struct Tractive
+    {
+        bool readyToDrive;
+        bool enableInverter;
 
-    bool imdFault;
-    bool bmsFault;
+        PrechargeStates prechargeState;
 
-    uint16_t commandedTorque;
-    float currentSpeed;
-    bool driveDirection;             // true = forward | false = reverse
-    DriveModes driveMode;
-  } drivingData;
+        float rinehartVoltage;
 
-  struct BatteryStatus
-  {
-    float batteryChargeState;
-    float busVoltage;
-    float rinehartVoltage;
-    float pack1Temp;
-    float pack2Temp;
-    float packCurrent;
-    float minCellVoltage;
-    float maxCellVoltage;
-  } batteryStatus;
+        uint16_t commandedTorque;
 
-  struct Sensors
-  {
-    uint8_t rpmCounterFR;
-    uint8_t rpmCounterFL;
-    uint8_t rpmCounterBR;
-    uint8_t rpmCounterBL;
-    uint64_t rpmTimeFR;     // the last time in microseconds that the wheel rpm was calculated at
-    uint64_t rpmTimeFL;
-    uint64_t rpmTimeBR;
-    uint64_t rpmTimeBL;
+        bool driveDirection;             // true = forward | false = reverse
+        DriveMode driveMode;
 
-    float wheelSpeedFR;
-    float wheelSpeedFL;
-    float wheelSpeedBR;
-    float wheelSpeedBL;
+        float currentSpeed;
 
-    float wheelHeightFR;
-    float wheelHeightFL;
-    float wheelHeightBR;
-    float wheelHeightBL;
+        bool tractionControlEnable;
+        float tractionControlModifier;
 
-    uint16_t steeringWheelAngle;
+        uint16_t coastRegen;
+        uint16_t brakeRegen;
+    } tractive;
 
-    float vicoreTemp;
-    float pumpTempIn;
-    float pumpTempOut;
-  } sensors;
+    struct Sensors
+    {
+        bool imdFault;
+        bool bmsFault;
 
-  struct Inputs
-  {
-    uint16_t pedal0;
-    uint16_t pedal1;
-    uint16_t brakeFront;
-    uint16_t brakeRear;
-    uint16_t brakeRegen;
-    uint16_t coastRegen;
-  } inputs;
+        float coolingTempIn;
+        float coolingTempOut;
+        float vicoreTemp;
 
-  struct Outputs
-  {
-    bool buzzerActive;
-    uint8_t buzzerCounter;
-    bool brakeLight;
-    bool fansActive;
-    bool pumpActive;
-  } outputs;
+        float glvReading;
 
-} CarDataStruct;
+        float frontWheelsSpeed;
+        int16_t frontWheelSpeedCount;
+        int16_t frontWheelSpeedTime;
+
+        float brWheelSpeed;
+        int16_t brWheelSpeedCount;
+        int16_t brWheelSpeedTime;
+
+        float blWheelSpeed;
+        int16_t blWheelSpeedCount;
+        int16_t blWheelSpeedTime;
+    } criticalSensors;
+
+    struct Inputs
+    {
+        uint16_t pedal0;
+        uint16_t pedal1;
+
+        uint16_t frontBrake;
+        uint16_t rearBrake;
+    } inputs;
+
+    struct Outputs
+    {
+        DriveMode driveModeLED;
+
+        bool brakeLightEnable;
+
+        bool fansEnable;
+
+        bool buzzerEnable;
+    } outputs;
+
+    struct Orion
+    {
+        float batteryChargeState;
+
+        float busVoltage;
+
+        float packCurrent;
+
+        float minCellVoltage;
+        float maxCellVoltage;
+        float minCellTemp;
+        float maxCellTemp;
+    } orion;
+
+} TractiveCoreData;
+
+
+/**
+ * @brief telemetry state of the core
+ *
+ */
+typedef struct TelemetryCoreData
+{
+    TractiveCoreData tractiveCoreData;
+
+    struct Dampers
+    {
+        uint8_t frSuspensionDamper;
+        uint8_t flSuspensionDamper;
+        uint8_t brSuspensionDamper;
+        uint8_t blSuspensionDamper;
+    } dampers;
+
+    struct TireTemp
+    {
+        uint8_t frTireTemp;
+        uint8_t flTireTemp;
+        uint8_t brTireTemp;
+        uint8_t blTireTemp;
+    } tireTemp;
+
+    struct Strain
+    {
+        uint8_t frStrain1;
+        uint8_t flStrain1;
+        uint8_t brStrain1;
+        uint8_t blStrain1;
+
+        uint8_t frStrain2;
+        uint8_t flStrain2;
+        uint8_t brStrain2;
+        uint8_t blStrain2;
+    } strain;
+
+    struct Steering
+    {
+        uint16_t steeringWheelDeflection;
+    } steering;
+
+    struct IMU
+    {
+        float xAcceleration;
+        float yAcceleration;
+        float zAcceleration;
+        float xGyro;
+        float yGyro;
+        float zGyro;
+    } imu;
+
+    struct GPS
+    {
+        float latitide;
+        float longitude;
+        float altitude;
+        float speed;
+        uint8_t year;
+        uint8_t month;
+        uint8_t day;
+    } gps;
+} TelemetryCoreData;
 
 #endif // DATA_TYPES_H
