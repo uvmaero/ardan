@@ -108,49 +108,59 @@ void DataManager::run()
 void DataManager::parseData(QByteArray incomingData)
 {
     // inits
-    CarDataStruct carData;
+    TelemetryCoreData carData;
 
     // collect struct from message
     memcpy((uint8_t *) &carData, incomingData, sizeof(carData));
 
-//    qDebug() << carData.drivingData.readyToDrive;
+//    qDebug() << carData.Tractive.readyToDrive;
 
-    // driving
-    m_pCarData->setReadyToDrive(carData.drivingData.readyToDrive);
-    m_pCarData->setEnableInverter(carData.drivingData.enableInverter);
-    m_pCarData->setPrechargeState(carData.drivingData.prechargeState);
-    m_pCarData->setImdFault(carData.drivingData.imdFault);
-    m_pCarData->setBmsFault(carData.drivingData.bmsFault);
-    m_pCarData->setCurrentSpeed(carData.drivingData.currentSpeed);
-    m_pCarData->setDriveDirection(carData.drivingData.driveDirection);
-    m_pCarData->setDriveMode(carData.drivingData.driveMode);
-
-    // battery status
-    m_pCarData->setBatteryChargeState(carData.batteryStatus.batteryChargeState);
-    m_pCarData->setBusVoltage(carData.batteryStatus.busVoltage);
-    m_pCarData->setRinehartVoltage(carData.batteryStatus.rinehartVoltage);
-    m_pCarData->setPack1Temp(carData.batteryStatus.pack1Temp);
-    m_pCarData->setPack2Temp(carData.batteryStatus.pack2Temp);
-    m_pCarData->setPackCurrent(carData.batteryStatus.packCurrent);
-    m_pCarData->setMinCellVoltage(carData.batteryStatus.minCellVoltage);
-    m_pCarData->setMaxCellVoltage(carData.batteryStatus.maxCellVoltage);
+    // tractive - tractive
+    m_pCarData->setReadyToDrive(carData.tractiveCoreData.tractive.readyToDrive);
+    m_pCarData->setEnableInverter(carData.tractiveCoreData.tractive.enableInverter);
+    m_pCarData->setPrechargeState(carData.tractiveCoreData.tractive.prechargeState);
+    m_pCarData->setRinehartVoltage(carData.tractiveCoreData.tractive.rinehartVoltage);
+    m_pCarData->setCommandedTorque(carData.tractiveCoreData.tractive.commandedTorque);
+    m_pCarData->setDriveDirection(carData.tractiveCoreData.tractive.driveDirection);
+    m_pCarData->setDriveMode(carData.tractiveCoreData.tractive.driveMode);
+    m_pCarData->setCurrentSpeed(carData.tractiveCoreData.tractive.currentSpeed);
+    m_pCarData->setTractionControlEnable(carData.tractiveCoreData.tractive.tractionControlEnable);
+    m_pCarData->setTractionControlModifier(carData.tractiveCoreData.tractive.tractionControlModifier);
+    m_pCarData->setCoastRegen(carData.tractiveCoreData.tractive.coastRegen);
+    m_pCarData->setCoastRegen(carData.tractiveCoreData.tractive.brakeRegen);
 
     // sensors
-    m_pCarData->setVicoreTemp(carData.sensors.vicoreTemp);
-    m_pCarData->setPumpTempIn(carData.sensors.pumpTempIn);
-    m_pCarData->setPumpTempOut(carData.sensors.pumpTempOut);
+    m_pCarData->setImdFault(carData.tractiveCoreData.criticalSensors.imdFault);
+    m_pCarData->setBmsFault(carData.tractiveCoreData.criticalSensors.bmsFault);
+    m_pCarData->setVicoreTemp(carData.tractiveCoreData.criticalSensors.vicoreFault);
+    m_pCarData->setPumpTempIn(carData.tractiveCoreData.criticalSensors.coolingTempIn);
+    m_pCarData->setPumpTempOut(carData.tractiveCoreData.criticalSensors.coolingTempOut);
+    m_pCarData->setFrontWheelsSpeed(carData.tractiveCoreData.criticalSensors.frontWheelsSpeed);
+    m_pCarData->setWheelSpeedBR(carData.tractiveCoreData.criticalSensors.brWheelSpeed);
+    m_pCarData->setWheelSpeedBL(carData.tractiveCoreData.criticalSensors.blWheelSpeed);
 
     // inputs
-    m_pCarData->setPedal0(carData.inputs.pedal0);
-    m_pCarData->setPedal1(carData.inputs.pedal1);
-    m_pCarData->setBrakeFront(carData.inputs.brakeFront);
-    m_pCarData->setBrakeRegen(carData.inputs.brakeRegen);
-    m_pCarData->setCoastRegen(carData.inputs.coastRegen);
+    m_pCarData->setPedal0(carData.tractiveCoreData.inputs.pedal0);
+    m_pCarData->setPedal1(carData.tractiveCoreData.inputs.pedal1);
+    m_pCarData->setBrakesFront(carData.tractiveCoreData.inputs.frontBrake);
+    m_pCarData->setBrakesRear(carData.tractiveCoreData.inputs.rearBrake);
 
     // outputs
-    m_pCarData->setBuzzerActive(carData.outputs.buzzerActive);
-    m_pCarData->setBuzzerCounter(carData.outputs.buzzerCounter);
-    m_pCarData->setBrakeLight(carData.outputs.brakeLight);
-    m_pCarData->setFansActive(carData.outputs.fansActive);
-    m_pCarData->setPumpActive(carData.outputs.pumpActive);
+    m_pCarData->setVicoreEnable(carData.tractiveCoreData.outputs.vicoreEnable);
+    m_pCarData->setBuzzerEnable(carData.tractiveCoreData.outputs.buzzerEnable);
+    m_pCarData->setBrakeLightEnable(carData.tractiveCoreData.outputs.brakeLightEnable);
+    m_pCarData->setFansEnable(carData.tractiveCoreData.outputs.fansEnable);
+
+    // battery status
+    // m_pCarData->setBatteryChargeState(carData.batteryStatus.batteryChargeState);
+    // m_pCarData->setBusVoltage(carData.batteryStatus.busVoltage);
+    // m_pCarData->setRinehartVoltage(carData.batteryStatus.rinehartVoltage);
+    // m_pCarData->setPack1Temp(carData.batteryStatus.pack1Temp);
+    // m_pCarData->setPack2Temp(carData.batteryStatus.pack2Temp);
+    // m_pCarData->setPackCurrent(carData.batteryStatus.packCurrent);
+    // m_pCarData->setMinCellVoltage(carData.batteryStatus.minCellVoltage);
+    // m_pCarData->setMaxCellVoltage(carData.batteryStatus.maxCellVoltage);
+
+    // telemetry
+
 }

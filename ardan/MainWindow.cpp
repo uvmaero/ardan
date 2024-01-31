@@ -78,19 +78,18 @@ void MainWindow::UpdateMechanicalData() {
 
     // update pedal values
     ui->AccelPedalProgressBar->setValue((m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2);
-    ui->BrakePedalProgressBar->setValue((m_pCarData->getBrakeFront() + m_pCarData->getBrakeRear()) / 2);
+    ui->BrakePedalProgressBar->setValue((m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2);
 
     // update wheel speed values
-    ui->FRWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedFR());
-    ui->FLWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedFL());
+    ui->FRWheelSpeedSbx->setValue(m_pCarData->getFrontWheelsSpeed());
     ui->BRWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedBR());
     ui->BLWheelSpeedSbx->setValue(m_pCarData->getWheelSpeedBL());
 
     // update wheel height values
-    ui->FRWheelHeightSbx->setValue(m_pCarData->getWheelHeightFR());
-    ui->FLWheelHeightSbx->setValue(m_pCarData->getWheelHeightFL());
-    ui->BRWheelHeightSbx->setValue(m_pCarData->getWheelHeightBR());
-    ui->BLWheelHeightSbx->setValue(m_pCarData->getWheelHeightBL());
+    ui->FRWheelHeightSbx->setValue(m_pCarData->getSuspensionDamperFR());
+    ui->FLWheelHeightSbx->setValue(m_pCarData->getSuspensionDamperFL());
+    ui->BRWheelHeightSbx->setValue(m_pCarData->getSuspensionDamperBR());
+    ui->BLWheelHeightSbx->setValue(m_pCarData->getSuspensionDamperBL());
 
     // update drive mode
     switch (m_pCarData->getDriveMode()) {

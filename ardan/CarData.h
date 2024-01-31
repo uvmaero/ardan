@@ -49,7 +49,7 @@ public:
     void setTractionControlEnable(bool active);
 
     float getTractionControlModifier();
-    void setTractionControlModifier();
+    void setTractionControlModifier(float value);
 
     uint16_t getBrakeRegen() ;
     void setBrakeRegen(uint16_t brake);
@@ -58,7 +58,7 @@ public:
     void setCoastRegen(uint16_t coast);
 
 
-    // tractive core - sensores
+    // tractive core - sensors
 
     bool getImdFault() ;
     void setImdFault(bool fault);
@@ -78,11 +78,8 @@ public:
     float getGlvReading();
     void setGlvReading();
 
-    float getWheelSpeedFR() ;
-    void setWheelSpeedFR(float speed);
-
-    float getWheelSpeedFL() ;
-    void setWheelSpeedFL(float speed);
+    float getFrontWheelsSpeed() ;
+    void setFrontWheelsSpeed(float speed);
 
     float getWheelSpeedBR() ;
     void setWheelSpeedBR(float speed);
@@ -99,23 +96,26 @@ public:
     uint16_t getPedal1() ;
     void setPedal1(uint16_t pedal);
 
-    uint16_t getBrakeFront() ;
-    void setBrakeFront(uint16_t brake);
+    uint16_t getBrakesFront() ;
+    void setBrakesFront(uint16_t brake);
 
-    uint16_t getBrakeRear() ;
-    void setBrakeRear(uint16_t brake);
+    uint16_t getBrakesRear() ;
+    void setBrakesRear(uint16_t brake);
 
 
     // tractive core - outputs
 
+    bool getVicoreEnable();
+    void setVicoreEnable(bool state);
+
     bool getBrakeLightEnable() ;
     void setBrakeLightEnable(bool light);
 
-    bool getFansActive() ;
-    void setFansActive(bool active);
+    bool getFansEnable() ;
+    void setFansEnable(bool active);
 
-    bool getBuzzerActive() ;
-    void setBuzzerActive(bool active);
+    bool getBuzzerEnable() ;
+    void setBuzzerEnable(bool active);
 
 
     // tractive core - orion
@@ -145,8 +145,8 @@ public:
 
     // dampers
 
-    float getWheelHeightFR() ;
-    void setWheelHeightFR(float height);
+    float getSuspensionDamperFR() ;
+    void setSuspensionDamperFR(float height);
 
     float getSuspensionDamperFL() ;
     void setSuspensionDamperFL(float value);
@@ -159,17 +159,17 @@ public:
 
     // tire temps
 
-    uint8_t getFRTireTemp();
-    void setFRTireTemp(uint8_t value);
+    float getTireTempFR();
+    void setFRTireTemp(float value);
 
-    uint8_t getFLTireTemp();
-    void setFLTireTemp(uint8_t value);
+    float getTireTempFL();
+    void setFLTireTemp(float value);
 
-    uint8_t getBRTireTemp();
-    void setBRTireTemp(uint8_t value);
+    float getTireTempBR();
+    void setBRTireTemp(float value);
 
-    uint8_t getBLTireTemp();
-    void setBLTireTemp(uint8_t value);
+    float getTireTempBL();
+    void setBLTireTemp(float value);
 
     // strain gauges
 
@@ -198,7 +198,6 @@ public:
     void setBLStrain2(uint8_t value);
 
     // steering
-
     uint16_t getSteeringWheelDeflection() ;
     void setSteeringWheelDeflection(uint16_t value);
 
@@ -276,30 +275,20 @@ private:
     float m_coolingTempOut;
     float m_vicoreTemp;
 
-    float m_glvReading;
-
     float m_frontWheelsSpeed;
-    int16_t m_frontWheelSpeedCount;
-    int16_t m_frontWheelSpeedTime;
-
-    float m_brWheelSpeed;
-    int16_t m_brWheelSpeedCount;
-    int16_t m_brWheelSpeedTime;
-
-    float m_blWheelSpeed;
-    int16_t m_blWheelSpeedCount;
-    int16_t m_blWheelSpeedTime;
+    float m_wheelSpeedBR;
+    float m_wheelSpeedBL;
 
 
     // tractive core - inputs
     uint16_t m_pedal0;
     uint16_t m_pedal1;
 
-    uint16_t m_frontBrake;
-    uint16_t m_rearBrake;
+    uint16_t m_frontBrakes;
+    uint16_t m_rearBrakes;
 
     // tractive core - outputs
-    DriveMode m_driveModeLED;
+    bool m_vicoreEnable;
 
     bool m_brakeLightEnable;
 
@@ -318,6 +307,45 @@ private:
     float m_maxCellVoltage;
     float m_minCellTemp;
     float m_maxCellTemp;
+
+    // telemetry core
+    float m_suspensionDamperFR;
+    float m_suspensionDamperFL;
+    float m_suspensionDamperBR;
+    float m_suspensionDamperBL;
+
+    float m_tireTempFR;
+    float m_tireTempFL;
+    float m_tireTempBR;
+    float m_tireTempBL;
+
+    float m_strain1FR;
+    float m_strain1FL;
+    float m_strain1BR;
+    float m_strain1BL;
+
+    float m_strain2FR;
+    float m_strain2FL;
+    float m_strain2BR;
+    float m_strain2BL;
+
+    uint16_t m_steeringDeflection;
+
+    float m_xAcceleration;
+    float m_yAcceleration;
+    float m_zAcceleration;
+
+    float m_xGyro;
+    float m_yGyro;
+    float m_zGyro;
+
+    float m_latitiude;
+    float m_longitude;
+    float m_altitude;
+
+    float m_gpsYear;
+    float m_gpsMonth;
+    float m_gpsDay;
 };
 
 #endif // CARDATA_H

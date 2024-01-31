@@ -29,25 +29,17 @@ CarData::CarData()
     m_coolingTempIn = 0.0f;
     m_coolingTempOut = 0.0f;
     m_vicoreTemp = 0.0f;
-    m_glvReading = 0.0f;
     m_frontWheelsSpeed = 0.0f;
-    m_frontWheelSpeedCount = 0;
-    m_frontWheelSpeedTime = 0;
-    m_brWheelSpeed = 0.0f;
-    m_brWheelSpeedCount = 0;
-    m_brWheelSpeedTime = 0;
-    m_blWheelSpeed = 0.0f;
-    m_blWheelSpeedCount = 0;
-    m_blWheelSpeedTime = 0;
+    m_wheelSpeedBR = 0.0f;
+    m_wheelSpeedBL = 0.0f;
 
     // tractive core - inputs
     m_pedal0 = 0;
     m_pedal1 = 0;
-    m_frontBrake = 0;
-    m_rearBrake = 0;
+    m_frontBrakes = 0;
+    m_rearBrakes = 0;
 
     // tractive core - outputs
-    m_driveModeLED = ECO;
     m_brakeLightEnable = false;
     m_fansEnable = false;
     m_buzzerEnable = false;
@@ -160,16 +152,40 @@ void CarData::setDriveDirection(bool direction) {
     m_driveDirection = direction;
 }
 
-DriveModes CarData::getDriveMode()  {
+DriveMode CarData::getDriveMode()  {
     QReadLocker locker(&m_lock);
 
     return m_driveMode;
 }
 
-void CarData::setDriveMode(DriveModes mode) {
+void CarData::setDriveMode(DriveMode mode) {
     QWriteLocker locker(&m_lock);
 
     m_driveMode = mode;
+}
+
+bool CarData::getTractionControlEnable() {
+    QReadLocker locker(&m_lock);
+
+    return m_tractionControlEnable;
+}
+
+void CarData::setTractionControlEnable(bool state) {
+    QWriteLocker locker(&m_lock);
+
+    m_tractionControlEnable = state;
+}
+
+float CarData::getTractionControlModifier() {
+    QReadLocker locker(&m_lock);
+
+    return m_tractionControlModifier;
+}
+
+void CarData::setTractionControlModifier(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_tractionControlModifier = value;
 }
 
 float CarData::getBatteryChargeState()  {
@@ -208,30 +224,6 @@ void CarData::setRinehartVoltage(float voltage) {
     m_rinehartVoltage = voltage;
 }
 
-float CarData::getPack1Temp()  {
-    QReadLocker locker(&m_lock);
-
-    return m_pack1Temp;
-}
-
-void CarData::setPack1Temp(float temp) {
-    QWriteLocker locker(&m_lock);
-
-    m_pack1Temp = temp;
-}
-
-float CarData::getPack2Temp()  {
-    QReadLocker locker(&m_lock);
-
-    return m_pack2Temp;
-}
-
-void CarData::setPack2Temp(float temp) {
-    QWriteLocker locker(&m_lock);
-
-    m_pack2Temp = temp;
-}
-
 float CarData::getPackCurrent()  {
     QReadLocker locker(&m_lock);
 
@@ -268,101 +260,18 @@ void CarData::setMaxCellVoltage(float voltage) {
     m_maxCellVoltage = voltage;
 }
 
-uint8_t CarData::getRpmCounterFR()  {
+float CarData::getFrontWheelsSpeed()  {
     QReadLocker locker(&m_lock);
 
-    return m_rpmCounterFR;
+    return m_frontWheelsSpeed;
 }
 
-void CarData::setRpmCounterFR(uint8_t value) {
+void CarData::setFrontWheelsSpeed(float speed) {
     QWriteLocker locker(&m_lock);
 
-    m_rpmCounterFR = value;
+    m_frontWheelsSpeed = speed;
 }
 
-uint8_t CarData::getRpmCounterFL()  {
-    QReadLocker locker(&m_lock);
-
-    return m_rpmCounterFL;
-}
-
-void CarData::setRpmCounterFL(uint8_t value) {
-    QWriteLocker locker(&m_lock);
-
-    m_rpmCounterFL = value;
-}
-
-uint8_t CarData::getRpmCounterBR()  {
-    QReadLocker locker(&m_lock);
-
-    return m_rpmCounterBR;
-}
-
-void CarData::setRpmCounterBR(uint8_t value) {
-    QWriteLocker locker(&m_lock);
-
-    m_rpmCounterBR = value;
-}
-
-uint8_t CarData::getRpmCounterBL()  {
-    QReadLocker locker(&m_lock);
-
-    return m_rpmCounterBL;
-}
-
-void CarData::setRpmCounterBL(uint8_t value) {
-    QWriteLocker locker(&m_lock);
-
-    m_rpmCounterBL = value;
-}
-
-uint64_t CarData::getRpmTimeFR()  {
-    QReadLocker locker(&m_lock);
-
-    return m_rpmTimeFR;
-}
-
-void CarData::setRpmTimeFR(uint64_t value) {
-    QWriteLocker locker(&m_lock);
-
-    m_rpmTimeFR = value;
-}
-
-uint64_t CarData::getRpmTimeFL()  {
-    QReadLocker locker(&m_lock);
-
-    return m_rpmTimeFL;
-}
-
-void CarData::setRpmTimeFL(uint64_t value) {
-    QWriteLocker locker(&m_lock);
-
-    m_rpmTimeFL = value;
-}
-
-float CarData::getWheelSpeedFR()  {
-    QReadLocker locker(&m_lock);
-
-    return m_wheelSpeedFR;
-}
-
-void CarData::setWheelSpeedFR(float Speed) {
-    QWriteLocker locker(&m_lock);
-
-    m_wheelSpeedFR = Speed;
-}
-
-float CarData::getWheelSpeedFL()  {
-    QReadLocker locker(&m_lock);
-
-    return m_wheelSpeedFL;
-}
-
-void CarData::setWheelSpeedFL(float Speed) {
-    QWriteLocker locker(&m_lock);
-
-    m_wheelSpeedFL = Speed;
-}
 
 float CarData::getWheelSpeedBR()  {
     QReadLocker locker(&m_lock);
@@ -388,64 +297,64 @@ void CarData::setWheelSpeedBL(float Speed) {
     m_wheelSpeedBL = Speed;
 }
 
-float CarData::getWheelHeightFR()  {
+float CarData::getSuspensionDamperFR()  {
     QReadLocker locker(&m_lock);
 
-    return m_wheelHeightFR;
+    return m_suspensionDamperFR;
 }
 
-void CarData::setWheelHeightFR(float height) {
+void CarData::setSuspensionDamperFR(float height) {
     QWriteLocker locker(&m_lock);
 
-    m_wheelHeightFR = height;
+    m_suspensionDamperFR = height;
 }
 
-float CarData::getWheelHeightFL()  {
+float CarData::getSuspensionDamperFL()  {
     QReadLocker locker(&m_lock);
 
-    return m_wheelHeightFL;
+    return m_suspensionDamperFL;
 }
 
-void CarData::setWheelHeightFL(float height) {
+void CarData::setSuspensionDamperFL(float height) {
     QWriteLocker locker(&m_lock);
 
-    m_wheelHeightFL = height;
+    m_suspensionDamperFL = height;
 }
 
-float CarData::getWheelHeightBR()  {
+float CarData::getSuspensionDamperBR()  {
     QReadLocker locker(&m_lock);
 
-    return m_wheelHeightBR;
+    return m_suspensionDamperBR;
 }
 
-void CarData::setWheelHeightBR(float height) {
+void CarData::setSuspensionDamperBR(float height) {
     QWriteLocker locker(&m_lock);
 
-    m_wheelHeightBR = height;
+    m_suspensionDamperBR = height;
 }
 
-float CarData::getWheelHeightBL()  {
+float CarData::getSuspensionDamperBL()  {
     QReadLocker locker(&m_lock);
 
-    return m_wheelHeightBL;
+    return m_suspensionDamperBL;
 }
 
-void CarData::setWheelHeightBL(float height) {
+void CarData::setSuspensionDamperBL(float height) {
     QWriteLocker locker(&m_lock);
 
-    m_wheelHeightBL = height;
+    m_suspensionDamperBL = height;
 }
 
-uint16_t CarData::getSteeringWheelAngle()  {
+uint16_t CarData::getSteeringWheelDeflection()  {
     QReadLocker locker(&m_lock);
 
-    return m_steeringWheelAngle;
+    return m_steeringDeflection;
 }
 
-void CarData::setSteeringWheelAngle(uint16_t value) {
+void CarData::setSteeringWheelDeflection(uint16_t value) {
     QWriteLocker locker(&m_lock);
 
-    m_steeringWheelAngle = value;
+    m_steeringDeflection = value;
 }
 
 float CarData::getVicoreTemp()  {
@@ -463,25 +372,25 @@ void CarData::setVicoreTemp(float temp) {
 float CarData::getPumpTempIn()  {
     QReadLocker locker(&m_lock);
 
-    return m_pumpTempIn;
+    return m_coolingTempIn;
 }
 
 void CarData::setPumpTempIn(float temp) {
     QWriteLocker locker(&m_lock);
 
-    m_pumpTempIn = temp;
+    m_coolingTempIn = temp;
 }
 
 float CarData::getPumpTempOut()  {
     QReadLocker locker(&m_lock);
 
-    return m_pumpTempOut;
+    return m_coolingTempOut;
 }
 
 void CarData::setPumpTempOut(float temp) {
     QWriteLocker locker(&m_lock);
 
-    m_pumpTempOut = temp;
+    m_coolingTempOut = temp;
 }
 
 uint16_t CarData::getPedal0()  {
@@ -508,26 +417,26 @@ void CarData::setPedal1(uint16_t pedal) {
     m_pedal1 = pedal;
 }
 
-uint16_t CarData::getBrakeFront()  {
+uint16_t CarData::getBrakesFront()  {
     QReadLocker locker(&m_lock);
 
-    return m_brakeFront;
+    return m_frontBrakes;
 }
 
-void CarData::setBrakeFront(uint16_t brake) {
+void CarData::setBrakesFront(uint16_t brake) {
     QWriteLocker locker(&m_lock);
 
-    m_brakeFront = brake;
+    m_frontBrakes = brake;
 }
 
-uint16_t CarData::getBrakeRear()  {
-    return m_brakeRear;
+uint16_t CarData::getBrakesRear()  {
+    return m_rearBrakes;
 }
 
-void CarData::setBrakeRear(uint16_t brake) {
+void CarData::setBrakesRear(uint16_t brake) {
     QWriteLocker locker(&m_lock);
 
-    m_brakeRear = brake;
+    m_rearBrakes = brake;
 }
 
 uint16_t CarData::getBrakeRegen()  {
@@ -554,62 +463,52 @@ void CarData::setCoastRegen(uint16_t coast) {
     m_coastRegen = coast;
 }
 
-bool CarData::getBuzzerActive()  {
+bool CarData::getBuzzerEnable()  {
     QReadLocker locker(&m_lock);
 
-    return m_buzzerActive;
+    return m_buzzerEnable;
 }
 
-void CarData::setBuzzerActive(bool active) {
+void CarData::setBuzzerEnable(bool active) {
     QWriteLocker locker(&m_lock);
 
-    m_buzzerActive = active;
+    m_buzzerEnable = active;
 }
 
-uint8_t CarData::getBuzzerCounter()  {
+
+bool CarData::getVicoreEnable() {
     QReadLocker locker(&m_lock);
 
-    return m_buzzerCounter;
+    return m_vicoreEnable;
 }
 
-void CarData::setBuzzerCounter(uint8_t counter) {
+void CarData::setVicoreEnable(bool state) {
     QWriteLocker locker(&m_lock);
 
-    m_buzzerCounter = counter;
+    m_vicoreEnable = state;
 }
 
-bool CarData::getBrakeLight()  {
+bool CarData::getBrakeLightEnable() {
     QReadLocker locker(&m_lock);
 
-    return m_brakeLight;
+    return m_brakeLightEnable;
 }
 
-void CarData::setBrakeLight(bool light) {
+void CarData::setBrakeLightEnable(bool light) {
     QWriteLocker locker(&m_lock);
 
-    m_brakeLight = light;
+    m_brakeLightEnable = light;
 }
 
-bool CarData::getFansActive()  {
+bool CarData::getFansEnable()  {
     QReadLocker locker(&m_lock);
 
-    return m_fansActive;
+    return m_fansEnable;
 }
 
-void CarData::setFansActive(bool active) {
+void CarData::setFansEnable(bool state) {
     QWriteLocker locker(&m_lock);
 
-    m_fansActive = active;
+    m_fansEnable = state;
 }
 
-bool CarData::getPumpActive()  {
-    QReadLocker locker(&m_lock);
-
-    return m_pumpActive;
-}
-
-void CarData::setPumpActive(bool active) {
-    QWriteLocker locker(&m_lock);
-
-    m_pumpActive = active;
-}
