@@ -203,41 +203,41 @@ public:
 
     // IMU
     float getXAcceleration();
-    void setXAcceleration();
+    void setXAcceleration(float value);
 
     float getYAcceleration();
-    void setYAcceleration();
+    void setYAcceleration(float value);
 
     float getZAcceleration();
-    void setZAcceleration();
+    void setZAcceleration(float value);
 
     float getXGyro();
-    void setXGyro();
+    void setXGyro(float value);
 
     float getYGyro();
-    void setYGyro();
+    void setYGyro(float value);
 
     float getZGyro();
-    void setZGyro();
+    void setZGyro(float value);
 
     // GPS
     float getLatitude();
-    void setLatitude();
+    void setLatitude(float value);
 
     float getLongitude();
-    void setLongitude();
+    void setLongitude(float value);
 
     float getAltitude();
-    void setAltitude();
+    void setAltitude(float value);
 
     uint8_t getGPSYear();
-    void setGPSYear();
+    void setGPSYear(uint8_t value);
 
     uint8_t getGPSMonth();
-    void setGPSMonth();
+    void setGPSMonth(uint8_t value);
 
     uint8_t getGPSDay();
-    void setGPSDay();
+    void setGPSDay(uint8_t value);
 
 
 private:
@@ -339,7 +339,7 @@ private:
     float m_yGyro;
     float m_zGyro;
 
-    float m_latitiude;
+    float m_latitude;
     float m_longitude;
     float m_altitude;
 

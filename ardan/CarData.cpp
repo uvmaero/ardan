@@ -52,6 +52,44 @@ CarData::CarData()
     m_maxCellVoltage = 0.0f;
     m_minCellTemp = 0.0f;
     m_maxCellTemp = 0.0f;
+
+    // telemetry
+
+    m_suspensionDamperFR = 0.0f;
+    m_suspensionDamperFL = 0.0f;
+    m_suspensionDamperBR = 0.0f;
+    m_suspensionDamperBL = 0.0f;
+
+    m_tireTempFR = 0.0f;
+    m_tireTempFL = 0.0f;
+    m_tireTempBR = 0.0f;
+    m_tireTempBL = 0.0f;
+
+    m_strain1FR = 0.0f;
+    m_strain1FL = 0.0f;
+    m_strain1BR = 0.0f;
+    m_strain1BL = 0.0f;
+
+    m_strain2FR = 0.0f;
+    m_strain2FL = 0.0f;
+    m_strain2BR = 0.0f;
+    m_strain2BL = 0.0f;
+
+    m_steeringDeflection = 0;
+
+    m_xAcceleration = 0.0f;
+    m_yAcceleration = 0.0f;
+    m_zAcceleration = 0.0f;
+    m_xGyro = 0.0f;
+    m_yGyro = 0.0f;
+    m_zGyro = 0.0f;
+
+    m_latitude = 0.0f;
+    m_longitude = 0.0f;
+    m_altitude = 0.0f;
+    m_gpsYear = 0;
+    m_gpsMonth = 0;
+    m_gpsDay = 0;
 }
 
 

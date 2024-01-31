@@ -162,5 +162,30 @@ void DataManager::parseData(QByteArray incomingData)
     // m_pCarData->setMaxCellVoltage(carData.batteryStatus.maxCellVoltage);
 
     // telemetry
+    m_pCarData->setSuspensionDamperFR(carData.dampers.frSuspensionDamper);
+    m_pCarData->setSuspensionDamperFL(carData.dampers.flSuspensionDamper);
+    m_pCarData->setSuspensionDamperBR(carData.dampers.brSuspensionDamper);
+    m_pCarData->setSuspensionDamperBL(carData.dampers.blSuspensionDamper);
+
+    m_pCarData->setFRTireTemp(carData.tireTemp.frTireTemp);
+    m_pCarData->setFLTireTemp(carData.tireTemp.flTireTemp);
+    m_pCarData->setBRTireTemp(carData.tireTemp.brTireTemp);
+    m_pCarData->setBLTireTemp(carData.tireTemp.blTireTemp);
+
+    m_pCarData->setFRStrain1(carData.strain.frStrain1);
+    m_pCarData->setFLStrain1(carData.strain.flStrain1);
+    m_pCarData->setBRStrain1(carData.strain.brStrain1);
+    m_pCarData->setBLStrain1(carData.strain.blStrain1);
+
+    m_pCarData->setFRStrain2(carData.strain.frStrain2);
+    m_pCarData->setFLStrain2(carData.strain.flStrain2);
+    m_pCarData->setBRStrain2(carData.strain.brStrain2);
+    m_pCarData->setBLStrain2(carData.strain.blStrain2);
+
+    m_pCarData->setSteeringWheelDeflection(carData.steering.steeringWheelDeflection);
+
+    m_pCarData->setXAcceleration(carData.imu.xAcceleration);
+    m_pCarData->setYAcceleration(carData.imu.yAcceleration);
+    m_pCarData->setZAcceleration(carData.imu.zAcceleration);
 
 }
