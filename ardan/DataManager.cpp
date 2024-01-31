@@ -192,6 +192,11 @@ void DataManager::parseData(QByteArray incomingData)
     m_pCarData->setYGyro(carData.imu.yGyro);
     m_pCarData->setZGyro(carData.imu.zGyro);
 
+    m_pCarData->setLatitude(carData.gps.latitide);
+    m_pCarData->setLongitude(carData.gps.longitude);
+    m_pCarData->setAltitude(carData.gps.altitude);
 
-
+    m_pCarData->setGPSYear(carData.gps.year);
+    m_pCarData->setGPSMonth(carData.gps.month);
+    m_pCarData->setGPSDay(carData.gps.day);
 }
