@@ -160,16 +160,16 @@ public:
     // tire temps
 
     float getTireTempFR();
-    void setFRTireTemp(float value);
+    void setTireTempFR(float value);
 
     float getTireTempFL();
-    void setFLTireTemp(float value);
+    void setTireTempFL(float value);
 
     float getTireTempBR();
-    void setBRTireTemp(float value);
+    void setTireTempBR(float value);
 
     float getTireTempBL();
-    void setBLTireTemp(float value);
+    void setTireTempBL(float value);
 
     // strain gauges
 

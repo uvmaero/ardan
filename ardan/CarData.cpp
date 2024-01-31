@@ -550,3 +550,290 @@ void CarData::setFansEnable(bool state) {
     m_fansEnable = state;
 }
 
+float CarData::getTireTempFR() {
+    QReadLocker locker(&m_lock);
+
+    return m_tireTempFR;
+}
+
+void CarData::setTireTempFR(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_tireTempFR = value;
+}
+
+float CarData::getTireTempFL() {
+    QReadLocker locker(&m_lock);
+
+    return m_tireTempFL;
+}
+
+void CarData::setTireTempFL(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_tireTempFL = value;
+}
+
+float CarData::getTireTempBR() {
+    QReadLocker locker(&m_lock);
+
+    return m_tireTempBR;
+}
+
+void CarData::setTireTempBR(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_tireTempBR = value;
+}
+
+float CarData::getTireTempBL() {
+    QReadLocker locker(&m_lock);
+
+    return m_tireTempBL;
+}
+
+void CarData::setTireTempBL(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_tireTempBL = value;
+}
+
+uint8_t CarData::getFRStrain1() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain1FR;
+}
+
+void CarData::setFRStrain1(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain1FR = value;
+}
+
+uint8_t CarData::getFLStrain1() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain1FL;
+}
+
+void CarData::setFLStrain1(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain1FL = value;
+}
+
+uint8_t CarData::getBRStrain1() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain1BR;
+}
+
+void CarData::setBRStrain1(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain1BR = value;
+}
+
+uint8_t CarData::getBLStrain1() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain1BL;
+}
+
+void CarData::setBLStrain1(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain1BL = value;
+}
+
+uint8_t CarData::getFRStrain2() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain2FR;
+}
+
+void CarData::setFRStrain2(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain2FR = value;
+}
+
+uint8_t CarData::getFLStrain2() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain2FL;
+}
+
+void CarData::setFLStrain2(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain2FL = value;
+}
+
+uint8_t CarData::getBRStrain2() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain2BR;
+}
+
+void CarData::setBRStrain2(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain2BR = value;
+}
+
+uint8_t CarData::getBLStrain2() {
+    QReadLocker locker(&m_lock);
+
+    return m_strain2BL;
+}
+
+void CarData::setBLStrain2(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_strain2BL = value;
+}
+
+float CarData::getXAcceleration() {
+    QReadLocker locker(&m_lock);
+
+    return m_xAcceleration;
+}
+
+void CarData::setXAcceleration(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_xAcceleration = value;
+}
+
+float CarData::getYAcceleration() {
+    QReadLocker locker(&m_lock);
+
+    return m_yAcceleration;
+}
+
+void CarData::setYAcceleration(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_yAcceleration = value;
+}
+
+float CarData::getZAcceleration() {
+    QReadLocker locker(&m_lock);
+
+    return m_zAcceleration;
+}
+
+void CarData::setZAcceleration(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_zAcceleration = value;
+}
+
+float CarData::getXGyro() {
+    QReadLocker locker(&m_lock);
+
+    return m_xGyro;
+}
+
+void CarData::setXGyro(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_xGyro = value;
+}
+
+float CarData::getYGyro() {
+    QReadLocker locker(&m_lock);
+
+    return m_yGyro;
+}
+
+void CarData::setYGyro(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_yGyro = value;
+}
+
+float CarData::getZGyro() {
+    QReadLocker locker(&m_lock);
+
+    return m_zGyro;
+}
+
+void CarData::setZGyro(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_zGyro = value;
+}
+
+float CarData::getLatitude() {
+    QReadLocker locker(&m_lock);
+
+    return m_latitude;
+}
+
+void CarData::setLatitude(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_latitude = value;
+}
+
+float CarData::getLongitude() {
+    QReadLocker locker(&m_lock);
+
+    return m_longitude;
+}
+
+void CarData::setLongitude(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_longitude = value;
+}
+
+float CarData::getAltitude() {
+    QReadLocker locker(&m_lock);
+
+    return m_altitude;
+}
+
+void CarData::setAltitude(float value) {
+    QWriteLocker locker(&m_lock);
+
+    m_altitude = value;
+}
+
+uint8_t CarData::getGPSYear() {
+    QReadLocker locker(&m_lock);
+
+    return m_gpsYear;
+}
+
+void CarData::setGPSYear(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_gpsYear = value;
+}
+
+uint8_t CarData::getGPSMonth() {
+    QReadLocker locker(&m_lock);
+
+    return m_gpsMonth;
+}
+
+void CarData::setGPSMonth(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_gpsMonth = value;
+}
+
+uint8_t CarData::getGPSDay() {
+    QReadLocker locker(&m_lock);
+
+    return m_gpsDay;
+}
+
+void CarData::setGPSDay(uint8_t value) {
+    QWriteLocker locker(&m_lock);
+
+    m_gpsDay = value;
+}
