@@ -10,6 +10,7 @@
 #define DISPLAY_UPDATE_INTERVAL     25      // in milliseconds
 #define WAIT_TIMEOUT                10      // in milliseconds
 
+
 /**
  * @brief MainWindow::MainWindow
  * @param parent
