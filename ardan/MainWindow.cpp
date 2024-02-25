@@ -8,7 +8,7 @@
 // defines
 #define SERIAL_UPDATE_INTERVAL      10      // in milliseconds, the interval in which the serial bus is read
 #define DISPLAY_UPDATE_INTERVAL     25      // in milliseconds
-#define PLOTS_UPDATE_INTERVAL       500     // in milliseconds
+#define PLOTS_UPDATE_INTERVAL       100     // in milliseconds
 #define WAIT_TIMEOUT                10      // in milliseconds
 
 
@@ -58,6 +58,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // init variables
     m_portName = "";
+
+    m_pCarData->setPedal0(128);
+    m_pCarData->setPedal1(128);
+    m_pCarData->setBrakesFront(128);
+    m_pCarData->setBrakesRear(128);
 }
 
 
@@ -87,8 +92,10 @@ void MainWindow::UpdateMechanicalData() {
 
 
     // update pedal values
-    ui->AccelPedalProgressBar->setValue((m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2);
-    ui->BrakePedalProgressBar->setValue((m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2);
+    float average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
+    ui->AccelPedalProgressBar->setValue(mapValue(average, 0, 255, 0, 100));
+    average = (m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2;
+    ui->BrakePedalProgressBar->setValue(mapValue(average, 0, 255, 0, 100));
 
     // update wheel speed values
     ui->FRWheelSpeedSbx->setValue(m_pCarData->getFrontWheelsSpeed());
@@ -211,35 +218,110 @@ void MainWindow::UpdateElectricalData() {
 /**
  * @brief MainWindow::UpdatePlots
  */
-void MainWindow::UpdatePlots()
+void MainWindow::UpdatePlots() {
+    // update plotss
+    UpdateAccelPlot();
+    UpdateBrakePlot();
+
+    // update counter
+    m_refreshCounter = m_refreshCounter + ((float)PLOTS_UPDATE_INTERVAL / 1000);
+}
+
+
+/**
+ * @brief MainWindow::UpdatePlots
+ */
+void MainWindow::UpdateAccelPlot()
 {
     // inits
     int maxX = 20;
-    float average;
+    float average, mappedValue;
     QPointF tmpQPoint;
+    int newMin;
 
     // convert raw data to QPoint
-    m_pAccelQVector.reserve(maxX);
+    m_pAccelVector.reserve(maxX);
     average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
-    qDebug() << "average: " << average;
-    tmpQPoint.setY(average);
+    mappedValue = mapValue(average, 0, 255, 0, 100);
+    tmpQPoint.setY(mappedValue);
     tmpQPoint.setX(m_refreshCounter);
 
     // Keep a fixed number of data points to create the scrolling effect
-    if (m_pAccelQVector.size() > m_maxDataPoints) {
-        m_pAccelQVector.removeFirst();
+    if (m_pAccelVector.size() >= m_maxDataPoints) {
+        m_pAccelVector.removeFirst();
+    }
+    else {
+        m_pAccelVector.append(tmpQPoint);
     }
 
     // Update the series with the new data
-    // m_pAccelSeries->clear();
-    for (const QPointF &point : m_pAccelQVector) {
+    m_pAccelSeries->clear();
+    for (const QPointF &point : m_pAccelVector) {
         m_pAccelSeries->append(point);
     }
 
-    // update counter
-    m_refreshCounter+=(1 / PLOTS_UPDATE_INTERVAL);
+    // for (int i = 0; i < m_pAccelVector.size(); ++i) {
+    //     qDebug() <<  "[" + QString::number(m_pAccelVector.at(i).x()) + ", " + QString::number(m_pAccelVector.at(i).y()) + "]";
+
+    // }
+
+    // update chart bounds
+    newMin = m_refreshCounter - m_xAxisLength;
+    if (newMin > 0) {
+        m_pAxisXAccel->setMin(newMin);
+    }
+    if (m_refreshCounter > m_xAxisLength) {
+        m_pAxisXAccel->setMax(m_refreshCounter);
+    }
 }
 
+
+/**
+ * @brief MainWindow::UpdateBrakePlot
+ */
+void MainWindow::UpdateBrakePlot()
+{
+    // inits
+    int maxX = 20;
+    float average, mappedValue;
+    QPointF tmpQPoint;
+    int newMin;
+
+    // convert raw data to QPoint
+    m_pBrakeVector.reserve(maxX);
+    average = (m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2;
+    mappedValue = mapValue(average, 0, 255, 0, 100);
+    tmpQPoint.setY(mappedValue);
+    tmpQPoint.setX(m_refreshCounter);
+
+    // Keep a fixed number of data points to create the scrolling effect
+    if (m_pBrakeVector.size() >= m_maxDataPoints) {
+        m_pBrakeVector.removeFirst();
+    }
+    else {
+        m_pBrakeVector.append(tmpQPoint);
+    }
+
+    // Update the series with the new data
+    m_pBrakeSeries->clear();
+    for (const QPointF &point : m_pBrakeVector) {
+        m_pBrakeSeries->append(point);
+    }
+
+    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
+    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
+
+    // }
+
+    // update chart bounds
+    newMin = m_refreshCounter - m_xAxisLength;
+    if (newMin > 0) {
+        m_pAxisXBrake->setMin(newMin);
+    }
+    if (m_refreshCounter > m_xAxisLength) {
+        m_pAxisXBrake->setMax(m_refreshCounter);
+    }
+}
 
 
 /**
@@ -252,25 +334,67 @@ void MainWindow::SetupPlotting()
     m_pBrakeChart = new QChart();
     m_pAccelView = new QChartView(this);
     m_pBrakeView = new QChartView(this);
-
+    m_pAxisXAccel = new QValueAxis;
+    m_pAxisYAccel = new QValueAxis;
+    m_pAxisXBrake = new QValueAxis;
+    m_pAxisYBrake = new QValueAxis;
     m_refreshCounter = 0;
 
     // Create the QChartView widget
-    QVBoxLayout *layout = new QVBoxLayout(ui->accelPlot);
-    layout->addWidget(m_pAccelView);
-    layout->expandingDirections();
+    QVBoxLayout *accelLayout = new QVBoxLayout(ui->accelPlot);
+    accelLayout->addWidget(m_pAccelView);
+    accelLayout->expandingDirections();
 
     // Set up the chart properties
     m_pAccelView->setChart(m_pAccelChart);
     m_pAccelChart->setMaximumHeight(ui->accelPlot->maximumHeight());
     m_pAccelChart->setMaximumWidth(ui->accelPlot->maximumWidth());
+    m_pAccelChart->legend()->hide();
 
     m_pAccelSeries = new QLineSeries();
     m_pAccelChart->addSeries(m_pAccelSeries);
 
-    m_pAccelChart->createDefaultAxes();
-    m_pAccelChart->axisX()->setRange(0, m_maxDataPoints);
-    m_pAccelChart->axisY()->setRange(0, 256);
+    // do axis
+    m_pAxisXAccel->setLabelFormat("%.2f");
+    m_pAxisXAccel->setMax(m_xAxisLength);
+    m_pAxisXAccel->setMin(0);
+    m_pAccelChart->addAxis(m_pAxisXAccel, Qt::AlignBottom);
+    m_pAccelSeries->attachAxis(m_pAxisXAccel);
+
+    m_pAxisYAccel->setLabelFormat("%.1f");
+    m_pAxisYAccel->setMax(100);
+    m_pAxisYAccel->setMin(0);
+    m_pAccelChart->addAxis(m_pAxisYAccel, Qt::AlignLeft);
+    m_pAccelSeries->attachAxis(m_pAxisYAccel);
+
+    // --- do the same thing for brakes ---
+
+    // Create the QChartView widget
+    QVBoxLayout *brakeLayout = new QVBoxLayout(ui->brakePlot);
+    brakeLayout->addWidget(m_pBrakeView);
+    brakeLayout->expandingDirections();
+
+    // Set up the chart properties
+    m_pBrakeView->setChart(m_pBrakeChart);
+    m_pBrakeChart->setMaximumHeight(ui->brakePlot->maximumHeight());
+    m_pBrakeChart->setMaximumWidth(ui->brakePlot->maximumWidth());
+    m_pBrakeChart->legend()->hide();
+
+    m_pBrakeSeries = new QLineSeries();
+    m_pBrakeChart->addSeries(m_pBrakeSeries);
+
+    // do axis
+    m_pAxisXBrake->setLabelFormat("%.2f");
+    m_pAxisXBrake->setMax(m_xAxisLength);
+    m_pAxisXBrake->setMin(0);
+    m_pBrakeChart->addAxis(m_pAxisXBrake, Qt::AlignBottom);
+    m_pBrakeSeries->attachAxis(m_pAxisXBrake);
+
+    m_pAxisYBrake->setLabelFormat("%.1f");
+    m_pAxisYBrake->setMax(100);
+    m_pAxisYBrake->setMin(0);
+    m_pBrakeChart->addAxis(m_pAxisYBrake, Qt::AlignLeft);
+    m_pBrakeSeries->attachAxis(m_pAxisYBrake);
 }
 
 
@@ -350,4 +474,18 @@ void MainWindow::GetPortName(QString portName)
 {
     m_portName = portName;
     qDebug() << "Port name: " << m_portName;
+}
+
+
+/**
+ * @brief MainWindow::mapValue
+ * @param x
+ * @param in_min
+ * @param in_max
+ * @param out_min
+ * @param out_max
+ * @return
+ */
+float MainWindow::mapValue(float x, float in_min, float in_max, float out_min, float out_max) {
+    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }

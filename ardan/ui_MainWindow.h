@@ -47,7 +47,7 @@ public:
     QProgressBar *AccelPedalProgressBar;
     QWidget *widget1;
     QVBoxLayout *verticalLayout_5;
-    QWidget *accelPlot_2;
+    QWidget *brakePlot;
     QHBoxLayout *horizontalLayout_2;
     QLabel *BrakePedalLbl;
     QProgressBar *BrakePedalProgressBar;
@@ -194,12 +194,12 @@ public:
         verticalLayout_5 = new QVBoxLayout(widget1);
         verticalLayout_5->setObjectName("verticalLayout_5");
         verticalLayout_5->setContentsMargins(0, 0, 0, 0);
-        accelPlot_2 = new QWidget(widget1);
-        accelPlot_2->setObjectName("accelPlot_2");
-        sizePolicy1.setHeightForWidth(accelPlot_2->sizePolicy().hasHeightForWidth());
-        accelPlot_2->setSizePolicy(sizePolicy1);
+        brakePlot = new QWidget(widget1);
+        brakePlot->setObjectName("brakePlot");
+        sizePolicy1.setHeightForWidth(brakePlot->sizePolicy().hasHeightForWidth());
+        brakePlot->setSizePolicy(sizePolicy1);
 
-        verticalLayout_5->addWidget(accelPlot_2);
+        verticalLayout_5->addWidget(brakePlot);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName("horizontalLayout_2");

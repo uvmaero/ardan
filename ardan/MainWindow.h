@@ -17,6 +17,7 @@
 #include <QtCharts/QLineSeries>>
 #include <QtCharts/QXYSeries>
 #include <QtCharts/QChartView>
+#include <QtCharts/QValueAxis>
 
 
 QT_BEGIN_NAMESPACE
@@ -36,6 +37,11 @@ public:
     void UpdateElectricalData();
 
     void SetupPlotting();
+    void UpdateAccelPlot();
+    void UpdateBrakePlot();
+
+    // helpers
+    float mapValue(float x, float in_min, float in_max, float out_min, float out_max);
 
 private:
     // ui
@@ -57,13 +63,23 @@ private:
     // plots
     QChart* m_pAccelChart;
     QChart* m_pBrakeChart;
+
     QXYSeries* m_pAccelSeries;
     QXYSeries* m_pBrakeSeries;
-    QVector<QPointF> m_pAccelQVector;
-    QVector<QPointF> m_pBrakeQVector;
-    quint64 m_refreshCounter;
+
+    QVector<QPointF> m_pAccelVector;
+    QVector<QPointF> m_pBrakeVector;
+    float m_refreshCounter;
+
     QChartView* m_pAccelView;
     QChartView* m_pBrakeView;
+
+    QValueAxis* m_pAxisXAccel;
+    QValueAxis* m_pAxisYAccel;
+    QValueAxis* m_pAxisXBrake;
+    QValueAxis* m_pAxisYBrake;
+
+    const int m_xAxisLength = 10;
     const int m_maxDataPoints = 100;
 
     // variables
