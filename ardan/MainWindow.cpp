@@ -223,6 +223,12 @@ void MainWindow::UpdatePlots() {
     UpdateAccelPlot();
     UpdateBrakePlot();
 
+    m_pCarData->setPedal0(ui->spinBox->value());
+    m_pCarData->setPedal1(ui->spinBox->value());
+
+    m_pCarData->setBrakesFront(ui->spinBox_2->value());
+    m_pCarData->setBrakesRear(ui->spinBox_2->value());
+
     // update counter
     m_refreshCounter = m_refreshCounter + ((float)PLOTS_UPDATE_INTERVAL / 1000);
 }
@@ -237,7 +243,7 @@ void MainWindow::UpdateAccelPlot()
     int maxX = 20;
     float average, mappedValue;
     QPointF tmpQPoint;
-    int newMin;
+    float newMin;
 
     // convert raw data to QPoint
     m_pAccelVector.reserve(maxX);
@@ -266,7 +272,7 @@ void MainWindow::UpdateAccelPlot()
     // }
 
     // update chart bounds
-    newMin = m_refreshCounter - m_xAxisLength;
+    newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
         m_pAxisXAccel->setMin(newMin);
     }
@@ -285,7 +291,7 @@ void MainWindow::UpdateBrakePlot()
     int maxX = 20;
     float average, mappedValue;
     QPointF tmpQPoint;
-    int newMin;
+    float newMin;
 
     // convert raw data to QPoint
     m_pBrakeVector.reserve(maxX);
@@ -314,7 +320,7 @@ void MainWindow::UpdateBrakePlot()
     // }
 
     // update chart bounds
-    newMin = m_refreshCounter - m_xAxisLength;
+    newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
         m_pAxisXBrake->setMin(newMin);
     }

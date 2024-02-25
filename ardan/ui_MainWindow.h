@@ -98,6 +98,8 @@ public:
     QDoubleSpinBox *maxCellVoltageSbx;
     QDoubleSpinBox *minCellVoltageSbx;
     QDoubleSpinBox *maxCellTempSbx;
+    QSpinBox *spinBox;
+    QSpinBox *spinBox_2;
     QWidget *widget2;
     QGridLayout *gridLayout_3;
     QGridLayout *DriveModeGridLayout;
@@ -468,6 +470,14 @@ public:
 
         verticalLayout_3->addLayout(gridLayout_2);
 
+        spinBox = new QSpinBox(centralwidget);
+        spinBox->setObjectName("spinBox");
+        spinBox->setGeometry(QRect(870, 510, 45, 27));
+        spinBox->setMaximum(255);
+        spinBox_2 = new QSpinBox(centralwidget);
+        spinBox_2->setObjectName("spinBox_2");
+        spinBox_2->setGeometry(QRect(880, 580, 45, 27));
+        spinBox_2->setMaximum(255);
         widget2 = new QWidget(centralwidget);
         widget2->setObjectName("widget2");
         widget2->setGeometry(QRect(920, 30, 351, 231));
