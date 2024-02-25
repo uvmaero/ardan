@@ -16,7 +16,7 @@
 #include <QtWidgets/QDoubleSpinBox>
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QGroupBox>
-#include <QtWidgets/QLCDNumber>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QMainWindow>
@@ -39,14 +39,18 @@ public:
     QAction *actionSelect_Serial_Port;
     QWidget *centralwidget;
     QGroupBox *MechanicalDataGroupBox;
-    QLabel *BrakePedalImage;
-    QLabel *AccelPedalImage;
-    QLabel *BrakePedalLbl;
+    QWidget *widget;
+    QVBoxLayout *verticalLayout_4;
+    QWidget *accelPlot;
+    QHBoxLayout *horizontalLayout;
     QLabel *AccelPedalLbl;
-    QProgressBar *BrakePedalProgressBar;
     QProgressBar *AccelPedalProgressBar;
-    QLabel *SpeedLbl;
-    QLCDNumber *CurrentSpeedLCD;
+    QWidget *widget1;
+    QVBoxLayout *verticalLayout_5;
+    QWidget *accelPlot_2;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *BrakePedalLbl;
+    QProgressBar *BrakePedalProgressBar;
     QGroupBox *groupBox_2;
     QLabel *BatteryImage;
     QProgressBar *BatteryPrecentageProgressBar;
@@ -94,35 +98,32 @@ public:
     QDoubleSpinBox *maxCellVoltageSbx;
     QDoubleSpinBox *minCellVoltageSbx;
     QDoubleSpinBox *maxCellTempSbx;
-    QLabel *CarImage;
-    QWidget *layoutWidget3;
-    QGridLayout *FRWheelGridLayout;
-    QLabel *FRWheelSpeedLbl;
-    QSpinBox *FRWheelSpeedSbx;
-    QLabel *FRWheelHeightLbl;
-    QDoubleSpinBox *FRWheelHeightSbx;
-    QWidget *layoutWidget_2;
-    QGridLayout *BRWheelGridLayout;
-    QLabel *BRWheelSpeedLbl;
-    QSpinBox *BRWheelSpeedSbx;
-    QLabel *BRWheelHeightLbl;
-    QDoubleSpinBox *BRWheelHeightSbx;
-    QWidget *layoutWidget_3;
-    QGridLayout *BLWheelGridLayout;
-    QLabel *BLWheelSpeedLbl;
-    QSpinBox *BLWheelSpeedSbx;
-    QLabel *BLWheelHeightLbl;
-    QDoubleSpinBox *BLWheelHeightSbx;
-    QWidget *layoutWidget4;
+    QWidget *widget2;
+    QGridLayout *gridLayout_3;
+    QGridLayout *DriveModeGridLayout;
+    QLabel *DriveModeLbl;
+    QLineEdit *DriveModeTbx;
     QGridLayout *FLWheelGridLayout;
     QLabel *FLWheelSpeedLbl;
     QSpinBox *FLWheelSpeedSbx;
     QLabel *FLWheelHeightLbl;
     QDoubleSpinBox *FLWheelHeightSbx;
-    QWidget *layoutWidget5;
-    QGridLayout *DriveModeGridLayout;
-    QLabel *DriveModeLbl;
-    QLineEdit *DriveModeTbx;
+    QGridLayout *FRWheelGridLayout;
+    QLabel *FRWheelSpeedLbl;
+    QSpinBox *FRWheelSpeedSbx;
+    QLabel *FRWheelHeightLbl;
+    QDoubleSpinBox *FRWheelHeightSbx;
+    QLabel *CarImage;
+    QGridLayout *BLWheelGridLayout;
+    QLabel *BLWheelSpeedLbl;
+    QSpinBox *BLWheelSpeedSbx;
+    QLabel *BLWheelHeightLbl;
+    QDoubleSpinBox *BLWheelHeightSbx;
+    QGridLayout *BRWheelGridLayout;
+    QLabel *BRWheelSpeedLbl;
+    QSpinBox *BRWheelSpeedSbx;
+    QLabel *BRWheelHeightLbl;
+    QDoubleSpinBox *BRWheelHeightSbx;
     QMenuBar *menubar;
     QMenu *menuOptions;
     QStatusBar *statusbar;
@@ -131,9 +132,14 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1300, 670);
-        MainWindow->setMinimumSize(QSize(1300, 670));
-        MainWindow->setMaximumSize(QSize(1300, 670));
+        MainWindow->resize(1694, 1038);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(0, 0));
+        MainWindow->setMaximumSize(QSize(9999, 9999));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/images/bessieIcon.ico"), QSize(), QIcon::Normal, QIcon::Off);
         MainWindow->setWindowIcon(icon);
@@ -148,39 +154,73 @@ public:
         centralwidget->setObjectName("centralwidget");
         MechanicalDataGroupBox = new QGroupBox(centralwidget);
         MechanicalDataGroupBox->setObjectName("MechanicalDataGroupBox");
-        MechanicalDataGroupBox->setGeometry(QRect(10, 10, 411, 611));
-        BrakePedalImage = new QLabel(MechanicalDataGroupBox);
-        BrakePedalImage->setObjectName("BrakePedalImage");
-        BrakePedalImage->setGeometry(QRect(50, 380, 101, 151));
-        AccelPedalImage = new QLabel(MechanicalDataGroupBox);
-        AccelPedalImage->setObjectName("AccelPedalImage");
-        AccelPedalImage->setGeometry(QRect(270, 380, 111, 151));
-        BrakePedalLbl = new QLabel(MechanicalDataGroupBox);
-        BrakePedalLbl->setObjectName("BrakePedalLbl");
-        BrakePedalLbl->setGeometry(QRect(60, 580, 62, 16));
-        BrakePedalLbl->setAlignment(Qt::AlignCenter);
-        AccelPedalLbl = new QLabel(MechanicalDataGroupBox);
+        MechanicalDataGroupBox->setGeometry(QRect(20, 30, 651, 951));
+        widget = new QWidget(MechanicalDataGroupBox);
+        widget->setObjectName("widget");
+        widget->setGeometry(QRect(10, 80, 631, 331));
+        verticalLayout_4 = new QVBoxLayout(widget);
+        verticalLayout_4->setObjectName("verticalLayout_4");
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        accelPlot = new QWidget(widget);
+        accelPlot->setObjectName("accelPlot");
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(accelPlot->sizePolicy().hasHeightForWidth());
+        accelPlot->setSizePolicy(sizePolicy1);
+
+        verticalLayout_4->addWidget(accelPlot);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName("horizontalLayout");
+        AccelPedalLbl = new QLabel(widget);
         AccelPedalLbl->setObjectName("AccelPedalLbl");
-        AccelPedalLbl->setGeometry(QRect(270, 580, 81, 20));
         AccelPedalLbl->setAlignment(Qt::AlignCenter);
-        BrakePedalProgressBar = new QProgressBar(MechanicalDataGroupBox);
-        BrakePedalProgressBar->setObjectName("BrakePedalProgressBar");
-        BrakePedalProgressBar->setGeometry(QRect(10, 540, 161, 23));
-        BrakePedalProgressBar->setValue(13);
-        AccelPedalProgressBar = new QProgressBar(MechanicalDataGroupBox);
+
+        horizontalLayout->addWidget(AccelPedalLbl);
+
+        AccelPedalProgressBar = new QProgressBar(widget);
         AccelPedalProgressBar->setObjectName("AccelPedalProgressBar");
-        AccelPedalProgressBar->setGeometry(QRect(230, 540, 171, 23));
         AccelPedalProgressBar->setValue(66);
-        SpeedLbl = new QLabel(MechanicalDataGroupBox);
-        SpeedLbl->setObjectName("SpeedLbl");
-        SpeedLbl->setGeometry(QRect(160, 200, 91, 16));
-        CurrentSpeedLCD = new QLCDNumber(MechanicalDataGroupBox);
-        CurrentSpeedLCD->setObjectName("CurrentSpeedLCD");
-        CurrentSpeedLCD->setGeometry(QRect(20, 40, 381, 151));
-        CurrentSpeedLCD->setSmallDecimalPoint(false);
+
+        horizontalLayout->addWidget(AccelPedalProgressBar);
+
+
+        verticalLayout_4->addLayout(horizontalLayout);
+
+        widget1 = new QWidget(MechanicalDataGroupBox);
+        widget1->setObjectName("widget1");
+        widget1->setGeometry(QRect(10, 450, 631, 331));
+        verticalLayout_5 = new QVBoxLayout(widget1);
+        verticalLayout_5->setObjectName("verticalLayout_5");
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        accelPlot_2 = new QWidget(widget1);
+        accelPlot_2->setObjectName("accelPlot_2");
+        sizePolicy1.setHeightForWidth(accelPlot_2->sizePolicy().hasHeightForWidth());
+        accelPlot_2->setSizePolicy(sizePolicy1);
+
+        verticalLayout_5->addWidget(accelPlot_2);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        BrakePedalLbl = new QLabel(widget1);
+        BrakePedalLbl->setObjectName("BrakePedalLbl");
+        BrakePedalLbl->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(BrakePedalLbl);
+
+        BrakePedalProgressBar = new QProgressBar(widget1);
+        BrakePedalProgressBar->setObjectName("BrakePedalProgressBar");
+        BrakePedalProgressBar->setValue(13);
+
+        horizontalLayout_2->addWidget(BrakePedalProgressBar);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_2);
+
         groupBox_2 = new QGroupBox(centralwidget);
         groupBox_2->setObjectName("groupBox_2");
-        groupBox_2->setGeometry(QRect(890, 10, 401, 611));
+        groupBox_2->setGeometry(QRect(1280, 10, 401, 611));
         BatteryImage = new QLabel(groupBox_2);
         BatteryImage->setObjectName("BatteryImage");
         BatteryImage->setGeometry(QRect(70, 20, 271, 91));
@@ -428,121 +468,38 @@ public:
 
         verticalLayout_3->addLayout(gridLayout_2);
 
-        CarImage = new QLabel(centralwidget);
-        CarImage->setObjectName("CarImage");
-        CarImage->setGeometry(QRect(480, 180, 351, 351));
-        CarImage->setAlignment(Qt::AlignCenter);
-        layoutWidget3 = new QWidget(centralwidget);
-        layoutWidget3->setObjectName("layoutWidget3");
-        layoutWidget3->setGeometry(QRect(710, 100, 161, 71));
-        FRWheelGridLayout = new QGridLayout(layoutWidget3);
-        FRWheelGridLayout->setObjectName("FRWheelGridLayout");
-        FRWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        FRWheelSpeedLbl = new QLabel(layoutWidget3);
-        FRWheelSpeedLbl->setObjectName("FRWheelSpeedLbl");
+        widget2 = new QWidget(centralwidget);
+        widget2->setObjectName("widget2");
+        widget2->setGeometry(QRect(920, 30, 351, 231));
+        gridLayout_3 = new QGridLayout(widget2);
+        gridLayout_3->setObjectName("gridLayout_3");
+        gridLayout_3->setContentsMargins(0, 0, 0, 0);
+        DriveModeGridLayout = new QGridLayout();
+        DriveModeGridLayout->setObjectName("DriveModeGridLayout");
+        DriveModeLbl = new QLabel(widget2);
+        DriveModeLbl->setObjectName("DriveModeLbl");
+        DriveModeLbl->setAlignment(Qt::AlignCenter);
 
-        FRWheelGridLayout->addWidget(FRWheelSpeedLbl, 0, 0, 1, 1);
+        DriveModeGridLayout->addWidget(DriveModeLbl, 0, 0, 1, 1);
 
-        FRWheelSpeedSbx = new QSpinBox(layoutWidget3);
-        FRWheelSpeedSbx->setObjectName("FRWheelSpeedSbx");
-        FRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        FRWheelSpeedSbx->setReadOnly(true);
-        FRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        FRWheelSpeedSbx->setMaximum(1000);
+        DriveModeTbx = new QLineEdit(widget2);
+        DriveModeTbx->setObjectName("DriveModeTbx");
+        DriveModeTbx->setAlignment(Qt::AlignCenter);
+        DriveModeTbx->setReadOnly(true);
 
-        FRWheelGridLayout->addWidget(FRWheelSpeedSbx, 0, 1, 1, 1);
+        DriveModeGridLayout->addWidget(DriveModeTbx, 1, 0, 1, 1);
 
-        FRWheelHeightLbl = new QLabel(layoutWidget3);
-        FRWheelHeightLbl->setObjectName("FRWheelHeightLbl");
 
-        FRWheelGridLayout->addWidget(FRWheelHeightLbl, 1, 0, 1, 1);
+        gridLayout_3->addLayout(DriveModeGridLayout, 0, 0, 1, 2);
 
-        FRWheelHeightSbx = new QDoubleSpinBox(layoutWidget3);
-        FRWheelHeightSbx->setObjectName("FRWheelHeightSbx");
-        FRWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        FRWheelHeightSbx->setReadOnly(true);
-        FRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-
-        FRWheelGridLayout->addWidget(FRWheelHeightSbx, 1, 1, 1, 1);
-
-        layoutWidget_2 = new QWidget(centralwidget);
-        layoutWidget_2->setObjectName("layoutWidget_2");
-        layoutWidget_2->setGeometry(QRect(700, 540, 171, 71));
-        BRWheelGridLayout = new QGridLayout(layoutWidget_2);
-        BRWheelGridLayout->setObjectName("BRWheelGridLayout");
-        BRWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        BRWheelSpeedLbl = new QLabel(layoutWidget_2);
-        BRWheelSpeedLbl->setObjectName("BRWheelSpeedLbl");
-
-        BRWheelGridLayout->addWidget(BRWheelSpeedLbl, 0, 0, 1, 1);
-
-        BRWheelSpeedSbx = new QSpinBox(layoutWidget_2);
-        BRWheelSpeedSbx->setObjectName("BRWheelSpeedSbx");
-        BRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        BRWheelSpeedSbx->setReadOnly(true);
-        BRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        BRWheelSpeedSbx->setMaximum(1000);
-
-        BRWheelGridLayout->addWidget(BRWheelSpeedSbx, 0, 1, 1, 1);
-
-        BRWheelHeightLbl = new QLabel(layoutWidget_2);
-        BRWheelHeightLbl->setObjectName("BRWheelHeightLbl");
-
-        BRWheelGridLayout->addWidget(BRWheelHeightLbl, 1, 0, 1, 1);
-
-        BRWheelHeightSbx = new QDoubleSpinBox(layoutWidget_2);
-        BRWheelHeightSbx->setObjectName("BRWheelHeightSbx");
-        BRWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        BRWheelHeightSbx->setReadOnly(true);
-        BRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-
-        BRWheelGridLayout->addWidget(BRWheelHeightSbx, 1, 1, 1, 1);
-
-        layoutWidget_3 = new QWidget(centralwidget);
-        layoutWidget_3->setObjectName("layoutWidget_3");
-        layoutWidget_3->setGeometry(QRect(440, 540, 161, 71));
-        BLWheelGridLayout = new QGridLayout(layoutWidget_3);
-        BLWheelGridLayout->setObjectName("BLWheelGridLayout");
-        BLWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        BLWheelSpeedLbl = new QLabel(layoutWidget_3);
-        BLWheelSpeedLbl->setObjectName("BLWheelSpeedLbl");
-
-        BLWheelGridLayout->addWidget(BLWheelSpeedLbl, 0, 0, 1, 1);
-
-        BLWheelSpeedSbx = new QSpinBox(layoutWidget_3);
-        BLWheelSpeedSbx->setObjectName("BLWheelSpeedSbx");
-        BLWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        BLWheelSpeedSbx->setReadOnly(true);
-        BLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-        BLWheelSpeedSbx->setMaximum(1000);
-
-        BLWheelGridLayout->addWidget(BLWheelSpeedSbx, 0, 1, 1, 1);
-
-        BLWheelHeightLbl = new QLabel(layoutWidget_3);
-        BLWheelHeightLbl->setObjectName("BLWheelHeightLbl");
-
-        BLWheelGridLayout->addWidget(BLWheelHeightLbl, 1, 0, 1, 1);
-
-        BLWheelHeightSbx = new QDoubleSpinBox(layoutWidget_3);
-        BLWheelHeightSbx->setObjectName("BLWheelHeightSbx");
-        BLWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
-        BLWheelHeightSbx->setReadOnly(true);
-        BLWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
-
-        BLWheelGridLayout->addWidget(BLWheelHeightSbx, 1, 1, 1, 1);
-
-        layoutWidget4 = new QWidget(centralwidget);
-        layoutWidget4->setObjectName("layoutWidget4");
-        layoutWidget4->setGeometry(QRect(440, 100, 161, 71));
-        FLWheelGridLayout = new QGridLayout(layoutWidget4);
+        FLWheelGridLayout = new QGridLayout();
         FLWheelGridLayout->setObjectName("FLWheelGridLayout");
-        FLWheelGridLayout->setContentsMargins(0, 0, 0, 0);
-        FLWheelSpeedLbl = new QLabel(layoutWidget4);
+        FLWheelSpeedLbl = new QLabel(widget2);
         FLWheelSpeedLbl->setObjectName("FLWheelSpeedLbl");
 
         FLWheelGridLayout->addWidget(FLWheelSpeedLbl, 0, 0, 1, 1);
 
-        FLWheelSpeedSbx = new QSpinBox(layoutWidget4);
+        FLWheelSpeedSbx = new QSpinBox(widget2);
         FLWheelSpeedSbx->setObjectName("FLWheelSpeedSbx");
         FLWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FLWheelSpeedSbx->setReadOnly(true);
@@ -551,12 +508,12 @@ public:
 
         FLWheelGridLayout->addWidget(FLWheelSpeedSbx, 0, 1, 1, 1);
 
-        FLWheelHeightLbl = new QLabel(layoutWidget4);
+        FLWheelHeightLbl = new QLabel(widget2);
         FLWheelHeightLbl->setObjectName("FLWheelHeightLbl");
 
         FLWheelGridLayout->addWidget(FLWheelHeightLbl, 1, 0, 1, 1);
 
-        FLWheelHeightSbx = new QDoubleSpinBox(layoutWidget4);
+        FLWheelHeightSbx = new QDoubleSpinBox(widget2);
         FLWheelHeightSbx->setObjectName("FLWheelHeightSbx");
         FLWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
         FLWheelHeightSbx->setReadOnly(true);
@@ -564,29 +521,115 @@ public:
 
         FLWheelGridLayout->addWidget(FLWheelHeightSbx, 1, 1, 1, 1);
 
-        layoutWidget5 = new QWidget(centralwidget);
-        layoutWidget5->setObjectName("layoutWidget5");
-        layoutWidget5->setGeometry(QRect(580, 11, 144, 52));
-        DriveModeGridLayout = new QGridLayout(layoutWidget5);
-        DriveModeGridLayout->setObjectName("DriveModeGridLayout");
-        DriveModeGridLayout->setContentsMargins(0, 0, 0, 0);
-        DriveModeLbl = new QLabel(layoutWidget5);
-        DriveModeLbl->setObjectName("DriveModeLbl");
-        DriveModeLbl->setAlignment(Qt::AlignCenter);
 
-        DriveModeGridLayout->addWidget(DriveModeLbl, 0, 0, 1, 1);
+        gridLayout_3->addLayout(FLWheelGridLayout, 1, 0, 1, 1);
 
-        DriveModeTbx = new QLineEdit(layoutWidget5);
-        DriveModeTbx->setObjectName("DriveModeTbx");
-        DriveModeTbx->setAlignment(Qt::AlignCenter);
-        DriveModeTbx->setReadOnly(true);
+        FRWheelGridLayout = new QGridLayout();
+        FRWheelGridLayout->setObjectName("FRWheelGridLayout");
+        FRWheelSpeedLbl = new QLabel(widget2);
+        FRWheelSpeedLbl->setObjectName("FRWheelSpeedLbl");
 
-        DriveModeGridLayout->addWidget(DriveModeTbx, 1, 0, 1, 1);
+        FRWheelGridLayout->addWidget(FRWheelSpeedLbl, 0, 0, 1, 1);
+
+        FRWheelSpeedSbx = new QSpinBox(widget2);
+        FRWheelSpeedSbx->setObjectName("FRWheelSpeedSbx");
+        FRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        FRWheelSpeedSbx->setReadOnly(true);
+        FRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        FRWheelSpeedSbx->setMaximum(1000);
+
+        FRWheelGridLayout->addWidget(FRWheelSpeedSbx, 0, 1, 1, 1);
+
+        FRWheelHeightLbl = new QLabel(widget2);
+        FRWheelHeightLbl->setObjectName("FRWheelHeightLbl");
+
+        FRWheelGridLayout->addWidget(FRWheelHeightLbl, 1, 0, 1, 1);
+
+        FRWheelHeightSbx = new QDoubleSpinBox(widget2);
+        FRWheelHeightSbx->setObjectName("FRWheelHeightSbx");
+        FRWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        FRWheelHeightSbx->setReadOnly(true);
+        FRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+
+        FRWheelGridLayout->addWidget(FRWheelHeightSbx, 1, 1, 1, 1);
+
+
+        gridLayout_3->addLayout(FRWheelGridLayout, 1, 1, 1, 1);
+
+        CarImage = new QLabel(widget2);
+        CarImage->setObjectName("CarImage");
+        CarImage->setAlignment(Qt::AlignCenter);
+
+        gridLayout_3->addWidget(CarImage, 2, 0, 1, 2);
+
+        BLWheelGridLayout = new QGridLayout();
+        BLWheelGridLayout->setObjectName("BLWheelGridLayout");
+        BLWheelSpeedLbl = new QLabel(widget2);
+        BLWheelSpeedLbl->setObjectName("BLWheelSpeedLbl");
+
+        BLWheelGridLayout->addWidget(BLWheelSpeedLbl, 0, 0, 1, 1);
+
+        BLWheelSpeedSbx = new QSpinBox(widget2);
+        BLWheelSpeedSbx->setObjectName("BLWheelSpeedSbx");
+        BLWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        BLWheelSpeedSbx->setReadOnly(true);
+        BLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BLWheelSpeedSbx->setMaximum(1000);
+
+        BLWheelGridLayout->addWidget(BLWheelSpeedSbx, 0, 1, 1, 1);
+
+        BLWheelHeightLbl = new QLabel(widget2);
+        BLWheelHeightLbl->setObjectName("BLWheelHeightLbl");
+
+        BLWheelGridLayout->addWidget(BLWheelHeightLbl, 1, 0, 1, 1);
+
+        BLWheelHeightSbx = new QDoubleSpinBox(widget2);
+        BLWheelHeightSbx->setObjectName("BLWheelHeightSbx");
+        BLWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        BLWheelHeightSbx->setReadOnly(true);
+        BLWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+
+        BLWheelGridLayout->addWidget(BLWheelHeightSbx, 1, 1, 1, 1);
+
+
+        gridLayout_3->addLayout(BLWheelGridLayout, 3, 0, 1, 1);
+
+        BRWheelGridLayout = new QGridLayout();
+        BRWheelGridLayout->setObjectName("BRWheelGridLayout");
+        BRWheelSpeedLbl = new QLabel(widget2);
+        BRWheelSpeedLbl->setObjectName("BRWheelSpeedLbl");
+
+        BRWheelGridLayout->addWidget(BRWheelSpeedLbl, 0, 0, 1, 1);
+
+        BRWheelSpeedSbx = new QSpinBox(widget2);
+        BRWheelSpeedSbx->setObjectName("BRWheelSpeedSbx");
+        BRWheelSpeedSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        BRWheelSpeedSbx->setReadOnly(true);
+        BRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+        BRWheelSpeedSbx->setMaximum(1000);
+
+        BRWheelGridLayout->addWidget(BRWheelSpeedSbx, 0, 1, 1, 1);
+
+        BRWheelHeightLbl = new QLabel(widget2);
+        BRWheelHeightLbl->setObjectName("BRWheelHeightLbl");
+
+        BRWheelGridLayout->addWidget(BRWheelHeightLbl, 1, 0, 1, 1);
+
+        BRWheelHeightSbx = new QDoubleSpinBox(widget2);
+        BRWheelHeightSbx->setObjectName("BRWheelHeightSbx");
+        BRWheelHeightSbx->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        BRWheelHeightSbx->setReadOnly(true);
+        BRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::NoButtons);
+
+        BRWheelGridLayout->addWidget(BRWheelHeightSbx, 1, 1, 1, 1);
+
+
+        gridLayout_3->addLayout(BRWheelGridLayout, 3, 1, 1, 1);
 
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1300, 23));
+        menubar->setGeometry(QRect(0, 0, 1694, 23));
         menuOptions = new QMenu(menubar);
         menuOptions->setObjectName("menuOptions");
         MainWindow->setMenuBar(menubar);
@@ -610,12 +653,9 @@ public:
         Dark_Mode->setText(QCoreApplication::translate("MainWindow", "Dark Mode", nullptr));
         About_Dlg->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
         actionSelect_Serial_Port->setText(QCoreApplication::translate("MainWindow", "Select Serial Port", nullptr));
-        MechanicalDataGroupBox->setTitle(QCoreApplication::translate("MainWindow", "Mechanical Data", nullptr));
-        BrakePedalImage->setText(QCoreApplication::translate("MainWindow", "Brake Pedal Image", nullptr));
-        AccelPedalImage->setText(QCoreApplication::translate("MainWindow", "Accelerator Pedal Image", nullptr));
-        BrakePedalLbl->setText(QCoreApplication::translate("MainWindow", "Brake", nullptr));
-        AccelPedalLbl->setText(QCoreApplication::translate("MainWindow", "Accelerator", nullptr));
-        SpeedLbl->setText(QCoreApplication::translate("MainWindow", "Speed (mph)", nullptr));
+        MechanicalDataGroupBox->setTitle(QString());
+        AccelPedalLbl->setText(QCoreApplication::translate("MainWindow", "Accelerator: ", nullptr));
+        BrakePedalLbl->setText(QCoreApplication::translate("MainWindow", "Brake:", nullptr));
         groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Electrical Data", nullptr));
         BatteryImage->setText(QCoreApplication::translate("MainWindow", "Battery Image", nullptr));
         label_2->setText(QCoreApplication::translate("MainWindow", "Pack Information", nullptr));
@@ -641,16 +681,16 @@ public:
         maxCellVoltageLbl->setText(QCoreApplication::translate("MainWindow", "Max Cell Voltage", nullptr));
         maxCellTempLbl->setText(QCoreApplication::translate("MainWindow", "Max Cell Temp", nullptr));
         minCellTempLbl->setText(QCoreApplication::translate("MainWindow", "Min Cell Temp", nullptr));
-        CarImage->setText(QCoreApplication::translate("MainWindow", "Image of Car", nullptr));
-        FRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
-        FRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
-        BRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
-        BRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
-        BLWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
-        BLWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
+        DriveModeLbl->setText(QCoreApplication::translate("MainWindow", "Drive Mode", nullptr));
         FLWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
         FLWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
-        DriveModeLbl->setText(QCoreApplication::translate("MainWindow", "Drive Mode", nullptr));
+        FRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
+        FRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
+        CarImage->setText(QCoreApplication::translate("MainWindow", "Image of Car", nullptr));
+        BLWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
+        BLWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
+        BRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed", nullptr));
+        BRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Suspension", nullptr));
         menuOptions->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
     } // retranslateUi
 

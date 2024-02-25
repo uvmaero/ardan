@@ -8,6 +8,7 @@
 // defines
 #define SERIAL_UPDATE_INTERVAL      10      // in milliseconds, the interval in which the serial bus is read
 #define DISPLAY_UPDATE_INTERVAL     25      // in milliseconds
+#define PLOTS_UPDATE_INTERVAL       500     // in milliseconds
 #define WAIT_TIMEOUT                10      // in milliseconds
 
 
@@ -32,19 +33,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // initialize images
     ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToHeight(ui->CarImage->height()));
-    ui->AccelPedalImage->setPixmap(QPixmap(":/images/go_pedal.jpeg").scaledToHeight(ui->AccelPedalImage->height()));
-    ui->BrakePedalImage->setPixmap(QPixmap(":/images/stop_pedal.jpeg").scaledToHeight(ui->BrakePedalImage->height()));
     ui->BatteryImage->setPixmap(QPixmap(":/images/battery.png").scaledToWidth(ui->BatteryImage->width()));
 
     // init data classes
     m_pCarData = new CarData();
     m_pDataManager = new DataManager();
 
+    // init plots
+    SetupPlotting();
+
     // init timers
     m_pUpdateDataTimer = new QTimer();
     m_pUpdateDataTimer->setInterval(DISPLAY_UPDATE_INTERVAL);
     connect(m_pUpdateDataTimer, SIGNAL(timeout()), this, SLOT(UpdateWindow()));
     m_pUpdateDataTimer->start();
+
+    m_pPlotDataTimer = new QTimer();
+    m_pPlotDataTimer->setInterval(PLOTS_UPDATE_INTERVAL);
+    connect(m_pPlotDataTimer, SIGNAL(timeout()), this, SLOT(UpdatePlots()));
+    m_pPlotDataTimer->start();
 
     // connect signals and slots
     connect(m_portSelectDialog, SIGNAL(sPortSelected(QString)), this, SLOT(GetPortName(QString)));
@@ -54,6 +61,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 }
 
 
+/**
+ * @brief MainWindow::UpdateWindow
+ */
 void MainWindow::UpdateWindow() {
     // attempt to start serial thread
     if (!m_portName.isEmpty())
@@ -72,7 +82,6 @@ void MainWindow::UpdateWindow() {
  */
 void MainWindow::UpdateMechanicalData() {
     // update current speed
-    ui->CurrentSpeedLCD->display(m_pCarData->getCurrentSpeed());
 
     // update steering wheel position
 
@@ -196,6 +205,72 @@ void MainWindow::UpdateElectricalData() {
         ui->prechargeStateTbx->setText("BROKEN :/");
     }
 
+}
+
+
+/**
+ * @brief MainWindow::UpdatePlots
+ */
+void MainWindow::UpdatePlots()
+{
+    // inits
+    int maxX = 20;
+    float average;
+    QPointF tmpQPoint;
+
+    // convert raw data to QPoint
+    m_pAccelQVector.reserve(maxX);
+    average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
+    qDebug() << "average: " << average;
+    tmpQPoint.setY(average);
+    tmpQPoint.setX(m_refreshCounter);
+
+    // Keep a fixed number of data points to create the scrolling effect
+    if (m_pAccelQVector.size() > m_maxDataPoints) {
+        m_pAccelQVector.removeFirst();
+    }
+
+    // Update the series with the new data
+    // m_pAccelSeries->clear();
+    for (const QPointF &point : m_pAccelQVector) {
+        m_pAccelSeries->append(point);
+    }
+
+    // update counter
+    m_refreshCounter+=(1 / PLOTS_UPDATE_INTERVAL);
+}
+
+
+
+/**
+ * @brief MainWindow::SetupPlotting
+ */
+void MainWindow::SetupPlotting()
+{
+    // inits
+    m_pAccelChart = new QChart();
+    m_pBrakeChart = new QChart();
+    m_pAccelView = new QChartView(this);
+    m_pBrakeView = new QChartView(this);
+
+    m_refreshCounter = 0;
+
+    // Create the QChartView widget
+    QVBoxLayout *layout = new QVBoxLayout(ui->accelPlot);
+    layout->addWidget(m_pAccelView);
+    layout->expandingDirections();
+
+    // Set up the chart properties
+    m_pAccelView->setChart(m_pAccelChart);
+    m_pAccelChart->setMaximumHeight(ui->accelPlot->maximumHeight());
+    m_pAccelChart->setMaximumWidth(ui->accelPlot->maximumWidth());
+
+    m_pAccelSeries = new QLineSeries();
+    m_pAccelChart->addSeries(m_pAccelSeries);
+
+    m_pAccelChart->createDefaultAxes();
+    m_pAccelChart->axisX()->setRange(0, m_maxDataPoints);
+    m_pAccelChart->axisY()->setRange(0, 256);
 }
 
 

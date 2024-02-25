@@ -6,20 +6,26 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1300</width>
-    <height>670</height>
+    <width>1694</width>
+    <height>1038</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1300</width>
-    <height>670</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>1300</width>
-    <height>670</height>
+    <width>9999</width>
+    <height>9999</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -33,130 +39,106 @@
    <widget class="QGroupBox" name="MechanicalDataGroupBox">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>411</width>
-      <height>611</height>
+      <x>20</x>
+      <y>30</y>
+      <width>651</width>
+      <height>951</height>
      </rect>
     </property>
     <property name="title">
-     <string>Mechanical Data</string>
+     <string/>
     </property>
-    <widget class="QLabel" name="BrakePedalImage">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>380</y>
-       <width>101</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Brake Pedal Image</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="AccelPedalImage">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>380</y>
-       <width>111</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Accelerator Pedal Image</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="BrakePedalLbl">
-     <property name="geometry">
-      <rect>
-       <x>60</x>
-       <y>580</y>
-       <width>62</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Brake</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="AccelPedalLbl">
-     <property name="geometry">
-      <rect>
-       <x>270</x>
-       <y>580</y>
-       <width>81</width>
-       <height>20</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Accelerator</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-    <widget class="QProgressBar" name="BrakePedalProgressBar">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>540</y>
-       <width>161</width>
-       <height>23</height>
+       <y>80</y>
+       <width>631</width>
+       <height>331</height>
       </rect>
      </property>
-     <property name="value">
-      <number>13</number>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_4">
+      <item>
+       <widget class="QWidget" name="accelPlot" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="AccelPedalLbl">
+          <property name="text">
+           <string>Accelerator: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="AccelPedalProgressBar">
+          <property name="value">
+           <number>66</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
-    <widget class="QProgressBar" name="AccelPedalProgressBar">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>230</x>
-       <y>540</y>
-       <width>171</width>
-       <height>23</height>
+       <x>10</x>
+       <y>450</y>
+       <width>631</width>
+       <height>331</height>
       </rect>
      </property>
-     <property name="value">
-      <number>66</number>
-     </property>
-    </widget>
-    <widget class="QLabel" name="SpeedLbl">
-     <property name="geometry">
-      <rect>
-       <x>160</x>
-       <y>200</y>
-       <width>91</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Speed (mph)</string>
-     </property>
-    </widget>
-    <widget class="QLCDNumber" name="CurrentSpeedLCD">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>40</y>
-       <width>381</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="smallDecimalPoint">
-      <bool>false</bool>
-     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QWidget" name="accelPlot_2" native="true">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="BrakePedalLbl">
+          <property name="text">
+           <string>Brake:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QProgressBar" name="BrakePedalProgressBar">
+          <property name="value">
+           <number>13</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox_2">
     <property name="geometry">
      <rect>
-      <x>890</x>
+      <x>1280</x>
       <y>10</y>
       <width>401</width>
       <height>611</height>
@@ -596,271 +578,237 @@
      </layout>
     </widget>
    </widget>
-   <widget class="QLabel" name="CarImage">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>480</x>
-      <y>180</y>
+      <x>920</x>
+      <y>30</y>
       <width>351</width>
-      <height>351</height>
+      <height>231</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Image of Car</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>100</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="FRWheelGridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="FRWheelSpeedLbl">
-       <property name="text">
-        <string>Wheel Speed</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="FRWheelSpeedSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-      </widget>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0" colspan="2">
+      <layout class="QGridLayout" name="DriveModeGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="DriveModeLbl">
+         <property name="text">
+          <string>Drive Mode</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLineEdit" name="DriveModeTbx">
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="FRWheelHeightLbl">
-       <property name="text">
-        <string>Suspension</string>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="FLWheelGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="FLWheelSpeedLbl">
+         <property name="text">
+          <string>Wheel Speed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="FLWheelSpeedSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="FLWheelHeightLbl">
+         <property name="text">
+          <string>Suspension</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="FLWheelHeightSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="FRWheelHeightSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-      </widget>
+      <layout class="QGridLayout" name="FRWheelGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="FRWheelSpeedLbl">
+         <property name="text">
+          <string>Wheel Speed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="FRWheelSpeedSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="FRWheelHeightLbl">
+         <property name="text">
+          <string>Suspension</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="FRWheelHeightSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>700</x>
-      <y>540</y>
-      <width>171</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="BRWheelGridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="BRWheelSpeedLbl">
+     <item row="2" column="0" colspan="2">
+      <widget class="QLabel" name="CarImage">
        <property name="text">
-        <string>Wheel Speed</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="BRWheelSpeedSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="BRWheelHeightLbl">
-       <property name="text">
-        <string>Suspension</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="BRWheelHeightSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget_3">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>540</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="BLWheelGridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="BLWheelSpeedLbl">
-       <property name="text">
-        <string>Wheel Speed</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="BLWheelSpeedSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="BLWheelHeightLbl">
-       <property name="text">
-        <string>Suspension</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="BLWheelHeightSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>440</x>
-      <y>100</y>
-      <width>161</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="FLWheelGridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="FLWheelSpeedLbl">
-       <property name="text">
-        <string>Wheel Speed</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QSpinBox" name="FLWheelSpeedSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-       <property name="maximum">
-        <number>1000</number>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="FLWheelHeightLbl">
-       <property name="text">
-        <string>Suspension</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QDoubleSpinBox" name="FLWheelHeightSbx">
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="buttonSymbols">
-        <enum>QAbstractSpinBox::NoButtons</enum>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QWidget" name="layoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>580</x>
-      <y>11</y>
-      <width>144</width>
-      <height>52</height>
-     </rect>
-    </property>
-    <layout class="QGridLayout" name="DriveModeGridLayout">
-     <item row="0" column="0">
-      <widget class="QLabel" name="DriveModeLbl">
-       <property name="text">
-        <string>Drive Mode</string>
+        <string>Image of Car</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="DriveModeTbx">
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
+     <item row="3" column="0">
+      <layout class="QGridLayout" name="BLWheelGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="BLWheelSpeedLbl">
+         <property name="text">
+          <string>Wheel Speed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="BLWheelSpeedSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="BLWheelHeightLbl">
+         <property name="text">
+          <string>Suspension</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="BLWheelHeightSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="3" column="1">
+      <layout class="QGridLayout" name="BRWheelGridLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="BRWheelSpeedLbl">
+         <property name="text">
+          <string>Wheel Speed</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="BRWheelSpeedSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+         <property name="maximum">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="BRWheelHeightLbl">
+         <property name="text">
+          <string>Suspension</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QDoubleSpinBox" name="BRWheelHeightSbx">
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="buttonSymbols">
+          <enum>QAbstractSpinBox::NoButtons</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
     </layout>
    </widget>
@@ -870,7 +818,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1300</width>
+     <width>1694</width>
      <height>23</height>
     </rect>
    </property>
