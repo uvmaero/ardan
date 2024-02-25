@@ -32,7 +32,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_portSelectDialog = new PortSelectDialog();
 
     // initialize images
-    ui->CarImage->setPixmap(QPixmap(":/images/car.jpeg").scaledToHeight(ui->CarImage->height()));
     ui->BatteryImage->setPixmap(QPixmap(":/images/battery.png").scaledToWidth(ui->BatteryImage->width()));
 
     // init data classes
@@ -222,7 +221,9 @@ void MainWindow::UpdatePlots() {
     // update plotss
     UpdateAccelPlot();
     UpdateBrakePlot();
+    UpdateSpeedPlot();
 
+    // for testing
     m_pCarData->setPedal0(ui->spinBox->value());
     m_pCarData->setPedal1(ui->spinBox->value());
 
@@ -240,29 +241,28 @@ void MainWindow::UpdatePlots() {
 void MainWindow::UpdateAccelPlot()
 {
     // inits
-    int maxX = 20;
     float average, mappedValue;
     QPointF tmpQPoint;
     float newMin;
 
     // convert raw data to QPoint
-    m_pAccelVector.reserve(maxX);
+    m_AccelVector.reserve(m_maxDataPoints);
     average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
     mappedValue = mapValue(average, 0, 255, 0, 100);
     tmpQPoint.setY(mappedValue);
     tmpQPoint.setX(m_refreshCounter);
 
     // Keep a fixed number of data points to create the scrolling effect
-    if (m_pAccelVector.size() >= m_maxDataPoints) {
-        m_pAccelVector.removeFirst();
+    if (m_AccelVector.size() >= m_maxDataPoints) {
+        m_AccelVector.removeFirst();
     }
     else {
-        m_pAccelVector.append(tmpQPoint);
+        m_AccelVector.append(tmpQPoint);
     }
 
     // Update the series with the new data
     m_pAccelSeries->clear();
-    for (const QPointF &point : m_pAccelVector) {
+    for (const QPointF &point : m_AccelVector) {
         m_pAccelSeries->append(point);
     }
 
@@ -288,29 +288,28 @@ void MainWindow::UpdateAccelPlot()
 void MainWindow::UpdateBrakePlot()
 {
     // inits
-    int maxX = 20;
     float average, mappedValue;
     QPointF tmpQPoint;
     float newMin;
 
     // convert raw data to QPoint
-    m_pBrakeVector.reserve(maxX);
+    m_BrakeVector.reserve(m_maxDataPoints);
     average = (m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2;
     mappedValue = mapValue(average, 0, 255, 0, 100);
     tmpQPoint.setY(mappedValue);
     tmpQPoint.setX(m_refreshCounter);
 
     // Keep a fixed number of data points to create the scrolling effect
-    if (m_pBrakeVector.size() >= m_maxDataPoints) {
-        m_pBrakeVector.removeFirst();
+    if (m_BrakeVector.size() >= m_maxDataPoints) {
+        m_BrakeVector.removeFirst();
     }
     else {
-        m_pBrakeVector.append(tmpQPoint);
+        m_BrakeVector.append(tmpQPoint);
     }
 
     // Update the series with the new data
     m_pBrakeSeries->clear();
-    for (const QPointF &point : m_pBrakeVector) {
+    for (const QPointF &point : m_BrakeVector) {
         m_pBrakeSeries->append(point);
     }
 
@@ -331,6 +330,50 @@ void MainWindow::UpdateBrakePlot()
 
 
 /**
+ * @brief MainWindow::UpdateSpeedPlot
+ */
+void MainWindow::UpdateSpeedPlot()
+{
+    // inits
+    QPointF tmpQPoint;
+    float newMin;
+
+    // convert raw data to QPoint
+    m_speedVector.reserve(m_maxDataPoints);
+    tmpQPoint.setY(m_pCarData->getCurrentSpeed());
+    tmpQPoint.setX(m_refreshCounter);
+
+    // Keep a fixed number of data points to create the scrolling effect
+    if (m_speedVector.size() >= m_maxDataPoints) {
+        m_speedVector.removeFirst();
+    }
+    else {
+        m_speedVector.append(tmpQPoint);
+    }
+
+    // Update the series with the new data
+    m_pBrakeSeries->clear();
+    for (const QPointF &point : m_speedVector) {
+        m_pSpeedSeries->append(point);
+    }
+
+    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
+    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
+
+    // }
+
+    // update chart bounds
+    newMin = m_refreshCounter - (float)m_xAxisLength;
+    if (newMin > 0) {
+        m_pAxisXSpeed->setMin(newMin);
+    }
+    if (m_refreshCounter > m_xAxisLength) {
+        m_pAxisXSpeed->setMax(m_refreshCounter);
+    }
+}
+
+
+/**
  * @brief MainWindow::SetupPlotting
  */
 void MainWindow::SetupPlotting()
@@ -338,13 +381,24 @@ void MainWindow::SetupPlotting()
     // inits
     m_pAccelChart = new QChart();
     m_pBrakeChart = new QChart();
+    m_pSpeedChart = new QChart();
+
     m_pAccelView = new QChartView(this);
     m_pBrakeView = new QChartView(this);
+    m_pSpeedView = new QChartView(this);
+
     m_pAxisXAccel = new QValueAxis;
     m_pAxisYAccel = new QValueAxis;
+
     m_pAxisXBrake = new QValueAxis;
     m_pAxisYBrake = new QValueAxis;
+
+    m_pAxisXSpeed = new QValueAxis;
+    m_pAxisYSpeed = new QValueAxis;
+
     m_refreshCounter = 0;
+
+    // --- accel --- //
 
     // Create the QChartView widget
     QVBoxLayout *accelLayout = new QVBoxLayout(ui->accelPlot);
@@ -356,6 +410,7 @@ void MainWindow::SetupPlotting()
     m_pAccelChart->setMaximumHeight(ui->accelPlot->maximumHeight());
     m_pAccelChart->setMaximumWidth(ui->accelPlot->maximumWidth());
     m_pAccelChart->legend()->hide();
+    m_pAccelChart->setTitle("Accelerator Pedal RT Plot");
 
     m_pAccelSeries = new QLineSeries();
     m_pAccelChart->addSeries(m_pAccelSeries);
@@ -364,16 +419,18 @@ void MainWindow::SetupPlotting()
     m_pAxisXAccel->setLabelFormat("%.2f");
     m_pAxisXAccel->setMax(m_xAxisLength);
     m_pAxisXAccel->setMin(0);
+    m_pAxisXAccel->setTitleText("time (sec)");
     m_pAccelChart->addAxis(m_pAxisXAccel, Qt::AlignBottom);
     m_pAccelSeries->attachAxis(m_pAxisXAccel);
 
     m_pAxisYAccel->setLabelFormat("%.1f");
     m_pAxisYAccel->setMax(100);
     m_pAxisYAccel->setMin(0);
+    m_pAxisYAccel->setTitleText("pedal value");
     m_pAccelChart->addAxis(m_pAxisYAccel, Qt::AlignLeft);
     m_pAccelSeries->attachAxis(m_pAxisYAccel);
 
-    // --- do the same thing for brakes ---
+    // --- brakes --- //
 
     // Create the QChartView widget
     QVBoxLayout *brakeLayout = new QVBoxLayout(ui->brakePlot);
@@ -385,6 +442,7 @@ void MainWindow::SetupPlotting()
     m_pBrakeChart->setMaximumHeight(ui->brakePlot->maximumHeight());
     m_pBrakeChart->setMaximumWidth(ui->brakePlot->maximumWidth());
     m_pBrakeChart->legend()->hide();
+    m_pBrakeChart->setTitle("Brake Pedal RT Plot");
 
     m_pBrakeSeries = new QLineSeries();
     m_pBrakeChart->addSeries(m_pBrakeSeries);
@@ -393,14 +451,48 @@ void MainWindow::SetupPlotting()
     m_pAxisXBrake->setLabelFormat("%.2f");
     m_pAxisXBrake->setMax(m_xAxisLength);
     m_pAxisXBrake->setMin(0);
+    m_pAxisXBrake->setTitleText("time (sec)");
     m_pBrakeChart->addAxis(m_pAxisXBrake, Qt::AlignBottom);
     m_pBrakeSeries->attachAxis(m_pAxisXBrake);
 
     m_pAxisYBrake->setLabelFormat("%.1f");
     m_pAxisYBrake->setMax(100);
     m_pAxisYBrake->setMin(0);
+    m_pAxisYBrake->setTitleText("pedal value");
     m_pBrakeChart->addAxis(m_pAxisYBrake, Qt::AlignLeft);
     m_pBrakeSeries->attachAxis(m_pAxisYBrake);
+
+    // --- speed --- //
+
+    // Create the QChartView widget
+    QVBoxLayout *speedLayout = new QVBoxLayout(ui->speedPlot);
+    speedLayout->addWidget(m_pSpeedView);
+    speedLayout->expandingDirections();
+
+    // Set up the chart properties
+    m_pSpeedView->setChart(m_pSpeedChart);
+    m_pSpeedChart->setMaximumHeight(ui->speedPlot->maximumHeight());
+    m_pSpeedChart->setMaximumWidth(ui->speedPlot->maximumWidth());
+    m_pSpeedChart->legend()->hide();
+    m_pSpeedChart->setTitle("Speed Plot");
+
+    m_pSpeedSeries = new QLineSeries();
+    m_pSpeedChart->addSeries(m_pSpeedSeries);
+
+    // do axis
+    m_pAxisXSpeed->setLabelFormat("%.2f");
+    m_pAxisXSpeed->setMax(m_xAxisLength);
+    m_pAxisXSpeed->setMin(0);
+    m_pAxisXSpeed->setTitleText("time (sec)");
+    m_pSpeedChart->addAxis(m_pAxisXSpeed, Qt::AlignBottom);
+    m_pSpeedSeries->attachAxis(m_pAxisXSpeed);
+
+    m_pAxisYSpeed->setLabelFormat("%.1f");
+    m_pAxisYSpeed->setMax(50);
+    m_pAxisYSpeed->setMin(0);
+    m_pAxisYSpeed->setTitleText("mph");
+    m_pSpeedChart->addAxis(m_pAxisYSpeed, Qt::AlignLeft);
+    m_pSpeedSeries->attachAxis(m_pAxisYSpeed);
 }
 
 
