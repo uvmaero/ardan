@@ -36,6 +36,7 @@ public:
     // gui updates
     void UpdateMechanicalData();
     void UpdateElectricalData();
+    void UpdateTelemetryData();
 
     void SetupPlotting();
     void UpdateAccelPlot();

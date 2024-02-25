@@ -58,13 +58,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     // init variables
     m_portName = "";
-
-    m_pCarData->setPedal0(128);
-    m_pCarData->setPedal1(128);
-    m_pCarData->setBrakesFront(128);
-    m_pCarData->setBrakesRear(128);
-
-    m_pCarData->setSteeringWheelDeflection(90);
 }
 
 
@@ -81,6 +74,7 @@ void MainWindow::UpdateWindow() {
     // Update Data
     UpdateMechanicalData();
     UpdateElectricalData();
+    UpdateTelemetryData();
 }
 
 
@@ -164,10 +158,10 @@ void MainWindow::UpdateElectricalData() {
 
     // drive direction
     if (!m_pCarData->getDriveDirection()) {      // forward is false
-        ui->DriveDirectionTbx->setText("FORWARD");
+        ui->driveDirectionTbx->setText("FORWARD");
     }
     else {
-        ui->DriveDirectionTbx->setText("REVERSE");
+        ui->driveDirectionTbx->setText("REVERSE");
     }
 
     // inverter
@@ -178,9 +172,24 @@ void MainWindow::UpdateElectricalData() {
         ui->InverterStatusLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->InverterStatusLED->height()));
     }
 
-
     // commanded torque
     ui->CommandedTorqueSbx->setValue(m_pCarData->getCommandedTorque());
+
+    // vicore enable
+    if (m_pCarData->getVicoreEnable()) {
+        ui->vicoreEnableLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->vicoreEnableLED->height()));
+    }
+    else {
+        ui->vicoreEnableLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->vicoreEnableLED->height()));
+    }
+
+    // vicore fault
+    if (m_pCarData->getVicoreFault()) {
+        ui->vicoreFaultLED->setPixmap(QPixmap(":/images/active.png").scaledToHeight(ui->vicoreEnableLED->height()));
+    }
+    else {
+        ui->vicoreFaultLED->setPixmap(QPixmap(":/images/inactive.png").scaledToHeight(ui->vicoreEnableLED->height()));
+    }
 
     // soc
     ui->BatteryPrecentageProgressBar->setValue(m_pCarData->getBatteryChargeState());
@@ -195,10 +204,6 @@ void MainWindow::UpdateElectricalData() {
 
     // current
     ui->BusCurrentSbx->setValue(m_pCarData->getPackCurrent());
-
-
-    // temps
-
 
     // precharge
     if (m_pCarData->getPrechargeState() == PRECHARGE_OFF) {
@@ -217,6 +222,14 @@ void MainWindow::UpdateElectricalData() {
     else {
         ui->prechargeStateTbx->setText("BROKEN :/");
     }
+
+}
+
+
+/**
+ * @brief MainWindow::UpdateTelemetryData
+ */
+void MainWindow::UpdateTelemetryData() {
 
 }
 
@@ -268,11 +281,6 @@ void MainWindow::UpdateAccelPlot()
         m_pAccelSeries->append(point);
     }
 
-    // for (int i = 0; i < m_pAccelVector.size(); ++i) {
-    //     qDebug() <<  "[" + QString::number(m_pAccelVector.at(i).x()) + ", " + QString::number(m_pAccelVector.at(i).y()) + "]";
-
-    // }
-
     // update chart bounds
     newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
@@ -315,11 +323,6 @@ void MainWindow::UpdateBrakePlot()
         m_pBrakeSeries->append(point);
     }
 
-    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
-    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
-
-    // }
-
     // update chart bounds
     newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
@@ -359,11 +362,6 @@ void MainWindow::UpdateSpeedPlot()
         m_pSpeedSeries->append(point);
     }
 
-    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
-    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
-
-    // }
-
     // update chart bounds
     newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
@@ -402,11 +400,6 @@ void MainWindow::UpdatePackVoltagePlot()
     for (const QPointF &point : m_packVoltageVector) {
         m_pPackVoltageSeries->append(point);
     }
-
-    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
-    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
-
-    // }
 
     // update chart bounds
     newMin = m_refreshCounter - (float)m_xAxisLength;
@@ -516,7 +509,7 @@ void MainWindow::SetupPlotting()
     m_pAccelChart->addSeries(m_pAccelSeries);
 
     // do axis
-    m_pAxisXAccel->setLabelFormat("%.2f");
+    m_pAxisXAccel->setLabelFormat("%.1f");
     m_pAxisXAccel->setMax(m_xAxisLength);
     m_pAxisXAccel->setMin(0);
     m_pAxisXAccel->setTitleText("time (sec)");
@@ -548,7 +541,7 @@ void MainWindow::SetupPlotting()
     m_pBrakeChart->addSeries(m_pBrakeSeries);
 
     // do axis
-    m_pAxisXBrake->setLabelFormat("%.2f");
+    m_pAxisXBrake->setLabelFormat("%.1f");
     m_pAxisXBrake->setMax(m_xAxisLength);
     m_pAxisXBrake->setMin(0);
     m_pAxisXBrake->setTitleText("time (sec)");
@@ -580,7 +573,7 @@ void MainWindow::SetupPlotting()
     m_pSpeedChart->addSeries(m_pSpeedSeries);
 
     // do axis
-    m_pAxisXSpeed->setLabelFormat("%.2f");
+    m_pAxisXSpeed->setLabelFormat("%.1f");
     m_pAxisXSpeed->setMax(m_xAxisLength);
     m_pAxisXSpeed->setMin(0);
     m_pAxisXSpeed->setTitleText("time (sec)");
@@ -612,7 +605,7 @@ void MainWindow::SetupPlotting()
     m_pPackVoltageChart->addSeries(m_pPackVoltageSeries);
 
     // do axis
-    m_pAxisXPackVoltage->setLabelFormat("%.2f");
+    m_pAxisXPackVoltage->setLabelFormat("%.1f");
     m_pAxisXPackVoltage->setMax(m_xAxisLength);
     m_pAxisXPackVoltage->setMin(0);
     m_pAxisXPackVoltage->setTitleText("time (sec)");
@@ -644,7 +637,7 @@ void MainWindow::SetupPlotting()
     m_pPackCurrentChart->addSeries(m_pPackCurrentSeries);
 
     // do axis
-    m_pAxisXPackCurrent->setLabelFormat("%.2f");
+    m_pAxisXPackCurrent->setLabelFormat("%.1f");
     m_pAxisXPackCurrent->setMax(m_xAxisLength);
     m_pAxisXPackCurrent->setMin(0);
     m_pAxisXPackCurrent->setTitleText("time (sec)");

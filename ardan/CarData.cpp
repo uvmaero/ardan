@@ -28,7 +28,7 @@ CarData::CarData()
     m_bmsFault = true;
     m_coolingTempIn = 0.0f;
     m_coolingTempOut = 0.0f;
-    m_vicoreTemp = 0.0f;
+    m_vicoreFault = false;
     m_frontWheelsSpeed = 0.0f;
     m_wheelSpeedBR = 0.0f;
     m_wheelSpeedBL = 0.0f;
@@ -40,6 +40,7 @@ CarData::CarData()
     m_rearBrakes = 0;
 
     // tractive core - outputs
+    m_vicoreEnable = false;
     m_brakeLightEnable = false;
     m_fansEnable = false;
     m_buzzerEnable = false;
@@ -395,16 +396,16 @@ void CarData::setSteeringWheelDeflection(uint16_t value) {
     m_steeringDeflection = value;
 }
 
-float CarData::getVicoreTemp()  {
+bool CarData::getVicoreFault()  {
     QReadLocker locker(&m_lock);
 
-    return m_vicoreTemp;
+    return m_vicoreFault;
 }
 
-void CarData::setVicoreTemp(float temp) {
+void CarData::setVicoreFault(bool state) {
     QWriteLocker locker(&m_lock);
 
-    m_vicoreTemp = temp;
+    m_vicoreFault = state;
 }
 
 float CarData::getPumpTempIn()  {

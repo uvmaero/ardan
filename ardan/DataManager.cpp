@@ -132,7 +132,7 @@ void DataManager::parseData(QByteArray incomingData)
     // sensors
     m_pCarData->setImdFault(carData.tractiveCoreData.criticalSensors.imdFault);
     m_pCarData->setBmsFault(carData.tractiveCoreData.criticalSensors.bmsFault);
-    m_pCarData->setVicoreTemp(carData.tractiveCoreData.criticalSensors.vicoreFault);
+    m_pCarData->setVicoreFault(carData.tractiveCoreData.criticalSensors.vicoreFault);
     m_pCarData->setPumpTempIn(carData.tractiveCoreData.criticalSensors.coolingTempIn);
     m_pCarData->setPumpTempOut(carData.tractiveCoreData.criticalSensors.coolingTempOut);
     m_pCarData->setFrontWheelsSpeed(carData.tractiveCoreData.criticalSensors.frontWheelsSpeed);

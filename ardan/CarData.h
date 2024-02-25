@@ -72,11 +72,8 @@ public:
     float getPumpTempOut() ;
     void setPumpTempOut(float temp);
 
-    float getVicoreTemp() ;
-    void setVicoreTemp(float temp);
-
-    float getGlvReading();
-    void setGlvReading();
+    bool getVicoreFault() ;
+    void setVicoreFault(bool state);
 
     float getFrontWheelsSpeed() ;
     void setFrontWheelsSpeed(float speed);
@@ -273,7 +270,7 @@ private:
 
     float m_coolingTempIn;
     float m_coolingTempOut;
-    float m_vicoreTemp;
+    bool m_vicoreFault;
 
     float m_frontWheelsSpeed;
     float m_wheelSpeedBR;
