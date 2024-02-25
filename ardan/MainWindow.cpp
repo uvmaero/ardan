@@ -32,7 +32,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_portSelectDialog = new PortSelectDialog();
 
     // initialize images
-    ui->BatteryImage->setPixmap(QPixmap(":/images/battery.png").scaledToWidth(ui->BatteryImage->width()));
+    m_steeringWheel = QPixmap(":/images/steering-wheel.png");
+    ui->steeringDeflectionLblImage->setPixmap(m_steeringWheel);
 
     // init data classes
     m_pCarData = new CarData();
@@ -62,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_pCarData->setPedal1(128);
     m_pCarData->setBrakesFront(128);
     m_pCarData->setBrakesRear(128);
+
+    m_pCarData->setSteeringWheelDeflection(90);
 }
 
 
@@ -86,9 +89,13 @@ void MainWindow::UpdateWindow() {
  */
 void MainWindow::UpdateMechanicalData() {
     // update current speed
+    ui->currentSpeedDataLbl->setText(QString::number(m_pCarData->getCurrentSpeed()));
 
-    // update steering wheel position
-
+    // update steering wheel position (THIS DOES NOT WORK)
+    QTransform rotator;
+    rotator.rotate((float)m_pCarData->getSteeringWheelDeflection());
+    m_steeringWheel.transformed(rotator);
+    ui->steeringDeflectionLblImage->setPixmap(m_steeringWheel.scaledToHeight(ui->steeringDeflectionLblImage->height()));
 
     // update pedal values
     float average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
@@ -222,13 +229,8 @@ void MainWindow::UpdatePlots() {
     UpdateAccelPlot();
     UpdateBrakePlot();
     UpdateSpeedPlot();
-
-    // for testing
-    m_pCarData->setPedal0(ui->spinBox->value());
-    m_pCarData->setPedal1(ui->spinBox->value());
-
-    m_pCarData->setBrakesFront(ui->spinBox_2->value());
-    m_pCarData->setBrakesRear(ui->spinBox_2->value());
+    UpdatePackVoltagePlot();
+    UpdatePackCurrentPlot();
 
     // update counter
     m_refreshCounter = m_refreshCounter + ((float)PLOTS_UPDATE_INTERVAL / 1000);
@@ -246,23 +248,23 @@ void MainWindow::UpdateAccelPlot()
     float newMin;
 
     // convert raw data to QPoint
-    m_AccelVector.reserve(m_maxDataPoints);
+    m_accelVector.reserve(m_maxDataPoints);
     average = (m_pCarData->getPedal0() + m_pCarData->getPedal1()) / 2;
     mappedValue = mapValue(average, 0, 255, 0, 100);
     tmpQPoint.setY(mappedValue);
     tmpQPoint.setX(m_refreshCounter);
 
     // Keep a fixed number of data points to create the scrolling effect
-    if (m_AccelVector.size() >= m_maxDataPoints) {
-        m_AccelVector.removeFirst();
+    if (m_accelVector.size() >= m_maxDataPoints) {
+        m_accelVector.removeFirst();
     }
     else {
-        m_AccelVector.append(tmpQPoint);
+        m_accelVector.append(tmpQPoint);
     }
 
     // Update the series with the new data
     m_pAccelSeries->clear();
-    for (const QPointF &point : m_AccelVector) {
+    for (const QPointF &point : m_accelVector) {
         m_pAccelSeries->append(point);
     }
 
@@ -293,23 +295,23 @@ void MainWindow::UpdateBrakePlot()
     float newMin;
 
     // convert raw data to QPoint
-    m_BrakeVector.reserve(m_maxDataPoints);
+    m_brakeVector.reserve(m_maxDataPoints);
     average = (m_pCarData->getBrakesFront() + m_pCarData->getBrakesRear()) / 2;
     mappedValue = mapValue(average, 0, 255, 0, 100);
     tmpQPoint.setY(mappedValue);
     tmpQPoint.setX(m_refreshCounter);
 
     // Keep a fixed number of data points to create the scrolling effect
-    if (m_BrakeVector.size() >= m_maxDataPoints) {
-        m_BrakeVector.removeFirst();
+    if (m_brakeVector.size() >= m_maxDataPoints) {
+        m_brakeVector.removeFirst();
     }
     else {
-        m_BrakeVector.append(tmpQPoint);
+        m_brakeVector.append(tmpQPoint);
     }
 
     // Update the series with the new data
     m_pBrakeSeries->clear();
-    for (const QPointF &point : m_BrakeVector) {
+    for (const QPointF &point : m_brakeVector) {
         m_pBrakeSeries->append(point);
     }
 
@@ -352,7 +354,7 @@ void MainWindow::UpdateSpeedPlot()
     }
 
     // Update the series with the new data
-    m_pBrakeSeries->clear();
+    m_pSpeedSeries->clear();
     for (const QPointF &point : m_speedVector) {
         m_pSpeedSeries->append(point);
     }
@@ -374,6 +376,94 @@ void MainWindow::UpdateSpeedPlot()
 
 
 /**
+ * @brief MainWindow::UpdatePackVoltagePlot
+ */
+void MainWindow::UpdatePackVoltagePlot()
+{
+    // inits
+    QPointF tmpQPoint;
+    float newMin;
+
+    // convert raw data to QPoint
+    m_packVoltageVector.reserve(m_maxDataPoints);
+    tmpQPoint.setY(m_pCarData->getBusVoltage());
+    tmpQPoint.setX(m_refreshCounter);
+
+    // Keep a fixed number of data points to create the scrolling effect
+    if (m_packVoltageVector.size() >= m_maxDataPoints) {
+        m_packVoltageVector.removeFirst();
+    }
+    else {
+        m_packVoltageVector.append(tmpQPoint);
+    }
+
+    // Update the series with the new data
+    m_pPackVoltageSeries->clear();
+    for (const QPointF &point : m_packVoltageVector) {
+        m_pPackVoltageSeries->append(point);
+    }
+
+    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
+    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
+
+    // }
+
+    // update chart bounds
+    newMin = m_refreshCounter - (float)m_xAxisLength;
+    if (newMin > 0) {
+        m_pAxisXPackVoltage->setMin(newMin);
+    }
+    if (m_refreshCounter > m_xAxisLength) {
+        m_pAxisXPackVoltage->setMax(m_refreshCounter);
+    }
+}
+
+
+/**
+ * @brief MainWindow::UpdatePackCurrentPlot
+ */
+void MainWindow::UpdatePackCurrentPlot()
+{
+    // inits
+    QPointF tmpQPoint;
+    float newMin;
+
+    // convert raw data to QPoint
+    m_pacCurrentVector.reserve(m_maxDataPoints);
+    tmpQPoint.setY(m_pCarData->getPackCurrent());
+    tmpQPoint.setX(m_refreshCounter);
+
+    // Keep a fixed number of data points to create the scrolling effect
+    if (m_pacCurrentVector.size() >= m_maxDataPoints) {
+        m_pacCurrentVector.removeFirst();
+    }
+    else {
+        m_pacCurrentVector.append(tmpQPoint);
+    }
+
+    // Update the series with the new data
+    m_pPackCurrentSeries->clear();
+    for (const QPointF &point : m_pacCurrentVector) {
+        m_pPackCurrentSeries->append(point);
+    }
+
+    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
+    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
+
+    // }
+
+    // update chart bounds
+    newMin = m_refreshCounter - (float)m_xAxisLength;
+    if (newMin > 0) {
+        m_pAxisXPackCurrent->setMin(newMin);
+    }
+    if (m_refreshCounter > m_xAxisLength) {
+        m_pAxisXPackCurrent->setMax(m_refreshCounter);
+    }
+}
+
+
+/**
  * @brief MainWindow::SetupPlotting
  */
 void MainWindow::SetupPlotting()
@@ -382,10 +472,14 @@ void MainWindow::SetupPlotting()
     m_pAccelChart = new QChart();
     m_pBrakeChart = new QChart();
     m_pSpeedChart = new QChart();
+    m_pPackVoltageChart = new QChart();
+    m_pPackCurrentChart = new QChart();
 
     m_pAccelView = new QChartView(this);
     m_pBrakeView = new QChartView(this);
     m_pSpeedView = new QChartView(this);
+    m_pPackVoltageView = new QChartView(this);
+    m_pPackCurrentView = new QChartView(this);
 
     m_pAxisXAccel = new QValueAxis;
     m_pAxisYAccel = new QValueAxis;
@@ -395,6 +489,12 @@ void MainWindow::SetupPlotting()
 
     m_pAxisXSpeed = new QValueAxis;
     m_pAxisYSpeed = new QValueAxis;
+
+    m_pAxisXPackVoltage = new QValueAxis;
+    m_pAxisYPackVoltage = new QValueAxis;
+
+    m_pAxisXPackCurrent = new QValueAxis;
+    m_pAxisYPackCurrent = new QValueAxis;
 
     m_refreshCounter = 0;
 
@@ -410,7 +510,7 @@ void MainWindow::SetupPlotting()
     m_pAccelChart->setMaximumHeight(ui->accelPlot->maximumHeight());
     m_pAccelChart->setMaximumWidth(ui->accelPlot->maximumWidth());
     m_pAccelChart->legend()->hide();
-    m_pAccelChart->setTitle("Accelerator Pedal RT Plot");
+    m_pAccelChart->setTitle("Accelerator Pedal Plot");
 
     m_pAccelSeries = new QLineSeries();
     m_pAccelChart->addSeries(m_pAccelSeries);
@@ -442,7 +542,7 @@ void MainWindow::SetupPlotting()
     m_pBrakeChart->setMaximumHeight(ui->brakePlot->maximumHeight());
     m_pBrakeChart->setMaximumWidth(ui->brakePlot->maximumWidth());
     m_pBrakeChart->legend()->hide();
-    m_pBrakeChart->setTitle("Brake Pedal RT Plot");
+    m_pBrakeChart->setTitle("Brake Pedal Plot");
 
     m_pBrakeSeries = new QLineSeries();
     m_pBrakeChart->addSeries(m_pBrakeSeries);
@@ -493,6 +593,70 @@ void MainWindow::SetupPlotting()
     m_pAxisYSpeed->setTitleText("mph");
     m_pSpeedChart->addAxis(m_pAxisYSpeed, Qt::AlignLeft);
     m_pSpeedSeries->attachAxis(m_pAxisYSpeed);
+
+    // --- pack voltage --- //
+
+    // Create the QChartView widget
+    QVBoxLayout *packVoltageLayout = new QVBoxLayout(ui->packVoltagePlot);
+    packVoltageLayout->addWidget(m_pPackVoltageView);
+    packVoltageLayout->expandingDirections();
+
+    // Set up the chart properties
+    m_pPackVoltageView->setChart(m_pPackVoltageChart);
+    m_pPackVoltageChart->setMaximumHeight(ui->speedPlot->maximumHeight());
+    m_pPackVoltageChart->setMaximumWidth(ui->speedPlot->maximumWidth());
+    m_pPackVoltageChart->legend()->hide();
+    m_pPackVoltageChart->setTitle("Pack Voltage Plot");
+
+    m_pPackVoltageSeries = new QLineSeries();
+    m_pPackVoltageChart->addSeries(m_pPackVoltageSeries);
+
+    // do axis
+    m_pAxisXPackVoltage->setLabelFormat("%.2f");
+    m_pAxisXPackVoltage->setMax(m_xAxisLength);
+    m_pAxisXPackVoltage->setMin(0);
+    m_pAxisXPackVoltage->setTitleText("time (sec)");
+    m_pPackVoltageChart->addAxis(m_pAxisXPackVoltage, Qt::AlignBottom);
+    m_pPackVoltageSeries->attachAxis(m_pAxisXPackVoltage);
+
+    m_pAxisYPackVoltage->setLabelFormat("%.1f");
+    m_pAxisYPackVoltage->setMax(450);
+    m_pAxisYPackVoltage->setMin(0);
+    m_pAxisYPackVoltage->setTitleText("volts");
+    m_pPackVoltageChart->addAxis(m_pAxisYPackVoltage, Qt::AlignLeft);
+    m_pPackVoltageSeries->attachAxis(m_pAxisYPackVoltage);
+
+    // --- pack current --- //
+
+    // Create the QChartView widget
+    QVBoxLayout *packCurrentLayout = new QVBoxLayout(ui->packCurrentPlot);
+    packCurrentLayout->addWidget(m_pPackCurrentView);
+    packCurrentLayout->expandingDirections();
+
+    // Set up the chart properties
+    m_pPackCurrentView->setChart(m_pPackCurrentChart);
+    m_pPackCurrentChart->setMaximumHeight(ui->speedPlot->maximumHeight());
+    m_pPackCurrentChart->setMaximumWidth(ui->speedPlot->maximumWidth());
+    m_pPackCurrentChart->legend()->hide();
+    m_pPackCurrentChart->setTitle("Pack Current Plot");
+
+    m_pPackCurrentSeries = new QLineSeries();
+    m_pPackCurrentChart->addSeries(m_pPackCurrentSeries);
+
+    // do axis
+    m_pAxisXPackCurrent->setLabelFormat("%.2f");
+    m_pAxisXPackCurrent->setMax(m_xAxisLength);
+    m_pAxisXPackCurrent->setMin(0);
+    m_pAxisXPackCurrent->setTitleText("time (sec)");
+    m_pPackCurrentChart->addAxis(m_pAxisXPackCurrent, Qt::AlignBottom);
+    m_pPackCurrentSeries->attachAxis(m_pAxisXPackCurrent);
+
+    m_pAxisYPackCurrent->setLabelFormat("%.1f");
+    m_pAxisYPackCurrent->setMax(175);
+    m_pAxisYPackCurrent->setMin(0);
+    m_pAxisYPackCurrent->setTitleText("amps");
+    m_pPackCurrentChart->addAxis(m_pAxisYPackCurrent, Qt::AlignLeft);
+    m_pPackCurrentSeries->attachAxis(m_pAxisYPackCurrent);
 }
 
 

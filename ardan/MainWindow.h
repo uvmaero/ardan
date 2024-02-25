@@ -18,6 +18,7 @@
 #include <QtCharts/QXYSeries>
 #include <QtCharts/QChartView>
 #include <QtCharts/QValueAxis>
+#include <QTransform>
 
 
 QT_BEGIN_NAMESPACE
@@ -40,6 +41,8 @@ public:
     void UpdateAccelPlot();
     void UpdateBrakePlot();
     void UpdateSpeedPlot();
+    void UpdatePackVoltagePlot();
+    void UpdatePackCurrentPlot();
 
     // helpers
     float mapValue(float x, float in_min, float in_max, float out_min, float out_max);
@@ -48,6 +51,8 @@ private:
     // ui
     Ui::MainWindow *ui;
     QPalette m_defaultPalette;
+    QPixmap m_steeringWheel;
+
 
     // dialogs
     AboutDlg *m_pAboutDlg;
@@ -65,18 +70,26 @@ private:
     QChart* m_pAccelChart;
     QChart* m_pBrakeChart;
     QChart* m_pSpeedChart;
+    QChart* m_pPackVoltageChart;
+    QChart* m_pPackCurrentChart;
 
     QXYSeries* m_pAccelSeries;
     QXYSeries* m_pBrakeSeries;
     QXYSeries* m_pSpeedSeries;
+    QXYSeries* m_pPackVoltageSeries;
+    QXYSeries* m_pPackCurrentSeries;
 
-    QVector<QPointF> m_AccelVector;
-    QVector<QPointF> m_BrakeVector;
+    QVector<QPointF> m_accelVector;
+    QVector<QPointF> m_brakeVector;
     QVector<QPointF> m_speedVector;
+    QVector<QPointF> m_packVoltageVector;
+    QVector<QPointF> m_pacCurrentVector;
 
     QChartView* m_pAccelView;
     QChartView* m_pBrakeView;
     QChartView* m_pSpeedView;
+    QChartView* m_pPackVoltageView;
+    QChartView* m_pPackCurrentView;
 
     QValueAxis* m_pAxisXAccel;
     QValueAxis* m_pAxisYAccel;
@@ -86,6 +99,12 @@ private:
 
     QValueAxis* m_pAxisXSpeed;
     QValueAxis* m_pAxisYSpeed;
+
+    QValueAxis* m_pAxisXPackVoltage;
+    QValueAxis* m_pAxisYPackVoltage;
+
+    QValueAxis* m_pAxisXPackCurrent;
+    QValueAxis* m_pAxisYPackCurrent;
 
     float m_refreshCounter;
     const int m_xAxisLength = 10;

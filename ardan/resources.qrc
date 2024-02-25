@@ -11,6 +11,7 @@
         <file>qt_logo.png</file>
         <file>active.png</file>
         <file>inactive.png</file>
+        <file>steering-wheel.png</file>
     </qresource>
     <qresource prefix="/customWidgets"/>
 </RCC>
