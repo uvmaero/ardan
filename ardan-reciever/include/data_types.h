@@ -222,3 +222,4 @@ typedef struct Debugger
 void PrintDebug();
 void PrintSerialDebug();
 void PrintRecieverDebug_Better();
+void PrintSchedulerDebug();

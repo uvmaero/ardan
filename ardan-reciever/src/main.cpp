@@ -367,7 +367,7 @@ void setup()
  *
  * @param pvParameters parameters passed to task
  */
-void WriteSerialTask(void *pvParameters)
+void SerialWriteTask(void *pvParameters)
 {
   for (;;)
   {
