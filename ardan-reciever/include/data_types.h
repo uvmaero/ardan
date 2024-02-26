@@ -1,34 +1,39 @@
 /**
  * @file dataTypes.h
- * @author Dominic Gasperini
+ * @author dominic gasperini
  * @brief all of the unique data types used to manage the state of the car
- * @version 1.0
- * @date 2023-04-15
- * 
- * @copyright Copyright (c) 2023
- * 
+ * @version 2.0
+ * @date 2024-02-25
  */
 
+/*
+===============================================================================================
+                                    Includes
+===============================================================================================
+*/
 
-// includes
 #include <esp_err.h>
 
+/*
+===============================================================================================
+                                    Data Types
+===============================================================================================
+*/
 
 /**
  * @brief the different throttle modes for to modify driving behavior
- * 
+ *
  */
-typedef enum DriveModes
+typedef enum DriveMode
 {
-  SLOW = 0,
-  ECO = 10,
-  FAST = 20
-} DriveModes;
-
+  SLOW = 1,
+  ECO = 2,
+  FAST = 3,
+} DriveMode;
 
 /**
  * @brief each state that the precharge state machine can be in
- * 
+ *
  */
 typedef enum PrechargeStates
 {
@@ -36,97 +41,162 @@ typedef enum PrechargeStates
   PRECHARGE_ON = 1,
   PRECHARGE_DONE = 2,
   PRECHARGE_ERROR = 3,
-
 } PrechargeStates;
 
-
 /**
- * @brief the entire current state of the car
- * 
+ * @brief tractive state of the core
+ *
  */
-typedef struct CarData
+typedef struct TractiveCoreData
 {
-  struct DrivingData
+  struct Tractive
   {
     bool readyToDrive;
     bool enableInverter;
+
     PrechargeStates prechargeState;
 
-    bool imdFault;
-    bool bmsFault;
+    float rinehartVoltage;
 
     uint16_t commandedTorque;
+
+    bool driveDirection; // true = forward | false = reverse
+    DriveMode driveMode;
+
     float currentSpeed;
-    bool driveDirection;             // true = forward | false = reverse
-    DriveModes driveMode;
-  } drivingData;
-  
-  struct BatteryStatus
-  {
-    float batteryChargeState;
-    float busVoltage;
-    float rinehartVoltage;
-    float pack1Temp;
-    float pack2Temp;
-    float packCurrent;
-    float minCellVoltage;
-    float maxCellVoltage;
-  } batteryStatus;
+
+    bool tractionControlEnable;
+    float tractionControlModifier;
+
+    uint16_t coastRegen;
+    uint16_t brakeRegen;
+  } tractive;
 
   struct Sensors
   {
-    uint8_t rpmCounterFR;
-    uint8_t rpmCounterFL;
-    uint8_t rpmCounterBR;
-    uint8_t rpmCounterBL;
-    uint64_t rpmTimeFR;     // the last time in microseconds that the wheel rpm was calculated at
-    uint64_t rpmTimeFL;
-    uint64_t rpmTimeBR;
-    uint64_t rpmTimeBL;
+    bool imdFault;
+    bool bmsFault;
+    bool vicoreFault;
 
-    float wheelSpeedFR;
-    float wheelSpeedFL;
-    float wheelSpeedBR;
-    float wheelSpeedBL;
+    float coolingTempIn;
+    float coolingTempOut;
 
-    float wheelHeightFR;
-    float wheelHeightFL;
-    float wheelHeightBR;
-    float wheelHeightBL;
+    float frontWheelsSpeed;
+    int16_t frontWheelSpeedCount;
+    int16_t frontWheelSpeedTime;
 
-    uint16_t steeringWheelAngle;
+    float brWheelSpeed;
+    int16_t brWheelSpeedCount;
+    int16_t brWheelSpeedTime;
 
-    float vicoreTemp;
-    float pumpTempIn;
-    float pumpTempOut;
+    float blWheelSpeed;
+    int16_t blWheelSpeedCount;
+    int16_t blWheelSpeedTime;
   } sensors;
 
   struct Inputs
   {
     uint16_t pedal0;
     uint16_t pedal1;
-    uint16_t brakeFront;
-    uint16_t brakeRear;
-    uint16_t brakeRegen;
-    uint16_t coastRegen;
+
+    uint16_t frontBrake;
+    uint16_t rearBrake;
   } inputs;
 
   struct Outputs
   {
-    bool buzzerActive;
-    uint8_t buzzerCounter;
-    bool brakeLight;
-    bool fansActive;
-    bool pumpActive;
+    bool vicoreEnable;
+
+    bool brakeLightEnable;
+
+    bool fansEnable;
+
+    bool buzzerEnable;
   } outputs;
 
-} CarData;
+  struct Orion
+  {
+    float batteryChargeState;
 
+    float busVoltage;
 
+    float packCurrent;
+
+    float minCellVoltage;
+    float maxCellVoltage;
+    float minCellTemp;
+    float maxCellTemp;
+  } orion;
+
+} TractiveCoreData;
+
+/**
+ * @brief telemetry state of the core
+ *
+ */
+typedef struct TelemetryCoreData
+{
+  TractiveCoreData tractiveCoreData;
+
+  struct Dampers
+  {
+    uint8_t frSuspensionDamper;
+    uint8_t flSuspensionDamper;
+    uint8_t brSuspensionDamper;
+    uint8_t blSuspensionDamper;
+  } dampers;
+
+  struct TireTemp
+  {
+    uint8_t frTireTemp;
+    uint8_t flTireTemp;
+    uint8_t brTireTemp;
+    uint8_t blTireTemp;
+  } tireTemp;
+
+  struct Strain
+  {
+    uint8_t frStrain1;
+    uint8_t flStrain1;
+    uint8_t brStrain1;
+    uint8_t blStrain1;
+
+    uint8_t frStrain2;
+    uint8_t flStrain2;
+    uint8_t brStrain2;
+    uint8_t blStrain2;
+  } strain;
+
+  struct Steering
+  {
+    uint16_t steeringWheelDeflection;
+  } steering;
+
+  struct IMU
+  {
+    float xAcceleration;
+    float yAcceleration;
+    float zAcceleration;
+    float xGyro;
+    float yGyro;
+    float zGyro;
+  } imu;
+
+  struct GPS
+  {
+    float latitide;
+    float longitude;
+    float altitude;
+    float speed;
+    uint8_t year;
+    uint8_t month;
+    uint8_t day;
+  } gps;
+} TelemetryCoreData;
 
 /**
  * @brief Debugger Structure
- * 
+ *
  */
 typedef struct Debugger
 {
@@ -138,15 +208,18 @@ typedef struct Debugger
 
   // debug data
   int recievedCount;
-  CarData recievedMessage;
-  CarData serialMessage;
+  TelemetryCoreData recievedMessage;
+  TelemetryCoreData serialMessage;
 
   // scheduler data
-  int serialTaskCount;
+  int serialWriteTaskCount;
+  int serialWritePreviousTaskCount;
+  int ardanReadTaskCount;
+  int ardanReadPreviousTaskCount;
 } Debugger;
-
 
 // debug functions
 void PrintDebug();
 void PrintSerialDebug();
 void PrintRecieverDebug_Better();
+void PrintSchedulerDebug();

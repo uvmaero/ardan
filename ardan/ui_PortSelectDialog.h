@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'PortSelectDialog.ui'
 **
-** Created by: Qt User Interface Compiler version 6.3.1
+** Created by: Qt User Interface Compiler version 6.6.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -31,23 +31,23 @@ public:
     void setupUi(QDialog *PortSelectDialog)
     {
         if (PortSelectDialog->objectName().isEmpty())
-            PortSelectDialog->setObjectName(QString::fromUtf8("PortSelectDialog"));
+            PortSelectDialog->setObjectName("PortSelectDialog");
         PortSelectDialog->resize(400, 130);
         PortSelectDialog->setMinimumSize(QSize(400, 130));
         PortSelectDialog->setMaximumSize(QSize(400, 130));
         buttonBox = new QDialogButtonBox(PortSelectDialog);
-        buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
+        buttonBox->setObjectName("buttonBox");
         buttonBox->setGeometry(QRect(220, 90, 171, 41));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
         comboBox = new QComboBox(PortSelectDialog);
-        comboBox->setObjectName(QString::fromUtf8("comboBox"));
+        comboBox->setObjectName("comboBox");
         comboBox->setGeometry(QRect(60, 50, 271, 31));
         selectPortLbl = new QLabel(PortSelectDialog);
-        selectPortLbl->setObjectName(QString::fromUtf8("selectPortLbl"));
+        selectPortLbl->setObjectName("selectPortLbl");
         selectPortLbl->setGeometry(QRect(130, 20, 131, 16));
         refreshButton = new QPushButton(PortSelectDialog);
-        refreshButton->setObjectName(QString::fromUtf8("refreshButton"));
+        refreshButton->setObjectName("refreshButton");
         refreshButton->setGeometry(QRect(10, 100, 91, 24));
 
         retranslateUi(PortSelectDialog);
