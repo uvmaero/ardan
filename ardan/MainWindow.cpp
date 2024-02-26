@@ -60,6 +60,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     m_portName = "";
 }
 
+/**
+ * @brief MainWindow::~MainWindow
+ */
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
 
 /**
  * @brief MainWindow::UpdateWindow
@@ -75,6 +83,11 @@ void MainWindow::UpdateWindow() {
     UpdateMechanicalData();
     UpdateElectricalData();
     UpdateTelemetryData();
+
+    // recording
+    if (m_pDataManager->getRecording()) {
+        RecordData();
+    }
 }
 
 
@@ -198,9 +211,8 @@ void MainWindow::UpdateElectricalData() {
     ui->RinehartVoltageSbx->setValue(m_pCarData->getRinehartVoltage() / 10);
     ui->BusVoltageSbx->setValue(m_pCarData->getBusVoltage());
 
-    ui->minCellVoltageSbx->setValue(m_pCarData->getMinCellVoltage());
-    ui->maxCellVoltageSbx->setValue(m_pCarData->getMaxCellVoltage());
-
+    // ui->minCellVoltageSbx->setValue(m_pCarData->getMinCellVoltage());
+    // ui->maxCellVoltageSbx->setValue(m_pCarData->getMaxCellVoltage());
 
     // current
     ui->BusCurrentSbx->setValue(m_pCarData->getPackCurrent());
@@ -440,11 +452,6 @@ void MainWindow::UpdatePackCurrentPlot()
         m_pPackCurrentSeries->append(point);
     }
 
-    // for (int i = 0; i < m_pBrakeVector.size(); ++i) {
-    //     qDebug() <<  "[" + QString::number(m_pBrakeVector.at(i).x()) + ", " + QString::number(m_pBrakeVector.at(i).y()) + "]";
-
-    // }
-
     // update chart bounds
     newMin = m_refreshCounter - (float)m_xAxisLength;
     if (newMin > 0) {
@@ -654,52 +661,35 @@ void MainWindow::SetupPlotting()
 
 
 /**
- * @brief MainWindow::~MainWindow
+ * @brief MainWindow::RecordData
  */
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
+void MainWindow::RecordData() {
+    // update ui
+    float duration = m_pDataManager->getRecordingDuration();
+    QString durationStr = "RECORDING: " + QString::number(duration, 'f', 0) + "sec";
+    ui->recordBtn->setStyleSheet("background-color: rgb(224, 27, 36);");    // red
+    ui->recordBtn->setText(durationStr);
 
+    // init data pipeline
+    TelemetryCoreData tmpData = m_pDataManager->getRawData();
+    QVector<TelemetryCoreData> tmpDataVec;
 
-/**
- * @brief MainWindow::on_Dark_Mode_triggered
- * @param checked
- */
-void MainWindow::on_Dark_Mode_triggered(bool checked)
-{
-    if (checked) {
-        qApp->setStyle(QStyleFactory::create("Fusion"));
+    // copy data
+    qDebug() << "dataframe saved @ " << duration;
+    tmpDataVec.append(tmpData);
 
-        // modify palette to dark
-        QPalette darkPalette;
-        darkPalette.setColor(QPalette::Window,QColor(53,53,53));
-        darkPalette.setColor(QPalette::WindowText,Qt::white);
-        darkPalette.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
-        darkPalette.setColor(QPalette::Base,QColor(42,42,42));
-        darkPalette.setColor(QPalette::AlternateBase,QColor(66,66,66));
-        darkPalette.setColor(QPalette::ToolTipBase,Qt::white);
-        darkPalette.setColor(QPalette::ToolTipText,Qt::white);
-        darkPalette.setColor(QPalette::Text,Qt::white);
-        darkPalette.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
-        darkPalette.setColor(QPalette::Dark,QColor(35,35,35));
-        darkPalette.setColor(QPalette::Shadow,QColor(20,20,20));
-        darkPalette.setColor(QPalette::Button,QColor(53,53,53));
-        darkPalette.setColor(QPalette::ButtonText,Qt::white);
-        darkPalette.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
-        darkPalette.setColor(QPalette::BrightText,Qt::red);
-        darkPalette.setColor(QPalette::Link,QColor(42,130,218));
-        darkPalette.setColor(QPalette::Highlight, QColor(142,45,197));
-        darkPalette.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
-        darkPalette.setColor(QPalette::HighlightedText,Qt::white);
-        darkPalette.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
+    // write to data manager
+    m_pDataManager->setRecordedData(tmpDataVec);
 
-        qApp->setPalette(darkPalette);
-    }
+    // update recording duration
+    float tmpDuration = m_pDataManager->getRecordingDuration();
+    tmpDuration = tmpDuration + ((float)DISPLAY_UPDATE_INTERVAL / 1000);
+    m_pDataManager->setRecordingDuration(tmpDuration);
 
-    else {
-        qApp->setPalette(m_defaultPalette);
-    }
+    // save timestamp
+    QVector<float> tmpTimestamps = m_pDataManager->getRecordingTimestamps();
+    tmpTimestamps.append(tmpDuration);
+    m_pDataManager->setRecordingTimestamps(tmpTimestamps);
 }
 
 
@@ -743,4 +733,89 @@ void MainWindow::GetPortName(QString portName)
  */
 float MainWindow::mapValue(float x, float in_min, float in_max, float out_min, float out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
+void MainWindow::on_recordBtn_clicked()
+{
+    // stop recording
+    if (m_pDataManager->getRecording()) {
+        // update recording state
+        m_pDataManager->setRecording(false);
+
+        // update ui
+        ui->recordBtn->setStyleSheet("background-color: rgb(230, 97, 0);");   // orange
+        ui->recordBtn->setText("!! RESET !!");
+
+        return;
+    }
+
+    // start recording
+    if (!m_pDataManager->getRecording()) {
+        // if there is data saved but maybe not written to a file yet
+        if (m_pDataManager->getRecordingBuffered()) {
+            // clear previous data
+            QVector<TelemetryCoreData> emptyDataVec = {};
+            QVector<float> emptyTimestampVec = {};
+            m_pDataManager->setRecordingDuration(0);
+            m_pDataManager->setRecordedData(emptyDataVec);
+            m_pDataManager->setRecordingTimestamps(emptyTimestampVec);
+
+            // updated buffered data state
+            m_pDataManager->setRecordingBuffered(false);
+            ui->recordBtn->setStyleSheet("background-color: rgb(38, 162, 105);");   // green
+            ui->recordBtn->setText("Start Recording");
+
+            return;
+        }
+
+        // there is no data saved and we are ready to start a new recording
+        if (!m_pDataManager->getRecordingBuffered()) {
+            // update recording state
+            m_pDataManager->setRecording(true);
+            m_pDataManager->setRecordingBuffered(true);
+
+            return;
+        }
+    }
+}
+
+
+/**
+ * @brief MainWindow::on_Dark_Mode_triggered
+ * @param checked
+ */
+void MainWindow::on_Dark_Mode_triggered(bool checked)
+{
+    if (checked) {
+        qApp->setStyle(QStyleFactory::create("Fusion"));
+
+        // modify palette to dark
+        QPalette darkPalette;
+        darkPalette.setColor(QPalette::Window,QColor(53,53,53));
+        darkPalette.setColor(QPalette::WindowText,Qt::white);
+        darkPalette.setColor(QPalette::Disabled,QPalette::WindowText,QColor(127,127,127));
+        darkPalette.setColor(QPalette::Base,QColor(42,42,42));
+        darkPalette.setColor(QPalette::AlternateBase,QColor(66,66,66));
+        darkPalette.setColor(QPalette::ToolTipBase,Qt::white);
+        darkPalette.setColor(QPalette::ToolTipText,Qt::white);
+        darkPalette.setColor(QPalette::Text,Qt::white);
+        darkPalette.setColor(QPalette::Disabled,QPalette::Text,QColor(127,127,127));
+        darkPalette.setColor(QPalette::Dark,QColor(35,35,35));
+        darkPalette.setColor(QPalette::Shadow,QColor(20,20,20));
+        darkPalette.setColor(QPalette::Button,QColor(53,53,53));
+        darkPalette.setColor(QPalette::ButtonText,Qt::white);
+        darkPalette.setColor(QPalette::Disabled,QPalette::ButtonText,QColor(127,127,127));
+        darkPalette.setColor(QPalette::BrightText,Qt::red);
+        darkPalette.setColor(QPalette::Link,QColor(42,130,218));
+        darkPalette.setColor(QPalette::Highlight, QColor(142,45,197));
+        darkPalette.setColor(QPalette::Disabled,QPalette::Highlight,QColor(80,80,80));
+        darkPalette.setColor(QPalette::HighlightedText,Qt::white);
+        darkPalette.setColor(QPalette::Disabled,QPalette::HighlightedText,QColor(127,127,127));
+
+        qApp->setPalette(darkPalette);
+    }
+
+    else {
+        qApp->setPalette(m_defaultPalette);
+    }
 }

@@ -11,6 +11,7 @@
 #include <QTime>
 #include <QDebug>
 #include "CarData.h"
+#include <QVector>
 
 
 /**
@@ -25,6 +26,21 @@ public:
     ~DataManager();
     void StartDataManager(const QString &porName, int waitTimeout, CarData *carData);
 
+    // getters
+    TelemetryCoreData getRawData();
+    bool getRecording();
+    bool getRecordingBuffered();
+    float getRecordingDuration();
+    QVector<TelemetryCoreData> getRecordedData();
+    QVector<float> getRecordingTimestamps();
+
+    // setters
+    void setRecording(bool state);
+    void setRecordingBuffered(bool state);
+    void setRecordingDuration(float duration);
+    void setRecordedData(QVector<TelemetryCoreData> vec);
+    void setRecordingTimestamps(QVector<float> vec);
+
 
 private:
     void run() override;
@@ -34,13 +50,25 @@ private:
 
     // functions
     void parseData(QByteArray incomingData);
+    int writeToFile(int mode);
 
     // data classes
     CarData *m_pCarData;
 
+    // raw data
+    TelemetryCoreData m_carData;
+
     // variables
     QSerialPort *m_esp;
     bool m_serialConnected;
+
+    // recording
+    bool m_recording;
+    bool m_recordingBuffered;
+    float m_recordingDuration;
+    QString saveFilename;
+    QVector<float> m_pRecordingTimestamps;
+    QVector<TelemetryCoreData> m_recordedData;
 
 
 signals:

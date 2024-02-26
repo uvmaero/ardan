@@ -45,6 +45,8 @@ public:
     void UpdatePackVoltagePlot();
     void UpdatePackCurrentPlot();
 
+    void RecordData();
+
     // helpers
     float mapValue(float x, float in_min, float in_max, float out_min, float out_max);
 
@@ -123,5 +125,6 @@ private slots:
 
     void GetPortName(QString portName);
     void UpdatePlots();
+    void on_recordBtn_clicked();
 };
 #endif // MAINWINDOW_H
