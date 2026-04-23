@@ -34,9 +34,9 @@ HEADERS += \
     GUI/PortSelectDialog.h
 
 FORMS += \
-    GUI\AboutDlg.ui \
-    GUI\MainWindow.ui \
-    GUI\PortSelectDialog.ui
+    GUI/AboutDlg.ui \
+    GUI/MainWindow.ui \
+    GUI/PortSelectDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
