@@ -13,25 +13,30 @@ CONFIG += c++17
 UI_DIR = $$PWD
 
 SOURCES += \
-    AboutDlg.cpp \
-    CarData.cpp \
-    DataManager.cpp \
-    MainWindow.cpp \
-    PortSelectDialog.cpp \
+    GUI/AboutDlg.cpp \
+    Data/DataLogger.cpp \
+    Data/ExecutiveData.cpp \
+    Data/GpioData.cpp \
+    Data/TwaiData.cpp \
+    Interface/DataManager.cpp \
+    GUI/MainWindow.cpp \
+    GUI/PortSelectDialog.cpp \
     main.cpp
 
 HEADERS += \
-    AboutDlg.h \
-    CarData.h \
-    DataManager.h \
-    MainWindow.h \
-    PortSelectDialog.h \
-    data_types.h
+    GUI/AboutDlg.h \
+    Data/DataLogger.h \
+    Data/ExecutiveData.h \
+    Data/GpioData.h \
+    Data/TwaiData.h \
+    Interface/DataManager.h \
+    GUI/MainWindow.h \
+    GUI/PortSelectDialog.h
 
 FORMS += \
-    AboutDlg.ui \
-    MainWindow.ui \
-    PortSelectDialog.ui
+    GUI\AboutDlg.ui \
+    GUI\MainWindow.ui \
+    GUI\PortSelectDialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

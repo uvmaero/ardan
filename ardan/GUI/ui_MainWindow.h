@@ -1,0 +1,1515 @@
+/********************************************************************************
+** Form generated from reading UI file 'MainWindow.ui'
+**
+** Created by: Qt User Interface Compiler version 6.8.7
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
+
+#ifndef UI_MAINWINDOW_H
+#define UI_MAINWINDOW_H
+
+#include <QtCore/QVariant>
+#include <QtGui/QAction>
+#include <QtGui/QIcon>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QDoubleSpinBox>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QGroupBox>
+#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets/QLabel>
+#include <QtWidgets/QLineEdit>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QProgressBar>
+#include <QtWidgets/QPushButton>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QSpinBox>
+#include <QtWidgets/QStatusBar>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
+
+QT_BEGIN_NAMESPACE
+
+class Ui_MainWindow
+{
+public:
+    QAction *Dark_Mode;
+    QAction *About_Dlg;
+    QAction *actionSelect_Serial_Port;
+    QWidget *centralwidget;
+    QGroupBox *MechanicalDataGroupBox;
+    QGroupBox *groupBox_3;
+    QWidget *layoutWidget;
+    QGridLayout *gridLayout;
+    QLineEdit *DriveModeTbx;
+    QDoubleSpinBox *CommandedTorqueSbx;
+    QLabel *BMSFaultLED;
+    QSpacerItem *horizontalSpacer_11;
+    QLabel *IMDFaultLED;
+    QLabel *InverterStatusLbl;
+    QLabel *DriveDirectionLbl;
+    QLabel *commandedTorqueLbl;
+    QLabel *readyToDriveLED;
+    QLabel *IMDFaultLbl;
+    QLineEdit *prechargeStateTbx;
+    QLabel *prechargeStateLbl;
+    QLineEdit *driveDirectionTbx;
+    QLabel *DriveModeLbl;
+    QLabel *readyToDriveLbl;
+    QSpacerItem *horizontalSpacer_2;
+    QSpacerItem *horizontalSpacer_10;
+    QLabel *InverterStatusLED;
+    QLabel *BMSFaultLbl;
+    QSpacerItem *horizontalSpacer_9;
+    QLabel *vircoreEnableLbl;
+    QLabel *vicoreFaultLbl;
+    QSpacerItem *horizontalSpacer_12;
+    QLabel *vicoreEnableLED;
+    QLabel *vicoreFaultLED;
+    QGroupBox *groupBox_4;
+    QWidget *layoutWidget1;
+    QVBoxLayout *verticalLayout_6;
+    QWidget *speedPlot;
+    QHBoxLayout *horizontalLayout_3;
+    QLabel *currentSpeedLbl;
+    QLabel *currentSpeedDataLbl;
+    QWidget *layoutWidget2;
+    QVBoxLayout *verticalLayout_4;
+    QWidget *accelPlot;
+    QHBoxLayout *horizontalLayout;
+    QLabel *AccelPedalLbl;
+    QProgressBar *AccelPedalProgressBar;
+    QWidget *layoutWidget3;
+    QVBoxLayout *verticalLayout_5;
+    QWidget *brakePlot;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *BrakePedalLbl;
+    QProgressBar *BrakePedalProgressBar;
+    QGroupBox *groupBox_5;
+    QWidget *layoutWidget4;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
+    QLabel *packInformationLbl;
+    QGridLayout *PrimaryVoltageGridLayout;
+    QLabel *BusCurrentLbl;
+    QLabel *RinehartVoltageLbl;
+    QDoubleSpinBox *RinehartVoltageSbx;
+    QLabel *BusVoltageLbl;
+    QDoubleSpinBox *BusCurrentSbx;
+    QDoubleSpinBox *BusVoltageSbx;
+    QWidget *packCurrentPlot;
+    QWidget *layoutWidget5;
+    QVBoxLayout *verticalLayout_7;
+    QWidget *packVoltagePlot;
+    QHBoxLayout *horizontalLayout_4;
+    QLabel *batteryPercentageLbl;
+    QProgressBar *BatteryPrecentageProgressBar;
+    QWidget *layoutWidget6;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *steeringDeflectionLbl;
+    QLabel *steeringDeflectionLblImage;
+    QGroupBox *groupBox_2;
+    QGroupBox *groupBox;
+    QWidget *layoutWidget7;
+    QGridLayout *gridLayout_7;
+    QGridLayout *gridLayout_6;
+    QLabel *label_4;
+    QGridLayout *BRWheelGridLayout;
+    QLabel *label_12;
+    QDoubleSpinBox *BRWheelHeightSbx;
+    QDoubleSpinBox *FLWheelHeightSbx_8;
+    QSpinBox *BRWheelSpeedSbx;
+    QLabel *BRWheelSpeedLbl;
+    QLabel *BRWheelHeightLbl;
+    QLabel *label_11;
+    QDoubleSpinBox *FLWheelHeightSbx_9;
+    QLabel *label_13;
+    QDoubleSpinBox *BLWheelHeightSbx_2;
+    QGridLayout *gridLayout_3;
+    QLabel *label;
+    QGridLayout *FLWheelGridLayout;
+    QLabel *FLWheelSpeedLbl;
+    QLabel *label_6;
+    QSpinBox *FLWheelSpeedSbx;
+    QDoubleSpinBox *FLWheelHeightSbx;
+    QDoubleSpinBox *FLWheelHeightSbx_2;
+    QLabel *FLWheelHeightLbl;
+    QLabel *label_7;
+    QDoubleSpinBox *FLWheelHeightSbx_4;
+    QLabel *label_14;
+    QDoubleSpinBox *BLWheelHeightSbx_3;
+    QSpacerItem *horizontalSpacer_6;
+    QGridLayout *gridLayout_5;
+    QLabel *label_3;
+    QGridLayout *BLWheelGridLayout;
+    QLabel *BLWheelSpeedLbl;
+    QLabel *label_9;
+    QLabel *label_10;
+    QDoubleSpinBox *FLWheelHeightSbx_7;
+    QSpinBox *BLWheelSpeedSbx;
+    QDoubleSpinBox *BLWheelHeightSbx;
+    QLabel *BLWheelHeightLbl;
+    QDoubleSpinBox *FLWheelHeightSbx_6;
+    QDoubleSpinBox *BLWheelHeightSbx_5;
+    QLabel *label_16;
+    QSpacerItem *horizontalSpacer_7;
+    QGridLayout *gridLayout_4;
+    QLabel *label_2;
+    QGridLayout *FRWheelGridLayout;
+    QLabel *label_5;
+    QLabel *FRWheelSpeedLbl;
+    QLabel *label_15;
+    QDoubleSpinBox *FLWheelHeightSbx_5;
+    QSpinBox *FRWheelSpeedSbx;
+    QDoubleSpinBox *FRWheelHeightSbx;
+    QLabel *label_8;
+    QDoubleSpinBox *FLWheelHeightSbx_3;
+    QLabel *FRWheelHeightLbl;
+    QDoubleSpinBox *BLWheelHeightSbx_4;
+    QGroupBox *groupBox_6;
+    QWidget *layoutWidget8;
+    QGridLayout *gridLayout_10;
+    QLabel *label_25;
+    QDoubleSpinBox *BLWheelHeightSbx_14;
+    QSpacerItem *horizontalSpacer_5;
+    QLabel *label_29;
+    QLabel *label_32;
+    QLabel *label_26;
+    QDoubleSpinBox *BLWheelHeightSbx_15;
+    QLabel *label_30;
+    QLabel *label_33;
+    QLabel *label_27;
+    QDoubleSpinBox *BLWheelHeightSbx_16;
+    QLabel *label_31;
+    QLabel *label_34;
+    QLabel *label_28;
+    QDoubleSpinBox *BLWheelHeightSbx_17;
+    QSpacerItem *horizontalSpacer_8;
+    QSpacerItem *horizontalSpacer_13;
+    QSpacerItem *horizontalSpacer_14;
+    QSpacerItem *horizontalSpacer_15;
+    QSpacerItem *horizontalSpacer_16;
+    QGroupBox *groupBox_7;
+    QWidget *layoutWidget9;
+    QGridLayout *gridLayout_8;
+    QLabel *fansActiveLbl;
+    QLabel *fansActiveLED;
+    QLabel *label_17;
+    QDoubleSpinBox *BLWheelHeightSbx_6;
+    QLabel *label_18;
+    QDoubleSpinBox *BLWheelHeightSbx_7;
+    QGroupBox *groupBox_8;
+    QWidget *layoutWidget10;
+    QGridLayout *gridLayout_9;
+    QDoubleSpinBox *BLWheelHeightSbx_10;
+    QLabel *label_20;
+    QDoubleSpinBox *BLWheelHeightSbx_11;
+    QLabel *label_24;
+    QDoubleSpinBox *BLWheelHeightSbx_13;
+    QLabel *label_23;
+    QLabel *label_21;
+    QDoubleSpinBox *BLWheelHeightSbx_8;
+    QDoubleSpinBox *BLWheelHeightSbx_12;
+    QLabel *label_19;
+    QLabel *label_22;
+    QDoubleSpinBox *BLWheelHeightSbx_9;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *horizontalSpacer_4;
+    QGroupBox *groupBox_9;
+    QPushButton *saveButton;
+    QRadioButton *jsonRadioBtn;
+    QRadioButton *rawRadioBtn;
+    QPushButton *recordBtn;
+    QLineEdit *filenameLBx;
+    QMenuBar *menubar;
+    QMenu *menuOptions;
+    QStatusBar *statusbar;
+
+    void setupUi(QMainWindow *MainWindow)
+    {
+        if (MainWindow->objectName().isEmpty())
+            MainWindow->setObjectName("MainWindow");
+        MainWindow->resize(1670, 1200);
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setMinimumSize(QSize(1670, 1200));
+        MainWindow->setMaximumSize(QSize(1670, 1200));
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/images/bessieIcon.ico"), QSize(), QIcon::Mode::Normal, QIcon::State::Off);
+        MainWindow->setWindowIcon(icon);
+        Dark_Mode = new QAction(MainWindow);
+        Dark_Mode->setObjectName("Dark_Mode");
+        Dark_Mode->setCheckable(true);
+        About_Dlg = new QAction(MainWindow);
+        About_Dlg->setObjectName("About_Dlg");
+        actionSelect_Serial_Port = new QAction(MainWindow);
+        actionSelect_Serial_Port->setObjectName("actionSelect_Serial_Port");
+        centralwidget = new QWidget(MainWindow);
+        centralwidget->setObjectName("centralwidget");
+        MechanicalDataGroupBox = new QGroupBox(centralwidget);
+        MechanicalDataGroupBox->setObjectName("MechanicalDataGroupBox");
+        MechanicalDataGroupBox->setGeometry(QRect(10, 0, 1131, 1071));
+        groupBox_3 = new QGroupBox(MechanicalDataGroupBox);
+        groupBox_3->setObjectName("groupBox_3");
+        groupBox_3->setGeometry(QRect(650, 30, 481, 201));
+        layoutWidget = new QWidget(groupBox_3);
+        layoutWidget->setObjectName("layoutWidget");
+        layoutWidget->setGeometry(QRect(10, 30, 461, 161));
+        gridLayout = new QGridLayout(layoutWidget);
+        gridLayout->setObjectName("gridLayout");
+        gridLayout->setContentsMargins(0, 0, 0, 0);
+        DriveModeTbx = new QLineEdit(layoutWidget);
+        DriveModeTbx->setObjectName("DriveModeTbx");
+        DriveModeTbx->setMaximumSize(QSize(130, 16777215));
+        DriveModeTbx->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        DriveModeTbx->setReadOnly(true);
+
+        gridLayout->addWidget(DriveModeTbx, 3, 4, 1, 1);
+
+        CommandedTorqueSbx = new QDoubleSpinBox(layoutWidget);
+        CommandedTorqueSbx->setObjectName("CommandedTorqueSbx");
+        QSizePolicy sizePolicy1(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(CommandedTorqueSbx->sizePolicy().hasHeightForWidth());
+        CommandedTorqueSbx->setSizePolicy(sizePolicy1);
+        CommandedTorqueSbx->setMaximumSize(QSize(130, 16777215));
+        CommandedTorqueSbx->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        CommandedTorqueSbx->setReadOnly(true);
+        CommandedTorqueSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        CommandedTorqueSbx->setDecimals(0);
+        CommandedTorqueSbx->setMaximum(250.000000000000000);
+
+        gridLayout->addWidget(CommandedTorqueSbx, 0, 4, 1, 1);
+
+        BMSFaultLED = new QLabel(layoutWidget);
+        BMSFaultLED->setObjectName("BMSFaultLED");
+        QSizePolicy sizePolicy2(QSizePolicy::Policy::Fixed, QSizePolicy::Policy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(BMSFaultLED->sizePolicy().hasHeightForWidth());
+        BMSFaultLED->setSizePolicy(sizePolicy2);
+        BMSFaultLED->setMinimumSize(QSize(0, 30));
+        BMSFaultLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(BMSFaultLED, 2, 1, 1, 1);
+
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_11, 3, 2, 1, 1);
+
+        IMDFaultLED = new QLabel(layoutWidget);
+        IMDFaultLED->setObjectName("IMDFaultLED");
+        sizePolicy2.setHeightForWidth(IMDFaultLED->sizePolicy().hasHeightForWidth());
+        IMDFaultLED->setSizePolicy(sizePolicy2);
+        IMDFaultLED->setMinimumSize(QSize(0, 30));
+        IMDFaultLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(IMDFaultLED, 1, 1, 1, 1);
+
+        InverterStatusLbl = new QLabel(layoutWidget);
+        InverterStatusLbl->setObjectName("InverterStatusLbl");
+
+        gridLayout->addWidget(InverterStatusLbl, 3, 0, 1, 1);
+
+        DriveDirectionLbl = new QLabel(layoutWidget);
+        DriveDirectionLbl->setObjectName("DriveDirectionLbl");
+
+        gridLayout->addWidget(DriveDirectionLbl, 1, 3, 1, 1);
+
+        commandedTorqueLbl = new QLabel(layoutWidget);
+        commandedTorqueLbl->setObjectName("commandedTorqueLbl");
+
+        gridLayout->addWidget(commandedTorqueLbl, 0, 3, 1, 1);
+
+        readyToDriveLED = new QLabel(layoutWidget);
+        readyToDriveLED->setObjectName("readyToDriveLED");
+        sizePolicy2.setHeightForWidth(readyToDriveLED->sizePolicy().hasHeightForWidth());
+        readyToDriveLED->setSizePolicy(sizePolicy2);
+        readyToDriveLED->setMinimumSize(QSize(0, 30));
+        readyToDriveLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(readyToDriveLED, 0, 1, 1, 1);
+
+        IMDFaultLbl = new QLabel(layoutWidget);
+        IMDFaultLbl->setObjectName("IMDFaultLbl");
+
+        gridLayout->addWidget(IMDFaultLbl, 1, 0, 1, 1);
+
+        prechargeStateTbx = new QLineEdit(layoutWidget);
+        prechargeStateTbx->setObjectName("prechargeStateTbx");
+        prechargeStateTbx->setMaximumSize(QSize(130, 16777215));
+        prechargeStateTbx->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        prechargeStateTbx->setReadOnly(true);
+
+        gridLayout->addWidget(prechargeStateTbx, 2, 4, 1, 1);
+
+        prechargeStateLbl = new QLabel(layoutWidget);
+        prechargeStateLbl->setObjectName("prechargeStateLbl");
+
+        gridLayout->addWidget(prechargeStateLbl, 2, 3, 1, 1);
+
+        driveDirectionTbx = new QLineEdit(layoutWidget);
+        driveDirectionTbx->setObjectName("driveDirectionTbx");
+        driveDirectionTbx->setMaximumSize(QSize(130, 16777215));
+        driveDirectionTbx->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+        driveDirectionTbx->setReadOnly(true);
+
+        gridLayout->addWidget(driveDirectionTbx, 1, 4, 1, 1);
+
+        DriveModeLbl = new QLabel(layoutWidget);
+        DriveModeLbl->setObjectName("DriveModeLbl");
+        DriveModeLbl->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+
+        gridLayout->addWidget(DriveModeLbl, 3, 3, 1, 1);
+
+        readyToDriveLbl = new QLabel(layoutWidget);
+        readyToDriveLbl->setObjectName("readyToDriveLbl");
+
+        gridLayout->addWidget(readyToDriveLbl, 0, 0, 1, 1);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_2, 0, 2, 1, 1);
+
+        horizontalSpacer_10 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_10, 2, 2, 1, 1);
+
+        InverterStatusLED = new QLabel(layoutWidget);
+        InverterStatusLED->setObjectName("InverterStatusLED");
+        InverterStatusLED->setEnabled(true);
+        sizePolicy2.setHeightForWidth(InverterStatusLED->sizePolicy().hasHeightForWidth());
+        InverterStatusLED->setSizePolicy(sizePolicy2);
+        InverterStatusLED->setMinimumSize(QSize(0, 30));
+        InverterStatusLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(InverterStatusLED, 3, 1, 1, 1);
+
+        BMSFaultLbl = new QLabel(layoutWidget);
+        BMSFaultLbl->setObjectName("BMSFaultLbl");
+
+        gridLayout->addWidget(BMSFaultLbl, 2, 0, 1, 1);
+
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_9, 1, 2, 1, 1);
+
+        vircoreEnableLbl = new QLabel(layoutWidget);
+        vircoreEnableLbl->setObjectName("vircoreEnableLbl");
+
+        gridLayout->addWidget(vircoreEnableLbl, 4, 0, 1, 1);
+
+        vicoreFaultLbl = new QLabel(layoutWidget);
+        vicoreFaultLbl->setObjectName("vicoreFaultLbl");
+
+        gridLayout->addWidget(vicoreFaultLbl, 4, 3, 1, 1);
+
+        horizontalSpacer_12 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout->addItem(horizontalSpacer_12, 4, 2, 1, 1);
+
+        vicoreEnableLED = new QLabel(layoutWidget);
+        vicoreEnableLED->setObjectName("vicoreEnableLED");
+        vicoreEnableLED->setEnabled(true);
+        sizePolicy2.setHeightForWidth(vicoreEnableLED->sizePolicy().hasHeightForWidth());
+        vicoreEnableLED->setSizePolicy(sizePolicy2);
+        vicoreEnableLED->setMinimumSize(QSize(0, 30));
+        vicoreEnableLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(vicoreEnableLED, 4, 1, 1, 1);
+
+        vicoreFaultLED = new QLabel(layoutWidget);
+        vicoreFaultLED->setObjectName("vicoreFaultLED");
+        vicoreFaultLED->setEnabled(true);
+        sizePolicy2.setHeightForWidth(vicoreFaultLED->sizePolicy().hasHeightForWidth());
+        vicoreFaultLED->setSizePolicy(sizePolicy2);
+        vicoreFaultLED->setMinimumSize(QSize(0, 30));
+        vicoreFaultLED->setMaximumSize(QSize(16777215, 30));
+
+        gridLayout->addWidget(vicoreFaultLED, 4, 4, 1, 1);
+
+        groupBox_4 = new QGroupBox(MechanicalDataGroupBox);
+        groupBox_4->setObjectName("groupBox_4");
+        groupBox_4->setGeometry(QRect(10, 30, 631, 1031));
+        layoutWidget1 = new QWidget(groupBox_4);
+        layoutWidget1->setObjectName("layoutWidget1");
+        layoutWidget1->setGeometry(QRect(10, 30, 611, 341));
+        verticalLayout_6 = new QVBoxLayout(layoutWidget1);
+        verticalLayout_6->setObjectName("verticalLayout_6");
+        verticalLayout_6->setContentsMargins(0, 0, 0, 0);
+        speedPlot = new QWidget(layoutWidget1);
+        speedPlot->setObjectName("speedPlot");
+        QSizePolicy sizePolicy3(QSizePolicy::Policy::MinimumExpanding, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(speedPlot->sizePolicy().hasHeightForWidth());
+        speedPlot->setSizePolicy(sizePolicy3);
+        speedPlot->setMinimumSize(QSize(600, 300));
+        speedPlot->setMaximumSize(QSize(600, 300));
+
+        verticalLayout_6->addWidget(speedPlot);
+
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        currentSpeedLbl = new QLabel(layoutWidget1);
+        currentSpeedLbl->setObjectName("currentSpeedLbl");
+        currentSpeedLbl->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        horizontalLayout_3->addWidget(currentSpeedLbl);
+
+        currentSpeedDataLbl = new QLabel(layoutWidget1);
+        currentSpeedDataLbl->setObjectName("currentSpeedDataLbl");
+        QSizePolicy sizePolicy4(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::MinimumExpanding);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(currentSpeedDataLbl->sizePolicy().hasHeightForWidth());
+        currentSpeedDataLbl->setSizePolicy(sizePolicy4);
+        currentSpeedDataLbl->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        horizontalLayout_3->addWidget(currentSpeedDataLbl);
+
+
+        verticalLayout_6->addLayout(horizontalLayout_3);
+
+        layoutWidget2 = new QWidget(groupBox_4);
+        layoutWidget2->setObjectName("layoutWidget2");
+        layoutWidget2->setGeometry(QRect(10, 380, 611, 321));
+        verticalLayout_4 = new QVBoxLayout(layoutWidget2);
+        verticalLayout_4->setObjectName("verticalLayout_4");
+        verticalLayout_4->setContentsMargins(0, 0, 0, 0);
+        accelPlot = new QWidget(layoutWidget2);
+        accelPlot->setObjectName("accelPlot");
+        sizePolicy3.setHeightForWidth(accelPlot->sizePolicy().hasHeightForWidth());
+        accelPlot->setSizePolicy(sizePolicy3);
+        accelPlot->setMinimumSize(QSize(600, 300));
+        accelPlot->setMaximumSize(QSize(600, 300));
+
+        verticalLayout_4->addWidget(accelPlot);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName("horizontalLayout");
+        AccelPedalLbl = new QLabel(layoutWidget2);
+        AccelPedalLbl->setObjectName("AccelPedalLbl");
+        AccelPedalLbl->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        horizontalLayout->addWidget(AccelPedalLbl);
+
+        AccelPedalProgressBar = new QProgressBar(layoutWidget2);
+        AccelPedalProgressBar->setObjectName("AccelPedalProgressBar");
+        AccelPedalProgressBar->setValue(66);
+
+        horizontalLayout->addWidget(AccelPedalProgressBar);
+
+
+        verticalLayout_4->addLayout(horizontalLayout);
+
+        layoutWidget3 = new QWidget(groupBox_4);
+        layoutWidget3->setObjectName("layoutWidget3");
+        layoutWidget3->setGeometry(QRect(10, 710, 611, 311));
+        verticalLayout_5 = new QVBoxLayout(layoutWidget3);
+        verticalLayout_5->setObjectName("verticalLayout_5");
+        verticalLayout_5->setContentsMargins(0, 0, 0, 0);
+        brakePlot = new QWidget(layoutWidget3);
+        brakePlot->setObjectName("brakePlot");
+        sizePolicy3.setHeightForWidth(brakePlot->sizePolicy().hasHeightForWidth());
+        brakePlot->setSizePolicy(sizePolicy3);
+        brakePlot->setMinimumSize(QSize(600, 300));
+        brakePlot->setMaximumSize(QSize(600, 300));
+
+        verticalLayout_5->addWidget(brakePlot);
+
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        BrakePedalLbl = new QLabel(layoutWidget3);
+        BrakePedalLbl->setObjectName("BrakePedalLbl");
+        BrakePedalLbl->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        horizontalLayout_2->addWidget(BrakePedalLbl);
+
+        BrakePedalProgressBar = new QProgressBar(layoutWidget3);
+        BrakePedalProgressBar->setObjectName("BrakePedalProgressBar");
+        BrakePedalProgressBar->setValue(13);
+
+        horizontalLayout_2->addWidget(BrakePedalProgressBar);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_2);
+
+        groupBox_5 = new QGroupBox(MechanicalDataGroupBox);
+        groupBox_5->setObjectName("groupBox_5");
+        groupBox_5->setGeometry(QRect(650, 240, 471, 821));
+        layoutWidget4 = new QWidget(groupBox_5);
+        layoutWidget4->setObjectName("layoutWidget4");
+        layoutWidget4->setGeometry(QRect(10, 30, 452, 379));
+        verticalLayout_2 = new QVBoxLayout(layoutWidget4);
+        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayout_2->setContentsMargins(0, 0, 0, 0);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName("verticalLayout");
+        packInformationLbl = new QLabel(layoutWidget4);
+        packInformationLbl->setObjectName("packInformationLbl");
+        packInformationLbl->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        verticalLayout->addWidget(packInformationLbl);
+
+        PrimaryVoltageGridLayout = new QGridLayout();
+        PrimaryVoltageGridLayout->setObjectName("PrimaryVoltageGridLayout");
+        BusCurrentLbl = new QLabel(layoutWidget4);
+        BusCurrentLbl->setObjectName("BusCurrentLbl");
+
+        PrimaryVoltageGridLayout->addWidget(BusCurrentLbl, 1, 0, 1, 1);
+
+        RinehartVoltageLbl = new QLabel(layoutWidget4);
+        RinehartVoltageLbl->setObjectName("RinehartVoltageLbl");
+
+        PrimaryVoltageGridLayout->addWidget(RinehartVoltageLbl, 2, 0, 1, 1);
+
+        RinehartVoltageSbx = new QDoubleSpinBox(layoutWidget4);
+        RinehartVoltageSbx->setObjectName("RinehartVoltageSbx");
+        RinehartVoltageSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        RinehartVoltageSbx->setReadOnly(true);
+        RinehartVoltageSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        RinehartVoltageSbx->setMaximum(1000.000000000000000);
+
+        PrimaryVoltageGridLayout->addWidget(RinehartVoltageSbx, 2, 1, 1, 1);
+
+        BusVoltageLbl = new QLabel(layoutWidget4);
+        BusVoltageLbl->setObjectName("BusVoltageLbl");
+
+        PrimaryVoltageGridLayout->addWidget(BusVoltageLbl, 0, 0, 1, 1);
+
+        BusCurrentSbx = new QDoubleSpinBox(layoutWidget4);
+        BusCurrentSbx->setObjectName("BusCurrentSbx");
+        BusCurrentSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BusCurrentSbx->setReadOnly(true);
+        BusCurrentSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BusCurrentSbx->setMaximum(1000.000000000000000);
+
+        PrimaryVoltageGridLayout->addWidget(BusCurrentSbx, 1, 1, 1, 1);
+
+        BusVoltageSbx = new QDoubleSpinBox(layoutWidget4);
+        BusVoltageSbx->setObjectName("BusVoltageSbx");
+        BusVoltageSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BusVoltageSbx->setReadOnly(true);
+        BusVoltageSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BusVoltageSbx->setMaximum(1000.000000000000000);
+
+        PrimaryVoltageGridLayout->addWidget(BusVoltageSbx, 0, 1, 1, 1);
+
+
+        verticalLayout->addLayout(PrimaryVoltageGridLayout);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+        packCurrentPlot = new QWidget(layoutWidget4);
+        packCurrentPlot->setObjectName("packCurrentPlot");
+        QSizePolicy sizePolicy5(QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Expanding);
+        sizePolicy5.setHorizontalStretch(0);
+        sizePolicy5.setVerticalStretch(0);
+        sizePolicy5.setHeightForWidth(packCurrentPlot->sizePolicy().hasHeightForWidth());
+        packCurrentPlot->setSizePolicy(sizePolicy5);
+        packCurrentPlot->setMinimumSize(QSize(450, 250));
+        packCurrentPlot->setMaximumSize(QSize(450, 250));
+
+        verticalLayout_2->addWidget(packCurrentPlot);
+
+        layoutWidget5 = new QWidget(groupBox_5);
+        layoutWidget5->setObjectName("layoutWidget5");
+        layoutWidget5->setGeometry(QRect(10, 420, 452, 286));
+        verticalLayout_7 = new QVBoxLayout(layoutWidget5);
+        verticalLayout_7->setObjectName("verticalLayout_7");
+        verticalLayout_7->setContentsMargins(0, 0, 0, 0);
+        packVoltagePlot = new QWidget(layoutWidget5);
+        packVoltagePlot->setObjectName("packVoltagePlot");
+        sizePolicy5.setHeightForWidth(packVoltagePlot->sizePolicy().hasHeightForWidth());
+        packVoltagePlot->setSizePolicy(sizePolicy5);
+        packVoltagePlot->setMinimumSize(QSize(450, 250));
+        packVoltagePlot->setMaximumSize(QSize(450, 250));
+
+        verticalLayout_7->addWidget(packVoltagePlot);
+
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setObjectName("horizontalLayout_4");
+        batteryPercentageLbl = new QLabel(layoutWidget5);
+        batteryPercentageLbl->setObjectName("batteryPercentageLbl");
+        QSizePolicy sizePolicy6(QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+        sizePolicy6.setHorizontalStretch(0);
+        sizePolicy6.setVerticalStretch(0);
+        sizePolicy6.setHeightForWidth(batteryPercentageLbl->sizePolicy().hasHeightForWidth());
+        batteryPercentageLbl->setSizePolicy(sizePolicy6);
+        batteryPercentageLbl->setAlignment(Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter);
+
+        horizontalLayout_4->addWidget(batteryPercentageLbl);
+
+        BatteryPrecentageProgressBar = new QProgressBar(layoutWidget5);
+        BatteryPrecentageProgressBar->setObjectName("BatteryPrecentageProgressBar");
+        BatteryPrecentageProgressBar->setValue(78);
+
+        horizontalLayout_4->addWidget(BatteryPrecentageProgressBar);
+
+
+        verticalLayout_7->addLayout(horizontalLayout_4);
+
+        layoutWidget6 = new QWidget(groupBox_5);
+        layoutWidget6->setObjectName("layoutWidget6");
+        layoutWidget6->setGeometry(QRect(10, 710, 451, 101));
+        horizontalLayout_5 = new QHBoxLayout(layoutWidget6);
+        horizontalLayout_5->setObjectName("horizontalLayout_5");
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        steeringDeflectionLbl = new QLabel(layoutWidget6);
+        steeringDeflectionLbl->setObjectName("steeringDeflectionLbl");
+
+        horizontalLayout_5->addWidget(steeringDeflectionLbl);
+
+        steeringDeflectionLblImage = new QLabel(layoutWidget6);
+        steeringDeflectionLblImage->setObjectName("steeringDeflectionLblImage");
+        steeringDeflectionLblImage->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        horizontalLayout_5->addWidget(steeringDeflectionLblImage);
+
+        groupBox_2 = new QGroupBox(centralwidget);
+        groupBox_2->setObjectName("groupBox_2");
+        groupBox_2->setGeometry(QRect(1150, 0, 511, 931));
+        groupBox = new QGroupBox(groupBox_2);
+        groupBox->setObjectName("groupBox");
+        groupBox->setGeometry(QRect(10, 30, 491, 391));
+        layoutWidget7 = new QWidget(groupBox);
+        layoutWidget7->setObjectName("layoutWidget7");
+        layoutWidget7->setGeometry(QRect(10, 30, 472, 351));
+        gridLayout_7 = new QGridLayout(layoutWidget7);
+        gridLayout_7->setObjectName("gridLayout_7");
+        gridLayout_7->setContentsMargins(0, 0, 0, 0);
+        gridLayout_6 = new QGridLayout();
+        gridLayout_6->setObjectName("gridLayout_6");
+        label_4 = new QLabel(layoutWidget7);
+        label_4->setObjectName("label_4");
+        QSizePolicy sizePolicy7(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Minimum);
+        sizePolicy7.setHorizontalStretch(0);
+        sizePolicy7.setVerticalStretch(0);
+        sizePolicy7.setHeightForWidth(label_4->sizePolicy().hasHeightForWidth());
+        label_4->setSizePolicy(sizePolicy7);
+        label_4->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_6->addWidget(label_4, 0, 0, 1, 1);
+
+        BRWheelGridLayout = new QGridLayout();
+        BRWheelGridLayout->setObjectName("BRWheelGridLayout");
+        label_12 = new QLabel(layoutWidget7);
+        label_12->setObjectName("label_12");
+
+        BRWheelGridLayout->addWidget(label_12, 2, 0, 1, 1);
+
+        BRWheelHeightSbx = new QDoubleSpinBox(layoutWidget7);
+        BRWheelHeightSbx->setObjectName("BRWheelHeightSbx");
+        sizePolicy1.setHeightForWidth(BRWheelHeightSbx->sizePolicy().hasHeightForWidth());
+        BRWheelHeightSbx->setSizePolicy(sizePolicy1);
+        BRWheelHeightSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BRWheelHeightSbx->setReadOnly(true);
+        BRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BRWheelHeightSbx->setMaximum(99.000000000000000);
+
+        BRWheelGridLayout->addWidget(BRWheelHeightSbx, 1, 1, 1, 1);
+
+        FLWheelHeightSbx_8 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_8->setObjectName("FLWheelHeightSbx_8");
+        FLWheelHeightSbx_8->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_8->setReadOnly(true);
+        FLWheelHeightSbx_8->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        BRWheelGridLayout->addWidget(FLWheelHeightSbx_8, 2, 1, 1, 1);
+
+        BRWheelSpeedSbx = new QSpinBox(layoutWidget7);
+        BRWheelSpeedSbx->setObjectName("BRWheelSpeedSbx");
+        sizePolicy1.setHeightForWidth(BRWheelSpeedSbx->sizePolicy().hasHeightForWidth());
+        BRWheelSpeedSbx->setSizePolicy(sizePolicy1);
+        BRWheelSpeedSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BRWheelSpeedSbx->setReadOnly(true);
+        BRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BRWheelSpeedSbx->setMaximum(9999);
+
+        BRWheelGridLayout->addWidget(BRWheelSpeedSbx, 0, 1, 1, 1);
+
+        BRWheelSpeedLbl = new QLabel(layoutWidget7);
+        BRWheelSpeedLbl->setObjectName("BRWheelSpeedLbl");
+
+        BRWheelGridLayout->addWidget(BRWheelSpeedLbl, 0, 0, 1, 1);
+
+        BRWheelHeightLbl = new QLabel(layoutWidget7);
+        BRWheelHeightLbl->setObjectName("BRWheelHeightLbl");
+
+        BRWheelGridLayout->addWidget(BRWheelHeightLbl, 1, 0, 1, 1);
+
+        label_11 = new QLabel(layoutWidget7);
+        label_11->setObjectName("label_11");
+
+        BRWheelGridLayout->addWidget(label_11, 4, 0, 1, 1);
+
+        FLWheelHeightSbx_9 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_9->setObjectName("FLWheelHeightSbx_9");
+        FLWheelHeightSbx_9->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_9->setReadOnly(true);
+        FLWheelHeightSbx_9->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        BRWheelGridLayout->addWidget(FLWheelHeightSbx_9, 4, 1, 1, 1);
+
+        label_13 = new QLabel(layoutWidget7);
+        label_13->setObjectName("label_13");
+
+        BRWheelGridLayout->addWidget(label_13, 5, 0, 1, 1);
+
+        BLWheelHeightSbx_2 = new QDoubleSpinBox(layoutWidget7);
+        BLWheelHeightSbx_2->setObjectName("BLWheelHeightSbx_2");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_2->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_2->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_2->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_2->setReadOnly(true);
+        BLWheelHeightSbx_2->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_2->setMaximum(99.000000000000000);
+
+        BRWheelGridLayout->addWidget(BLWheelHeightSbx_2, 5, 1, 1, 1);
+
+
+        gridLayout_6->addLayout(BRWheelGridLayout, 1, 0, 1, 1);
+
+
+        gridLayout_7->addLayout(gridLayout_6, 1, 2, 1, 1);
+
+        gridLayout_3 = new QGridLayout();
+        gridLayout_3->setObjectName("gridLayout_3");
+        label = new QLabel(layoutWidget7);
+        label->setObjectName("label");
+        sizePolicy7.setHeightForWidth(label->sizePolicy().hasHeightForWidth());
+        label->setSizePolicy(sizePolicy7);
+        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_3->addWidget(label, 0, 0, 1, 1);
+
+        FLWheelGridLayout = new QGridLayout();
+        FLWheelGridLayout->setObjectName("FLWheelGridLayout");
+        FLWheelSpeedLbl = new QLabel(layoutWidget7);
+        FLWheelSpeedLbl->setObjectName("FLWheelSpeedLbl");
+
+        FLWheelGridLayout->addWidget(FLWheelSpeedLbl, 0, 0, 1, 1);
+
+        label_6 = new QLabel(layoutWidget7);
+        label_6->setObjectName("label_6");
+
+        FLWheelGridLayout->addWidget(label_6, 2, 0, 1, 1);
+
+        FLWheelSpeedSbx = new QSpinBox(layoutWidget7);
+        FLWheelSpeedSbx->setObjectName("FLWheelSpeedSbx");
+        sizePolicy1.setHeightForWidth(FLWheelSpeedSbx->sizePolicy().hasHeightForWidth());
+        FLWheelSpeedSbx->setSizePolicy(sizePolicy1);
+        FLWheelSpeedSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelSpeedSbx->setReadOnly(true);
+        FLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        FLWheelSpeedSbx->setMaximum(9999);
+
+        FLWheelGridLayout->addWidget(FLWheelSpeedSbx, 0, 1, 1, 1);
+
+        FLWheelHeightSbx = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx->setObjectName("FLWheelHeightSbx");
+        sizePolicy1.setHeightForWidth(FLWheelHeightSbx->sizePolicy().hasHeightForWidth());
+        FLWheelHeightSbx->setSizePolicy(sizePolicy1);
+        FLWheelHeightSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx->setReadOnly(true);
+        FLWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        FLWheelHeightSbx->setMaximum(99.000000000000000);
+
+        FLWheelGridLayout->addWidget(FLWheelHeightSbx, 1, 1, 1, 1);
+
+        FLWheelHeightSbx_2 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_2->setObjectName("FLWheelHeightSbx_2");
+        FLWheelHeightSbx_2->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_2->setReadOnly(true);
+        FLWheelHeightSbx_2->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        FLWheelGridLayout->addWidget(FLWheelHeightSbx_2, 2, 1, 1, 1);
+
+        FLWheelHeightLbl = new QLabel(layoutWidget7);
+        FLWheelHeightLbl->setObjectName("FLWheelHeightLbl");
+
+        FLWheelGridLayout->addWidget(FLWheelHeightLbl, 1, 0, 1, 1);
+
+        label_7 = new QLabel(layoutWidget7);
+        label_7->setObjectName("label_7");
+
+        FLWheelGridLayout->addWidget(label_7, 3, 0, 1, 1);
+
+        FLWheelHeightSbx_4 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_4->setObjectName("FLWheelHeightSbx_4");
+        FLWheelHeightSbx_4->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_4->setReadOnly(true);
+        FLWheelHeightSbx_4->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        FLWheelGridLayout->addWidget(FLWheelHeightSbx_4, 3, 1, 1, 1);
+
+        label_14 = new QLabel(layoutWidget7);
+        label_14->setObjectName("label_14");
+
+        FLWheelGridLayout->addWidget(label_14, 5, 0, 1, 1);
+
+        BLWheelHeightSbx_3 = new QDoubleSpinBox(layoutWidget7);
+        BLWheelHeightSbx_3->setObjectName("BLWheelHeightSbx_3");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_3->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_3->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_3->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_3->setReadOnly(true);
+        BLWheelHeightSbx_3->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_3->setMaximum(99.000000000000000);
+
+        FLWheelGridLayout->addWidget(BLWheelHeightSbx_3, 5, 1, 1, 1);
+
+
+        gridLayout_3->addLayout(FLWheelGridLayout, 1, 0, 1, 1);
+
+
+        gridLayout_7->addLayout(gridLayout_3, 0, 0, 1, 1);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_7->addItem(horizontalSpacer_6, 0, 1, 1, 1);
+
+        gridLayout_5 = new QGridLayout();
+        gridLayout_5->setObjectName("gridLayout_5");
+        label_3 = new QLabel(layoutWidget7);
+        label_3->setObjectName("label_3");
+        sizePolicy7.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy7);
+        label_3->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_5->addWidget(label_3, 0, 0, 1, 1);
+
+        BLWheelGridLayout = new QGridLayout();
+        BLWheelGridLayout->setObjectName("BLWheelGridLayout");
+        BLWheelSpeedLbl = new QLabel(layoutWidget7);
+        BLWheelSpeedLbl->setObjectName("BLWheelSpeedLbl");
+
+        BLWheelGridLayout->addWidget(BLWheelSpeedLbl, 0, 0, 1, 1);
+
+        label_9 = new QLabel(layoutWidget7);
+        label_9->setObjectName("label_9");
+
+        BLWheelGridLayout->addWidget(label_9, 3, 0, 1, 1);
+
+        label_10 = new QLabel(layoutWidget7);
+        label_10->setObjectName("label_10");
+
+        BLWheelGridLayout->addWidget(label_10, 4, 0, 1, 1);
+
+        FLWheelHeightSbx_7 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_7->setObjectName("FLWheelHeightSbx_7");
+        FLWheelHeightSbx_7->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_7->setReadOnly(true);
+        FLWheelHeightSbx_7->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        BLWheelGridLayout->addWidget(FLWheelHeightSbx_7, 4, 1, 1, 1);
+
+        BLWheelSpeedSbx = new QSpinBox(layoutWidget7);
+        BLWheelSpeedSbx->setObjectName("BLWheelSpeedSbx");
+        sizePolicy1.setHeightForWidth(BLWheelSpeedSbx->sizePolicy().hasHeightForWidth());
+        BLWheelSpeedSbx->setSizePolicy(sizePolicy1);
+        BLWheelSpeedSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelSpeedSbx->setReadOnly(true);
+        BLWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelSpeedSbx->setMaximum(9999);
+
+        BLWheelGridLayout->addWidget(BLWheelSpeedSbx, 0, 1, 1, 1);
+
+        BLWheelHeightSbx = new QDoubleSpinBox(layoutWidget7);
+        BLWheelHeightSbx->setObjectName("BLWheelHeightSbx");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx->setReadOnly(true);
+        BLWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx->setMaximum(99.000000000000000);
+
+        BLWheelGridLayout->addWidget(BLWheelHeightSbx, 1, 1, 1, 1);
+
+        BLWheelHeightLbl = new QLabel(layoutWidget7);
+        BLWheelHeightLbl->setObjectName("BLWheelHeightLbl");
+
+        BLWheelGridLayout->addWidget(BLWheelHeightLbl, 1, 0, 1, 1);
+
+        FLWheelHeightSbx_6 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_6->setObjectName("FLWheelHeightSbx_6");
+        FLWheelHeightSbx_6->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_6->setReadOnly(true);
+        FLWheelHeightSbx_6->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        BLWheelGridLayout->addWidget(FLWheelHeightSbx_6, 3, 1, 1, 1);
+
+        BLWheelHeightSbx_5 = new QDoubleSpinBox(layoutWidget7);
+        BLWheelHeightSbx_5->setObjectName("BLWheelHeightSbx_5");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_5->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_5->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_5->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_5->setReadOnly(true);
+        BLWheelHeightSbx_5->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_5->setMaximum(99.000000000000000);
+
+        BLWheelGridLayout->addWidget(BLWheelHeightSbx_5, 5, 1, 1, 1);
+
+        label_16 = new QLabel(layoutWidget7);
+        label_16->setObjectName("label_16");
+
+        BLWheelGridLayout->addWidget(label_16, 5, 0, 1, 1);
+
+
+        gridLayout_5->addLayout(BLWheelGridLayout, 1, 0, 1, 1);
+
+
+        gridLayout_7->addLayout(gridLayout_5, 1, 0, 1, 1);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_7->addItem(horizontalSpacer_7, 1, 1, 1, 1);
+
+        gridLayout_4 = new QGridLayout();
+        gridLayout_4->setObjectName("gridLayout_4");
+        label_2 = new QLabel(layoutWidget7);
+        label_2->setObjectName("label_2");
+        sizePolicy7.setHeightForWidth(label_2->sizePolicy().hasHeightForWidth());
+        label_2->setSizePolicy(sizePolicy7);
+        label_2->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_4->addWidget(label_2, 0, 0, 1, 1);
+
+        FRWheelGridLayout = new QGridLayout();
+        FRWheelGridLayout->setObjectName("FRWheelGridLayout");
+        label_5 = new QLabel(layoutWidget7);
+        label_5->setObjectName("label_5");
+
+        FRWheelGridLayout->addWidget(label_5, 2, 0, 1, 1);
+
+        FRWheelSpeedLbl = new QLabel(layoutWidget7);
+        FRWheelSpeedLbl->setObjectName("FRWheelSpeedLbl");
+
+        FRWheelGridLayout->addWidget(FRWheelSpeedLbl, 0, 0, 1, 1);
+
+        label_15 = new QLabel(layoutWidget7);
+        label_15->setObjectName("label_15");
+
+        FRWheelGridLayout->addWidget(label_15, 5, 0, 1, 1);
+
+        FLWheelHeightSbx_5 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_5->setObjectName("FLWheelHeightSbx_5");
+        FLWheelHeightSbx_5->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_5->setReadOnly(true);
+        FLWheelHeightSbx_5->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        FRWheelGridLayout->addWidget(FLWheelHeightSbx_5, 3, 1, 1, 1);
+
+        FRWheelSpeedSbx = new QSpinBox(layoutWidget7);
+        FRWheelSpeedSbx->setObjectName("FRWheelSpeedSbx");
+        sizePolicy1.setHeightForWidth(FRWheelSpeedSbx->sizePolicy().hasHeightForWidth());
+        FRWheelSpeedSbx->setSizePolicy(sizePolicy1);
+        FRWheelSpeedSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FRWheelSpeedSbx->setReadOnly(true);
+        FRWheelSpeedSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        FRWheelSpeedSbx->setMaximum(9999);
+
+        FRWheelGridLayout->addWidget(FRWheelSpeedSbx, 0, 1, 1, 1);
+
+        FRWheelHeightSbx = new QDoubleSpinBox(layoutWidget7);
+        FRWheelHeightSbx->setObjectName("FRWheelHeightSbx");
+        sizePolicy1.setHeightForWidth(FRWheelHeightSbx->sizePolicy().hasHeightForWidth());
+        FRWheelHeightSbx->setSizePolicy(sizePolicy1);
+        FRWheelHeightSbx->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FRWheelHeightSbx->setReadOnly(true);
+        FRWheelHeightSbx->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        FRWheelHeightSbx->setMaximum(99.000000000000000);
+
+        FRWheelGridLayout->addWidget(FRWheelHeightSbx, 1, 1, 1, 1);
+
+        label_8 = new QLabel(layoutWidget7);
+        label_8->setObjectName("label_8");
+
+        FRWheelGridLayout->addWidget(label_8, 3, 0, 1, 1);
+
+        FLWheelHeightSbx_3 = new QDoubleSpinBox(layoutWidget7);
+        FLWheelHeightSbx_3->setObjectName("FLWheelHeightSbx_3");
+        FLWheelHeightSbx_3->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        FLWheelHeightSbx_3->setReadOnly(true);
+        FLWheelHeightSbx_3->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+
+        FRWheelGridLayout->addWidget(FLWheelHeightSbx_3, 2, 1, 1, 1);
+
+        FRWheelHeightLbl = new QLabel(layoutWidget7);
+        FRWheelHeightLbl->setObjectName("FRWheelHeightLbl");
+
+        FRWheelGridLayout->addWidget(FRWheelHeightLbl, 1, 0, 1, 1);
+
+        BLWheelHeightSbx_4 = new QDoubleSpinBox(layoutWidget7);
+        BLWheelHeightSbx_4->setObjectName("BLWheelHeightSbx_4");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_4->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_4->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_4->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_4->setReadOnly(true);
+        BLWheelHeightSbx_4->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_4->setMaximum(99.000000000000000);
+
+        FRWheelGridLayout->addWidget(BLWheelHeightSbx_4, 5, 1, 1, 1);
+
+
+        gridLayout_4->addLayout(FRWheelGridLayout, 1, 0, 1, 1);
+
+
+        gridLayout_7->addLayout(gridLayout_4, 0, 2, 1, 1);
+
+        groupBox_6 = new QGroupBox(groupBox_2);
+        groupBox_6->setObjectName("groupBox_6");
+        groupBox_6->setGeometry(QRect(10, 580, 491, 171));
+        layoutWidget8 = new QWidget(groupBox_6);
+        layoutWidget8->setObjectName("layoutWidget8");
+        layoutWidget8->setGeometry(QRect(10, 30, 471, 128));
+        gridLayout_10 = new QGridLayout(layoutWidget8);
+        gridLayout_10->setObjectName("gridLayout_10");
+        gridLayout_10->setContentsMargins(0, 0, 0, 0);
+        label_25 = new QLabel(layoutWidget8);
+        label_25->setObjectName("label_25");
+
+        gridLayout_10->addWidget(label_25, 0, 0, 1, 1);
+
+        BLWheelHeightSbx_14 = new QDoubleSpinBox(layoutWidget8);
+        BLWheelHeightSbx_14->setObjectName("BLWheelHeightSbx_14");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_14->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_14->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_14->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_14->setReadOnly(true);
+        BLWheelHeightSbx_14->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_14->setMaximum(200.000000000000000);
+
+        gridLayout_10->addWidget(BLWheelHeightSbx_14, 0, 1, 1, 1);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_5, 0, 2, 2, 1);
+
+        label_29 = new QLabel(layoutWidget8);
+        label_29->setObjectName("label_29");
+
+        gridLayout_10->addWidget(label_29, 0, 3, 1, 1);
+
+        label_32 = new QLabel(layoutWidget8);
+        label_32->setObjectName("label_32");
+
+        gridLayout_10->addWidget(label_32, 0, 4, 1, 1);
+
+        label_26 = new QLabel(layoutWidget8);
+        label_26->setObjectName("label_26");
+
+        gridLayout_10->addWidget(label_26, 1, 0, 2, 1);
+
+        BLWheelHeightSbx_15 = new QDoubleSpinBox(layoutWidget8);
+        BLWheelHeightSbx_15->setObjectName("BLWheelHeightSbx_15");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_15->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_15->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_15->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_15->setReadOnly(true);
+        BLWheelHeightSbx_15->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_15->setMaximum(200.000000000000000);
+
+        gridLayout_10->addWidget(BLWheelHeightSbx_15, 1, 1, 2, 1);
+
+        label_30 = new QLabel(layoutWidget8);
+        label_30->setObjectName("label_30");
+
+        gridLayout_10->addWidget(label_30, 2, 3, 1, 1);
+
+        label_33 = new QLabel(layoutWidget8);
+        label_33->setObjectName("label_33");
+
+        gridLayout_10->addWidget(label_33, 2, 4, 1, 1);
+
+        label_27 = new QLabel(layoutWidget8);
+        label_27->setObjectName("label_27");
+
+        gridLayout_10->addWidget(label_27, 3, 0, 1, 1);
+
+        BLWheelHeightSbx_16 = new QDoubleSpinBox(layoutWidget8);
+        BLWheelHeightSbx_16->setObjectName("BLWheelHeightSbx_16");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_16->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_16->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_16->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_16->setReadOnly(true);
+        BLWheelHeightSbx_16->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_16->setMaximum(200.000000000000000);
+
+        gridLayout_10->addWidget(BLWheelHeightSbx_16, 3, 1, 1, 1);
+
+        label_31 = new QLabel(layoutWidget8);
+        label_31->setObjectName("label_31");
+
+        gridLayout_10->addWidget(label_31, 3, 3, 1, 1);
+
+        label_34 = new QLabel(layoutWidget8);
+        label_34->setObjectName("label_34");
+
+        gridLayout_10->addWidget(label_34, 3, 4, 1, 1);
+
+        label_28 = new QLabel(layoutWidget8);
+        label_28->setObjectName("label_28");
+
+        gridLayout_10->addWidget(label_28, 4, 0, 1, 1);
+
+        BLWheelHeightSbx_17 = new QDoubleSpinBox(layoutWidget8);
+        BLWheelHeightSbx_17->setObjectName("BLWheelHeightSbx_17");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_17->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_17->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_17->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_17->setReadOnly(true);
+        BLWheelHeightSbx_17->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_17->setMaximum(200.000000000000000);
+
+        gridLayout_10->addWidget(BLWheelHeightSbx_17, 4, 1, 1, 1);
+
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_8, 2, 2, 1, 1);
+
+        horizontalSpacer_13 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_13, 3, 2, 1, 1);
+
+        horizontalSpacer_14 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_14, 4, 2, 1, 1);
+
+        horizontalSpacer_15 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_15, 4, 3, 1, 1);
+
+        horizontalSpacer_16 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_10->addItem(horizontalSpacer_16, 4, 4, 1, 1);
+
+        groupBox_7 = new QGroupBox(groupBox_2);
+        groupBox_7->setObjectName("groupBox_7");
+        groupBox_7->setGeometry(QRect(10, 760, 261, 161));
+        layoutWidget9 = new QWidget(groupBox_7);
+        layoutWidget9->setObjectName("layoutWidget9");
+        layoutWidget9->setGeometry(QRect(10, 30, 241, 121));
+        gridLayout_8 = new QGridLayout(layoutWidget9);
+        gridLayout_8->setObjectName("gridLayout_8");
+        gridLayout_8->setContentsMargins(0, 0, 0, 0);
+        fansActiveLbl = new QLabel(layoutWidget9);
+        fansActiveLbl->setObjectName("fansActiveLbl");
+
+        gridLayout_8->addWidget(fansActiveLbl, 0, 0, 1, 1);
+
+        fansActiveLED = new QLabel(layoutWidget9);
+        fansActiveLED->setObjectName("fansActiveLED");
+        fansActiveLED->setEnabled(true);
+        sizePolicy2.setHeightForWidth(fansActiveLED->sizePolicy().hasHeightForWidth());
+        fansActiveLED->setSizePolicy(sizePolicy2);
+        fansActiveLED->setMinimumSize(QSize(0, 30));
+        fansActiveLED->setMaximumSize(QSize(16777215, 30));
+        fansActiveLED->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_8->addWidget(fansActiveLED, 0, 1, 1, 1);
+
+        label_17 = new QLabel(layoutWidget9);
+        label_17->setObjectName("label_17");
+
+        gridLayout_8->addWidget(label_17, 1, 0, 1, 1);
+
+        BLWheelHeightSbx_6 = new QDoubleSpinBox(layoutWidget9);
+        BLWheelHeightSbx_6->setObjectName("BLWheelHeightSbx_6");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_6->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_6->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_6->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_6->setReadOnly(true);
+        BLWheelHeightSbx_6->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_6->setMaximum(200.000000000000000);
+
+        gridLayout_8->addWidget(BLWheelHeightSbx_6, 1, 1, 1, 1);
+
+        label_18 = new QLabel(layoutWidget9);
+        label_18->setObjectName("label_18");
+
+        gridLayout_8->addWidget(label_18, 2, 0, 1, 1);
+
+        BLWheelHeightSbx_7 = new QDoubleSpinBox(layoutWidget9);
+        BLWheelHeightSbx_7->setObjectName("BLWheelHeightSbx_7");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_7->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_7->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_7->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_7->setReadOnly(true);
+        BLWheelHeightSbx_7->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_7->setMaximum(200.000000000000000);
+
+        gridLayout_8->addWidget(BLWheelHeightSbx_7, 2, 1, 1, 1);
+
+        groupBox_8 = new QGroupBox(groupBox_2);
+        groupBox_8->setObjectName("groupBox_8");
+        groupBox_8->setGeometry(QRect(10, 430, 491, 141));
+        layoutWidget10 = new QWidget(groupBox_8);
+        layoutWidget10->setObjectName("layoutWidget10");
+        layoutWidget10->setGeometry(QRect(10, 30, 471, 101));
+        gridLayout_9 = new QGridLayout(layoutWidget10);
+        gridLayout_9->setObjectName("gridLayout_9");
+        gridLayout_9->setContentsMargins(0, 0, 0, 0);
+        BLWheelHeightSbx_10 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_10->setObjectName("BLWheelHeightSbx_10");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_10->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_10->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_10->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_10->setReadOnly(true);
+        BLWheelHeightSbx_10->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_10->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_10, 2, 1, 1, 1);
+
+        label_20 = new QLabel(layoutWidget10);
+        label_20->setObjectName("label_20");
+
+        gridLayout_9->addWidget(label_20, 1, 0, 1, 1);
+
+        BLWheelHeightSbx_11 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_11->setObjectName("BLWheelHeightSbx_11");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_11->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_11->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_11->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_11->setReadOnly(true);
+        BLWheelHeightSbx_11->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_11->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_11, 0, 4, 1, 1);
+
+        label_24 = new QLabel(layoutWidget10);
+        label_24->setObjectName("label_24");
+
+        gridLayout_9->addWidget(label_24, 2, 3, 1, 1);
+
+        BLWheelHeightSbx_13 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_13->setObjectName("BLWheelHeightSbx_13");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_13->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_13->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_13->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_13->setReadOnly(true);
+        BLWheelHeightSbx_13->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_13->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_13, 2, 4, 1, 1);
+
+        label_23 = new QLabel(layoutWidget10);
+        label_23->setObjectName("label_23");
+
+        gridLayout_9->addWidget(label_23, 1, 3, 1, 1);
+
+        label_21 = new QLabel(layoutWidget10);
+        label_21->setObjectName("label_21");
+
+        gridLayout_9->addWidget(label_21, 2, 0, 1, 1);
+
+        BLWheelHeightSbx_8 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_8->setObjectName("BLWheelHeightSbx_8");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_8->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_8->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_8->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_8->setReadOnly(true);
+        BLWheelHeightSbx_8->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_8->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_8, 0, 1, 1, 1);
+
+        BLWheelHeightSbx_12 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_12->setObjectName("BLWheelHeightSbx_12");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_12->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_12->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_12->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_12->setReadOnly(true);
+        BLWheelHeightSbx_12->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_12->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_12, 1, 4, 1, 1);
+
+        label_19 = new QLabel(layoutWidget10);
+        label_19->setObjectName("label_19");
+
+        gridLayout_9->addWidget(label_19, 0, 0, 1, 1);
+
+        label_22 = new QLabel(layoutWidget10);
+        label_22->setObjectName("label_22");
+
+        gridLayout_9->addWidget(label_22, 0, 3, 1, 1);
+
+        BLWheelHeightSbx_9 = new QDoubleSpinBox(layoutWidget10);
+        BLWheelHeightSbx_9->setObjectName("BLWheelHeightSbx_9");
+        sizePolicy1.setHeightForWidth(BLWheelHeightSbx_9->sizePolicy().hasHeightForWidth());
+        BLWheelHeightSbx_9->setSizePolicy(sizePolicy1);
+        BLWheelHeightSbx_9->setAlignment(Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter);
+        BLWheelHeightSbx_9->setReadOnly(true);
+        BLWheelHeightSbx_9->setButtonSymbols(QAbstractSpinBox::ButtonSymbols::NoButtons);
+        BLWheelHeightSbx_9->setMaximum(200.000000000000000);
+
+        gridLayout_9->addWidget(BLWheelHeightSbx_9, 1, 1, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_9->addItem(horizontalSpacer, 1, 2, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_9->addItem(horizontalSpacer_3, 2, 2, 1, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        gridLayout_9->addItem(horizontalSpacer_4, 0, 2, 1, 1);
+
+        groupBox_9 = new QGroupBox(centralwidget);
+        groupBox_9->setObjectName("groupBox_9");
+        groupBox_9->setGeometry(QRect(1150, 950, 511, 121));
+        saveButton = new QPushButton(groupBox_9);
+        saveButton->setObjectName("saveButton");
+        saveButton->setGeometry(QRect(290, 60, 211, 51));
+        jsonRadioBtn = new QRadioButton(groupBox_9);
+        jsonRadioBtn->setObjectName("jsonRadioBtn");
+        jsonRadioBtn->setGeometry(QRect(300, 30, 71, 24));
+        rawRadioBtn = new QRadioButton(groupBox_9);
+        rawRadioBtn->setObjectName("rawRadioBtn");
+        rawRadioBtn->setGeometry(QRect(420, 30, 71, 24));
+        recordBtn = new QPushButton(groupBox_9);
+        recordBtn->setObjectName("recordBtn");
+        recordBtn->setGeometry(QRect(10, 30, 271, 41));
+        recordBtn->setStyleSheet(QString::fromUtf8("background-color: rgb(38, 162, 105);\n"
+""));
+        filenameLBx = new QLineEdit(groupBox_9);
+        filenameLBx->setObjectName("filenameLBx");
+        filenameLBx->setGeometry(QRect(10, 80, 271, 31));
+        MainWindow->setCentralWidget(centralwidget);
+        menubar = new QMenuBar(MainWindow);
+        menubar->setObjectName("menubar");
+        menubar->setGeometry(QRect(0, 0, 1670, 21));
+        menuOptions = new QMenu(menubar);
+        menuOptions->setObjectName("menuOptions");
+        MainWindow->setMenuBar(menubar);
+        statusbar = new QStatusBar(MainWindow);
+        statusbar->setObjectName("statusbar");
+        MainWindow->setStatusBar(statusbar);
+
+        menubar->addAction(menuOptions->menuAction());
+        menuOptions->addAction(actionSelect_Serial_Port);
+        menuOptions->addAction(Dark_Mode);
+        menuOptions->addAction(About_Dlg);
+
+        retranslateUi(MainWindow);
+
+        QMetaObject::connectSlotsByName(MainWindow);
+    } // setupUi
+
+    void retranslateUi(QMainWindow *MainWindow)
+    {
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        Dark_Mode->setText(QCoreApplication::translate("MainWindow", "Dark Mode", nullptr));
+        About_Dlg->setText(QCoreApplication::translate("MainWindow", "About", nullptr));
+        actionSelect_Serial_Port->setText(QCoreApplication::translate("MainWindow", "Select Serial Port", nullptr));
+        MechanicalDataGroupBox->setTitle(QCoreApplication::translate("MainWindow", "Tractive Data", nullptr));
+        groupBox_3->setTitle(QCoreApplication::translate("MainWindow", "Critical Data", nullptr));
+        BMSFaultLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        IMDFaultLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        InverterStatusLbl->setText(QCoreApplication::translate("MainWindow", "Inverter Status: ", nullptr));
+        DriveDirectionLbl->setText(QCoreApplication::translate("MainWindow", "Drive Direction: ", nullptr));
+        commandedTorqueLbl->setText(QCoreApplication::translate("MainWindow", "Commanded Torque:", nullptr));
+        readyToDriveLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        IMDFaultLbl->setText(QCoreApplication::translate("MainWindow", "IMD Fault: ", nullptr));
+        prechargeStateLbl->setText(QCoreApplication::translate("MainWindow", "Precharge State:", nullptr));
+        DriveModeLbl->setText(QCoreApplication::translate("MainWindow", "Drive Mode:", nullptr));
+        readyToDriveLbl->setText(QCoreApplication::translate("MainWindow", "Ready to Drive:", nullptr));
+        InverterStatusLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        BMSFaultLbl->setText(QCoreApplication::translate("MainWindow", "BMS Fault:", nullptr));
+        vircoreEnableLbl->setText(QCoreApplication::translate("MainWindow", "Vicore Enable: ", nullptr));
+        vicoreFaultLbl->setText(QCoreApplication::translate("MainWindow", "Vicore Fault: ", nullptr));
+        vicoreEnableLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        vicoreFaultLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        groupBox_4->setTitle(QCoreApplication::translate("MainWindow", "Speed Data", nullptr));
+        currentSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Current Speed (MPH):", nullptr));
+        currentSpeedDataLbl->setText(QCoreApplication::translate("MainWindow", "current speed", nullptr));
+        AccelPedalLbl->setText(QCoreApplication::translate("MainWindow", "Accelerator: ", nullptr));
+        BrakePedalLbl->setText(QCoreApplication::translate("MainWindow", "Brake:", nullptr));
+        groupBox_5->setTitle(QCoreApplication::translate("MainWindow", "Electrical Data", nullptr));
+        packInformationLbl->setText(QCoreApplication::translate("MainWindow", "Pack Information", nullptr));
+        BusCurrentLbl->setText(QCoreApplication::translate("MainWindow", "Bus Current", nullptr));
+        RinehartVoltageLbl->setText(QCoreApplication::translate("MainWindow", "RInehart Voltage", nullptr));
+        BusVoltageLbl->setText(QCoreApplication::translate("MainWindow", "Bus Voltage", nullptr));
+        batteryPercentageLbl->setText(QCoreApplication::translate("MainWindow", "Battery %: ", nullptr));
+        steeringDeflectionLbl->setText(QCoreApplication::translate("MainWindow", "Steering Deflection:", nullptr));
+        steeringDeflectionLblImage->setText(QCoreApplication::translate("MainWindow", "steering wheel image", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "Telemetry Data", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("MainWindow", "Wheel Data", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", "Rear Right", nullptr));
+        label_12->setText(QCoreApplication::translate("MainWindow", "Strain 2:", nullptr));
+        BRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed (RPM):", nullptr));
+        BRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Damper Deflection:", nullptr));
+        label_11->setText(QCoreApplication::translate("MainWindow", "Strain 1:", nullptr));
+        label_13->setText(QCoreApplication::translate("MainWindow", "Tire Temp (C): ", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Front Left", nullptr));
+        FLWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed (RPM):", nullptr));
+        label_6->setText(QCoreApplication::translate("MainWindow", "Strain 1:", nullptr));
+        FLWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Damper Deflection:", nullptr));
+        label_7->setText(QCoreApplication::translate("MainWindow", "Strain 2:", nullptr));
+        label_14->setText(QCoreApplication::translate("MainWindow", "Tire Temp (C): ", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "Rear Left", nullptr));
+        BLWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed (RPM):", nullptr));
+        label_9->setText(QCoreApplication::translate("MainWindow", "Strain 1:", nullptr));
+        label_10->setText(QCoreApplication::translate("MainWindow", "Strain 2:", nullptr));
+        BLWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Damper Deflection:", nullptr));
+        label_16->setText(QCoreApplication::translate("MainWindow", "Tire Temp (C): ", nullptr));
+        label_2->setText(QCoreApplication::translate("MainWindow", "Front Right", nullptr));
+        label_5->setText(QCoreApplication::translate("MainWindow", "Strain 1:", nullptr));
+        FRWheelSpeedLbl->setText(QCoreApplication::translate("MainWindow", "Wheel Speed (RPM):", nullptr));
+        label_15->setText(QCoreApplication::translate("MainWindow", "Tire Temp (C): ", nullptr));
+        label_8->setText(QCoreApplication::translate("MainWindow", "Strain 2:", nullptr));
+        FRWheelHeightLbl->setText(QCoreApplication::translate("MainWindow", "Damper Defection:", nullptr));
+        groupBox_6->setTitle(QCoreApplication::translate("MainWindow", "GPS Data", nullptr));
+        label_25->setText(QCoreApplication::translate("MainWindow", "Longittude: ", nullptr));
+        label_29->setText(QCoreApplication::translate("MainWindow", "Year: ", nullptr));
+        label_32->setText(QCoreApplication::translate("MainWindow", "gpsYear", nullptr));
+        label_26->setText(QCoreApplication::translate("MainWindow", "Latitude:", nullptr));
+        label_30->setText(QCoreApplication::translate("MainWindow", "Month:", nullptr));
+        label_33->setText(QCoreApplication::translate("MainWindow", "gpsMonth", nullptr));
+        label_27->setText(QCoreApplication::translate("MainWindow", "Altitude: ", nullptr));
+        label_31->setText(QCoreApplication::translate("MainWindow", "Day: ", nullptr));
+        label_34->setText(QCoreApplication::translate("MainWindow", "gpsDay", nullptr));
+        label_28->setText(QCoreApplication::translate("MainWindow", "Speed: ", nullptr));
+        groupBox_7->setTitle(QCoreApplication::translate("MainWindow", "Cooling Data", nullptr));
+        fansActiveLbl->setText(QCoreApplication::translate("MainWindow", "Fans Active:", nullptr));
+        fansActiveLED->setText(QCoreApplication::translate("MainWindow", "LED", nullptr));
+        label_17->setText(QCoreApplication::translate("MainWindow", "Coolant Temp In (C): ", nullptr));
+        label_18->setText(QCoreApplication::translate("MainWindow", "Coolant Temp Out (C): ", nullptr));
+        groupBox_8->setTitle(QCoreApplication::translate("MainWindow", "IMU Data", nullptr));
+        label_20->setText(QCoreApplication::translate("MainWindow", "Y Accleration (Gs): ", nullptr));
+        label_24->setText(QCoreApplication::translate("MainWindow", "Z Gyro (degs):", nullptr));
+        label_23->setText(QCoreApplication::translate("MainWindow", "Y Gyro (degs) :", nullptr));
+        label_21->setText(QCoreApplication::translate("MainWindow", "Z Accleration (Gs): ", nullptr));
+        label_19->setText(QCoreApplication::translate("MainWindow", "X Accleration:  (Gs)", nullptr));
+        label_22->setText(QCoreApplication::translate("MainWindow", "X Gyro (degs):", nullptr));
+        groupBox_9->setTitle(QCoreApplication::translate("MainWindow", "Record Data", nullptr));
+        saveButton->setText(QCoreApplication::translate("MainWindow", "Save", nullptr));
+        jsonRadioBtn->setText(QCoreApplication::translate("MainWindow", "JSON", nullptr));
+        rawRadioBtn->setText(QCoreApplication::translate("MainWindow", "Raw", nullptr));
+        recordBtn->setText(QCoreApplication::translate("MainWindow", "Record", nullptr));
+        filenameLBx->setPlaceholderText(QCoreApplication::translate("MainWindow", "Enter Log Filename", nullptr));
+        menuOptions->setTitle(QCoreApplication::translate("MainWindow", "Options", nullptr));
+    } // retranslateUi
+
+};
+
+namespace Ui {
+    class MainWindow: public Ui_MainWindow {};
+} // namespace Ui
+
+QT_END_NAMESPACE
+
+#endif // UI_MAINWINDOW_H

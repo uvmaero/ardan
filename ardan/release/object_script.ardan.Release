@@ -1,0 +1,14 @@
+release/AboutDlg.o
+release/DataLogger.o
+release/ExecutiveData.o
+release/GpioData.o
+release/TwaiData.o
+release/DataManager.o
+release/MainWindow.o
+release/PortSelectDialog.o
+release/main.o
+release/qrc_resources.o
+release/moc_AboutDlg.o
+release/moc_DataManager.o
+release/moc_MainWindow.o
+release/moc_PortSelectDialog.o

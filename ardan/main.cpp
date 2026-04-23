@@ -2,8 +2,8 @@
 // ARDAN
 
 // includes
-#include "MainWindow.h"
 #include <QApplication>
+#include "GUI/MainWindow.h"
 
 /**
  * @brief main

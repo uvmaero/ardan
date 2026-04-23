@@ -22,8 +22,14 @@
 #include "rtc_clk_common.h"
 #include <string>
 #include <vector>
+#include <esp_now.h>
+#include <WiFi.h>
+#include <esp_wifi.h>
 
-#include "LoRa.h"
+#include "Data/GpioData.h"
+#include "Data/TwaiData.h"
+#include "Data/ExecutiveData.h"
+#include <Data/DataLogger.h>
 
 #include <data_types.h>
 #include <pin_config.h>
@@ -34,21 +40,41 @@
 ===============================================================================================
 */
 
+// esp now
+#define ESP_NOW_TRACTIVE_ADDRESS     {0xC4, 0xDE, 0xE2, 0xC0, 0x75, 0x80}
+#define ESP_NOW_TELEMETRY_ADDRESS    {0xC4, 0xDE, 0xE2, 0xC0, 0x75, 0x81}
+#define ESPNOW_MAX_PAYLOAD_LEN 250
+
 // tasks
-#define SERIAL_WRITE_REFRESH_RATE 9 // measured in ticks (RTOS ticks interrupt at 1 kHz)
-#define SERIAL_READ_REFRESH_RATE 9  // measured in ticks (RTOS ticks interrupt at 1 kHz)
+#define SERIAL_REFRESH_RATE 100 // measured in ticks (RTOS ticks interrupt at 1 kHz)
+#define ARDAN_REFRESH_RATE 20
 #define DEBUG_REFRESH_RATE 1000     // measured in ticks (RTOS ticks interrupt at 1 kHz)
 
 #define TASK_STACK_SIZE 20000 // in bytes
 
-// ESP-NOW
-#define ARDAN_ESP_NOW_ADDRESS          \
-  {                                    \
-    0xC4, 0xDE, 0xE2, 0xC0, 0x75, 0x83 \
-  }
-
 // debug
 #define ENABLE_DEBUG false // master debug message control
+
+/*
+===============================================================================================
+                                    Function Declarations
+===============================================================================================
+*/
+
+// tasks
+void SerialTask(void *pvParameters);
+void ArdanTask(void *pvParameters);
+void DebugTask(void *pvParameters);
+
+// helpers
+void TelemetryDataReceived(const uint8_t *mac, const uint8_t *data, int len);
+
+void PrintSchedulerDebug();
+void PrintRecieverDebug();
+
+ExecutiveSnapshotType MakeExecutiveSnapshot(ExecutiveData *data);
+GpioSnapshotType MakeGpioSnapshot(GpioData *data);
+TwaiSnapshotType MakeTwaiSnapshot(TwaiData *data);
 
 /*
 ===============================================================================================
@@ -78,168 +104,33 @@ Debugger debugger = {
     .ardanReadPreviousTaskCount = 0,
 };
 
-/**
- * @brief the dataframe that describes the entire state of the car
- *
- */
-TelemetryCoreData telemetryCoreData = {
-    // tractive data
-    .tractiveCoreData = {
-        .tractive = {
-            .readyToDrive = false,
-            .enableInverter = false,
+// esp now
+esp_now_peer_info_t tractiveInfo = {
+  .peer_addr = ESP_NOW_TRACTIVE_ADDRESS,
+  .channel = 1,
+  .ifidx = WIFI_IF_STA,
+  .encrypt = false,
+};
 
-            .prechargeState = PRECHARGE_OFF,
+// data
+ExecutiveData *g_executiveData = new ExecutiveData();
+GpioData *g_gpioData = new GpioData();
+TwaiData *g_twaiData = new TwaiData(); 
 
-            .rinehartVoltage = 0.0f,
-            .commandedTorque = 0,
 
-            .driveDirection = false, // forward is false | reverse is true (we run backwards)
-            .driveMode = ECO,
+CarData g_carData = {
+      .executive = MakeExecutiveSnapshot(g_executiveData),
+      .gpio = MakeGpioSnapshot(g_gpioData),
+      .twai = MakeTwaiSnapshot(g_twaiData),
+    };
 
-            .currentSpeed = 0.0f,
-
-            .tractionControlEnable = true,
-            .tractionControlModifier = 1.00f,
-
-            .coastRegen = 0,
-            .brakeRegen = 0,
-        },
-
-        // sensor data
-        .sensors = {
-            .imdFault = true,
-            .bmsFault = true,
-            .vicoreFault = false,
-
-            .coolingTempIn = 0.0f,
-            .coolingTempOut = 0.0f,
-
-            .frontWheelsSpeed = 0.0f,
-            .frontWheelSpeedCount = 0,
-            .frontWheelSpeedTime = 0,
-
-            .brWheelSpeed = 0.0f,
-            .brWheelSpeedCount = 0,
-            .brWheelSpeedTime = 0,
-
-            .blWheelSpeed = 0.0f,
-            .blWheelSpeedCount = 0,
-            .blWheelSpeedTime = 0,
-        },
-
-        // inputs
-        .inputs = {
-            .pedal0 = 0,
-            .pedal1 = 0,
-
-            .frontBrake = 0,
-            .rearBrake = 0,
-        },
-
-        // outputs
-        .outputs = {
-            .brakeLightEnable = false,
-
-            .fansEnable = false,
-
-            .buzzerEnable = false,
-        },
-
-        // orion
-        .orion = {
-            .batteryChargeState = 0,
-
-            .busVoltage = 0,
-
-            .packCurrent = 0.0f,
-
-            .minCellVoltage = 0.0f,
-            .maxCellVoltage = 0.0f,
-            .minCellTemp = 0.0f,
-            .maxCellTemp = 0.0f,
-        }},
-
-    // telemetry data
-
-    // wheel damper sensors
-    .dampers = {
-        .frSuspensionDamper = 0,
-        .flSuspensionDamper = 0,
-        .brSuspensionDamper = 0,
-        .blSuspensionDamper = 0,
-    },
-
-    // tire temperature sensors
-    .tireTemp = {
-        .frTireTemp = 0,
-        .flTireTemp = 0,
-        .brTireTemp = 0,
-        .blTireTemp = 0,
-    },
-
-    // suspension strain sensors
-    .strain = {
-        .frStrain1 = 0,
-        .flStrain1 = 0,
-        .brStrain1 = 0,
-        .blStrain1 = 0,
-
-        .frStrain2 = 0,
-        .flStrain2 = 0,
-        .brStrain2 = 0,
-        .blStrain2 = 0,
-    },
-
-    // steering wheel sensors
-    .steering = {
-        .steeringWheelDeflection = 0,
-    },
-
-    // inertial monitoring unit data
-    .imu = {
-        .xAcceleration = 0.0f,
-        .yAcceleration = 0.0f,
-        .zAcceleration = 0.0f,
-        .xGyro = 0.0f,
-        .yGyro = 0.0f,
-        .zGyro = 0.0f,
-    },
-
-    // global positioning system data
-    .gps = {
-        .latitide = 0.0f,
-        .longitude = 0.0f,
-        .altitude = 0.0f,
-        .speed = 0.0f,
-        .year = 0,
-        .month = 0,
-        .day = 0,
-    }};
-
-// Mutex
-SemaphoreHandle_t xMutex = NULL;
+int g_counter = 0;
 
 // RTOS Task Handles
 TaskHandle_t xHandleSerialWrite = NULL;
 TaskHandle_t xHandleArdanRead = NULL;
 TaskHandle_t xHandleDebug = NULL;
 
-// Hardware Timers
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-
-/*
-===============================================================================================
-                                    Function Declarations
-===============================================================================================
-*/
-
-// tasks
-void SerialWriteTask(void *pvParameters);
-void ArdanReadTask(void *pvParameters);
-
-// helpers
-String TaskStateToString(eTaskState state);
 
 /*
 ===============================================================================================
@@ -249,110 +140,112 @@ String TaskStateToString(eTaskState state);
 
 void setup()
 {
-  // set power configuration
-  esp_pm_configure(&power_configuration);
-
   if (debugger.debugEnabled)
   {
     // delay startup by 3 seconds
     vTaskDelay(3000);
   }
 
-  // -------------------------- initialize serial connection ------------------------ //
-  Serial.begin(9600);
-  Serial.printf("\n\n|--- STARTING SETUP ---|\n\n");
-
   // setup managment struct
   struct setup
   {
     bool serialActive = false;
-    bool ardanActive = false;
+    bool tractiveActive = false;
   };
   setup setup;
 
+  // -------------------------- initialize serial connection ------------------------ //
+  Serial.begin(9600);
+  Serial.printf("\n\n|--- STARTING SETUP ---|\n\n");
+  setup.serialActive = true;
   // --------------------------------------------------------------------------- //
 
   // -------------------------- initialize serial connection ------------------------ //
 
-  // ARDAN updates 4 times a second for a total of 8192 bits per second
-
-  setup.serialActive = true;
-
   // --------------------------------------------------------------------------- //
 
   // -------------------------- initialize LoRa  ---------------------------- //
-  if (LoRa.begin(915E6))
-  {
-    Serial.printf("LoRa INIT [ SUCCESS ]\n");
+  Serial.printf("\ntelemetry:\n");
+
+  // init wifi and config
+  if (WiFi.mode(WIFI_STA)) {
+    Serial.printf("\twifi init [ success ]\n");
+
+    // set custom mac address
+    const uint8_t telemetryAddress[6] = ESP_NOW_TELEMETRY_ADDRESS;
+    if (esp_wifi_set_mac(WIFI_IF_STA, telemetryAddress) == ESP_OK) {
+      Serial.printf("\twifi set mac [ success ]\n");
+    
+      esp_wifi_set_channel(1, WIFI_SECOND_CHAN_NONE);
+      Serial.print("\tmac: "); Serial.println(WiFi.macAddress());
+      Serial.print("\tchannel: "); Serial.println(WiFi.channel());
+
+      if (esp_now_init() == ESP_OK) {
+        Serial.printf("\tesp-now init [ success ]\n");
+
+        // add peers
+        esp_err_t tractiveResult = esp_now_add_peer(&tractiveInfo);
+
+        if (tractiveResult == ESP_OK) {
+          Serial.printf("\tadd peers [ success ]\n");
+
+          esp_now_register_recv_cb(TelemetryDataReceived);
+          setup.tractiveActive = true;
+        }
+        else {
+          Serial.printf("\tadd peers [ failed ]\n");
+        }
+      }
+
+      else {
+        Serial.printf("\tesp-now init [ failed ]\n");
+      }
+    }
+    else {
+      Serial.printf("\twifi set mac [ failed ]\n");
+    }
   }
 
-  else
-  {
-    Serial.printf("LoRa INIT [ FAILED ]\n");
+  else {
+    Serial.printf("\twifi init [ failed ]\n");
   }
-
   // ------------------------------------------------------------------------ //
 
   // ------------------------------- Scheduler & Task Status --------------------------------- //
-  // init mutex
-  xMutex = xSemaphoreCreateMutex();
-
   // task setup status
   Serial.printf("\nTask Setup Status:\n");
   Serial.printf("SERIAL TASK SETUP: %s\n", setup.serialActive ? "COMPLETE" : "FAILED");
-  Serial.printf("ARDAN TASK SETUP: %s\n", setup.ardanActive ? "COMPLETE" : "FAILED");
+  Serial.printf("ARDAN TASK SETUP: %s\n", setup.tractiveActive ? "COMPLETE" : "FAILED");
 
-  if (xMutex != NULL)
+  // start tasks
+  if (setup.serialActive)
   {
-    // start tasks
-    if (setup.serialActive)
-    {
-      xTaskCreatePinnedToCore(SerialWriteTask, "Serial-Write", TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandleSerialWrite, 0);
-    }
-
-    if (setup.ardanActive)
-    {
-      xTaskCreatePinnedToCore(ArdanReadTask, "ARDAN-Read", TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandleArdanRead, 1);
-    }
-  }
-  else
-  {
-    Serial.printf("FAILED TO INIT MUTEX!\nHALTING OPERATIONS!");
-    while (1)
-    {
-    };
+    xTaskCreatePinnedToCore(SerialTask, "Serial", TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandleSerialWrite, 0);
   }
 
-  // task status
-  Serial.printf("\nTask Status:\n");
-  if (xHandleSerialWrite != NULL)
-    Serial.printf("SERIAL WRITE TASK STATUS: %s\n", TaskStateToString(eTaskGetState(xHandleSerialWrite)));
-  else
-    Serial.printf("SERIAL WRITE TASK STATUS: DISABLED!\n");
+  if (setup.tractiveActive)
+  {
+    xTaskCreatePinnedToCore(ArdanTask, "ardan", TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandleArdanRead, 1);
+  }
 
-  if (xHandleArdanRead != NULL)
-    Serial.printf("ARDAN READ TASK STATUS: %s\n", TaskStateToString(eTaskGetState(xHandleArdanRead)));
-  else
-    Serial.printf("ARDAN READ TASK STATUS: DISABLED!\n");
+  if (debugger.debugEnabled)
+  {
+    xTaskCreate(DebugTask, "Debugger", TASK_STACK_SIZE, NULL, tskIDLE_PRIORITY, &xHandleDebug);
+  }
 
   // scheduler status
   if (xTaskGetSchedulerState() == taskSCHEDULER_RUNNING)
   {
-    Serial.printf("\nScheduler Status: RUNNING\n");
-
-    // clock frequency
-    rtc_cpu_freq_config_t clock_config;
-    rtc_clk_cpu_freq_get_config(&clock_config);
-    Serial.printf("CPU Frequency: %dMHz\n", clock_config.freq_mhz);
+    Serial.printf("\nscheduler status: running\n");
   }
   else
   {
-    Serial.printf("\nScheduler STATUS: FAILED\nHALTING OPERATIONS");
+    Serial.printf("\nscheduler status: FAILED\nHALTING OPERATIONS");
     while (1)
     {
     };
   }
-  Serial.printf("\n|--- END SETUP ---|\n\n");
+  Serial.printf("\n|--- init complete ---|\n\n");
   // ---------------------------------------------------------------------------------------- //
 }
 
@@ -363,66 +256,56 @@ void setup()
 */
 
 /**
- * @brief writes to serial bus
- *
+ * @brief reads and writes i/o
  * @param pvParameters parameters passed to task
  */
-void SerialWriteTask(void *pvParameters)
+void SerialTask(void *pvParameters)
 {
+  // inits
+  const TickType_t xFrequency = pdMS_TO_TICKS(SERIAL_REFRESH_RATE);
+  TickType_t taskLastWakeTick = xTaskGetTickCount();
+
   for (;;)
   {
-    if (xSemaphoreTake(xMutex, (TickType_t)10) == pdTRUE)
-    {
-      // write message to bus
-      Serial.write((uint8_t *)&telemetryCoreData, sizeof(telemetryCoreData));
+    // limit task refresh rate
+    vTaskDelayUntil(&taskLastWakeTick, xFrequency);
 
-      // release mutex!
-      xSemaphoreGive(xMutex);
-    }
+    // write message to bus
+    Serial.write((uint8_t *)&g_carData, sizeof(g_carData));
+    Serial.write("\r");
+    // g_counter++;
 
-    // debugging
+    // datalogger
     if (debugger.debugEnabled)
     {
-      debugger.serialMessage = telemetryCoreData;
       debugger.serialWriteTaskCount++;
     }
-
-    // limit task refresh rate
-    vTaskDelay(SERIAL_WRITE_REFRESH_RATE);
   }
 }
 
 /**
- * @brief reads ardan
- *
+ * @brief reads and writes i/o
  * @param pvParameters parameters passed to task
  */
-void ArdanReadTask(void *pvParameters)
+void ArdanTask(void *pvParameters)
 {
+  // inits
+  const TickType_t xFrequency = pdMS_TO_TICKS(ARDAN_REFRESH_RATE);
+  TickType_t taskLastWakeTick = xTaskGetTickCount();
+
   for (;;)
   {
-    if (xSemaphoreTake(xMutex, (TickType_t)10) == pdTRUE)
-    {
-      // read ardan
-      int packetSize = LoRa.parsePacket();
-      if (packetSize) // Only read if there is some data to read..
-      {
-        LoRa.readBytes((uint8_t *)&telemetryCoreData, packetSize);
-      }
-
-      // release mutex!
-      xSemaphoreGive(xMutex);
-    }
-
-    // debugging
-    if (debugger.debugEnabled)
-    {
-      debugger.recievedMessage = telemetryCoreData;
-      debugger.ardanReadTaskCount++;
-    }
-
     // limit task refresh rate
-    vTaskDelay(SERIAL_WRITE_REFRESH_RATE);
+    vTaskDelayUntil(&taskLastWakeTick, xFrequency);
+
+    // read esp now
+
+    // // datalogger
+    // if (g_datalogger->getDebugEnabled())
+    // {
+    //   g_datalogger->setExecutiveTaskCount(g_datalogger->getExecutiveTaskCount() + 1);
+    //   g_datalogger->setExecutiveData(g_executiveData);
+    // }
   }
 }
 
@@ -436,13 +319,13 @@ void DebugTask(void *pvParameters)
     // serial
     if (debugger.serial_debugEnabled)
     {
-      PrintSerialDebug();
+      // PrintSerialDebug();
     }
 
     // ardan
     if (debugger.reciever_debugEnabled)
     {
-      PrintRecieverDebug_Better();
+      PrintRecieverDebug();
     }
 
     // Scheduler
@@ -479,93 +362,101 @@ void loop()
 */
 
 /**
- * convert a number to drive mode
+ * 
  */
-DriveMode NumberToDriveMode(uint8_t value)
+void TelemetryDataReceived(const uint8_t *mac, const uint8_t *incomingData, int len)
 {
-  // inits
-  DriveMode mode;
+  if (!mac || !incomingData || len <= 0) return;
+  
+  CarDataType *carData = {};
+  
+  memcpy(&incomingData, &carData, len);
 
-  // convert
-  if (value == 1)
-  {
-    mode = SLOW;
-  }
-  if (value == 2)
-  {
-    mode = ECO;
-  }
-  if (value == 3)
-  {
-    mode = FAST;
-  }
-
-  return mode;
+  g_carData.executive = carData->executive;
+  g_carData.gpio = carData->gpio;
+  g_carData.twai = carData->twai;
 }
 
 /**
- * convert a number to precharge state
+ * 
  */
-PrechargeStates NumberToPrechargeState(uint8_t value)
+ExecutiveSnapshotType MakeExecutiveSnapshot(ExecutiveData *data)
 {
-  // init
-  PrechargeStates state;
-
-  // convert
-  if (value == 1)
-  {
-    state = PRECHARGE_OFF;
-  }
-  if (value == 2)
-  {
-    state = PRECHARGE_ON;
-  }
-  if (value == 3)
-  {
-    state = PRECHARGE_DONE;
-  }
-  if (value == 4)
-  {
-    state = PRECHARGE_ERROR;
-  }
-
-  return state;
+    ExecutiveSnapshotType s{};
+    s.systemState        = data->getSystemState();
+    s.previousSystemState= data->getPreviousSystemState();
+    s.readyToDrive       = data->getReadyToDrive();
+    s.enableInverter     = data->getEnableInverter();
+    s.driveDirection     = data->getDriveDirection();
+    s.driveMode          = data->getDriveMode();
+    s.torqueCommand      = data->getTorqueCommand();
+    s.enableVicore       = data->getEnableVicore();
+    s.velocity           = data->getVelocity();
+    s.coastRegen         = data->getCoastRegen();
+    s.brakeRegen         = data->getBrakeRegen();
+    return s;
 }
 
 /**
- *
+ * 
  */
-String TaskStateToString(eTaskState state)
+GpioSnapshotType MakeGpioSnapshot(GpioData *data)
 {
-  // init
-  String stateStr;
+    GpioSnapshotType s{};
 
-  // get state
-  switch (state)
-  {
-  case eReady:
-    stateStr = "RUNNING";
-    break;
+    // Faults
+    s.imdFault  = data->getImdFault();
+    s.bmsFault  = data->getBmsFault();
+    s.vicoreFault = data->getVicoreFault();
 
-  case eBlocked:
-    stateStr = "BLOCKED";
-    break;
+    // Cooling temperatures
+    s.coolingTempIn  = data->getCoolingTempIn();
+    s.coolingTempOut = data->getCoolingTempOut();
 
-  case eSuspended:
-    stateStr = "SUSPENDED";
-    break;
+    // Front wheels
+    s.frontWheelsSpeed     = data->getFrontWheelsSpeed();
+    s.frontWheelSpeedCount = data->getFrontWheelSpeedCount();
+    s.frontWheelSpeedTime  = data->getFrontWheelSpeedTime();
 
-  case eDeleted:
-    stateStr = "DELETED";
-    break;
+    // Back right wheel
+    s.brWheelSpeed     = data->getBrWheelSpeed();
+    s.brWheelSpeedCount= data->getBrWheelSpeedCount();
+    s.brWheelSpeedTime = data->getBrWheelSpeedTime();
 
-  default:
-    stateStr = "ERROR";
-    break;
-  }
+    // Back left wheel
+    s.blWheelSpeed     = data->getBlWheelSpeed();
+    s.blWheelSpeedCount= data->getBlWheelSpeedCount();
+    s.blWheelSpeedTime = data->getBlWheelSpeedTime();
 
-  return stateStr;
+    // Inputs
+    s.pedal0     = data->getPedal0();
+    s.pedal1     = data->getPedal1();
+    s.frontBrake = data->getFrontBrake();
+    s.rearBrake  = data->getRearBrake();
+
+    // Outputs
+    s.vicoreEnable               = data->getVicoreEnable();
+    s.brakeLightEnable           = data->getBrakeLightEnable();
+    s.fansEnable                 = data->getFansEnable();
+    s.buzzerEnable               = data->getBuzzerEnable();
+    s.prechargeCompleteLedEnable = data->getprechargeCompleteLedEnable();
+
+    return s;
 }
+
+
+TwaiSnapshotType MakeTwaiSnapshot(TwaiData *data)
+{
+    TwaiSnapshotType s{};
+    s.rinehartRelayWord      = data->getRinehartRelayWord();
+    s.rinehartTractiveWord   = data->getRinehartTractiveWord();
+    s.rinehartBusVoltage     = data->getRinehartBusVoltage();
+    s.bmsPackCurrent         = data->getBmsPackCurrent();
+    s.bmsBusVoltage          = data->getBmsBusVoltage();
+    s.bmsBatteryCharge       = data->getBmsBatteryCharge();
+    return s;
+}
+
 
 /*
 ===============================================================================================
@@ -577,8 +468,67 @@ String TaskStateToString(eTaskState state)
  * @brief
  *
  */
-void PrintSerialDebug()
+void PrintRecieverDebug_v3()
 {
+  // // spacer
+  // std::string text = "";
+  // short newLines = 50;
+  // for (int i = 0; i < newLines; ++i)
+  // {
+  //   Serial.printf("\n");
+  // }
+
+  // // driving data
+  // Serial.printf("--- Driving Data ---\n");
+
+  // Serial.printf("RTD: %s | Inverter Enable: %s | Precharge State: %d\n", carData.drivingData.readyToDrive ? "Ready!" : "Not Ready :(",
+  //               carData.drivingData.enableInverter ? "Enabled" : "Disabled", (int)carData.drivingData.prechargeState);
+
+  // Serial.printf("IMD Fault: %s | BMS Fault: %s\n", carData.drivingData.imdFault ? "Faulted" : "Cleared", carData.drivingData.bmsFault ? "Faulted" : "Cleared");
+
+  // Serial.printf("Commanded Torque: %d | Drive Mode: %d | Speed (MPH): %f | Direction: %d\n", carData.drivingData.commandedTorque, carData.drivingData.driveMode, carData.drivingData.currentSpeed, carData.drivingData.driveDirection);
+
+  // // battery Status
+  // Serial.printf("\n --- Battery Status ---\n");
+  // Serial.printf("SOC: %f\n", carData.batteryStatus.batteryChargeState);
+  // Serial.printf("Bus Voltage: %f\n", carData.batteryStatus.busVoltage);
+  // Serial.printf("Rinehart Voltage: %f\n", carData.batteryStatus.rinehartVoltage);
+  // Serial.printf("Current: %f\n", carData.batteryStatus.packCurrent);
+  // Serial.printf("Pack 1 Temp: %f\n", carData.batteryStatus.pack1Temp);
+  // Serial.printf("Pack 2 Temp: %f\n", carData.batteryStatus.pack2Temp);
+  // Serial.printf("Cell Voltage: %f\n", carData.batteryStatus.minCellVoltage);
+  // Serial.printf("Cell Voltage: %f\n", carData.batteryStatus.maxCellVoltage);
+
+  // // Sensors
+  // Serial.printf("\n--- Sensor Inputs ---\n");
+  // printf("FR Wheel Speed: %f\n", carData.sensors.wheelSpeedFR);
+  // printf("FL Wheel Speed: %f\n", carData.sensors.wheelSpeedFL);
+  // printf("BR Wheel Speed: %f\n", carData.sensors.wheelSpeedBR);
+  // printf("BL Wheel Speed: %f\n", carData.sensors.wheelSpeedBL);
+
+  // printf("FR Wheel Height: %f\n", carData.sensors.wheelHeightFR);
+  // printf("FL Wheel Height: %f\n", carData.sensors.wheelHeightFL);
+  // printf("BR Wheel Height: %f\n", carData.sensors.wheelHeightBR);
+  // printf("BL Wheel Height: %f\n", carData.sensors.wheelHeightBL);
+
+  // printf("Steering Wheel Angle: %f\n", carData.sensors.steeringWheelAngle);
+
+  // printf("Vicore Temp: %f\n", carData.sensors.vicoreTemp);
+  // printf("Pump In Temp: %f\n", carData.sensors.pumpTempIn);
+  // printf("Pump Out Temp: %f\n", carData.sensors.pumpTempOut);
+
+  // // Inputs
+  // Serial.printf("\n--- Inputs ---\n");
+  // printf("Pedal 0: %d | Pedal 1: %d\n", carData.inputs.pedal0, carData.inputs.pedal1);
+  // printf("Brake 0: %d | Brake 1: %d\n", carData.inputs.brakeFront, carData.inputs.brakeRear);
+  // printf("Coast Regen: %d | Brake Regen: %d\n", carData.inputs.coastRegen, carData.inputs.brakeRegen);
+
+  // // Outputs
+  // Serial.printf("\n--- Outputs ---\n");
+  // printf("Buzzer: %s | Buzzer Counter: %d\n", carData.outputs.buzzerActive ? "Active" : "Inactive", carData.outputs.buzzerCounter);
+  // printf("Brake Light: %s\n", carData.outputs.brakeLight ? "On" : "Off");
+  // printf("Fans: %s\n", carData.outputs.fansActive ? "Running" : "Off");
+  // printf("Pump: %s\n", carData.outputs.pumpActive ? "Running" : "Off");
 }
 
 /**
@@ -749,23 +699,23 @@ void PrintRecieverDebug_Better()
  */
 void PrintRecieverDebug()
 {
-  // // spacer
-  // std::string text = "";
-  // short newLines = 50;
-  // for (int i = 0; i < newLines; ++i)
-  // {
-  //   Serial.printf("\n");
-  // }
+  // spacer
+  std::string text = "";
+  short newLines = 50;
+  for (int i = 0; i < newLines; ++i)
+  {
+    Serial.printf("\n");
+  }
 
-  // // driving data
-  // Serial.printf("--- Driving Data ---\n");
+  // driving data
+  Serial.printf("--- Driving Data ---\n");
 
-  // Serial.printf("RTD: %s | Inverter Enable: %s | Precharge State: %d\n", carData.drivingData.readyToDrive ? "Ready!" : "Not Ready :(",
-  //               carData.drivingData.enableInverter ? "Enabled" : "Disabled", (int)carData.drivingData.prechargeState);
+  Serial.printf("RTD: %s | Inverter Enable: %s | system state: %d\n", g_carData.executive.readyToDrive ? "Ready!" : "Not Ready :(",
+                g_carData.executive.enableInverter ? "Enabled" : "Disabled", (int)g_carData.executive.systemState);
 
-  // Serial.printf("IMD Fault: %s | BMS Fault: %s\n", carData.drivingData.imdFault ? "Faulted" : "Cleared", carData.drivingData.bmsFault ? "Faulted" : "Cleared");
+  Serial.printf("IMD Fault: %s | BMS Fault: %s\n", g_carData.gpio.imdFault ? "Faulted" : "Cleared", g_carData.gpio.bmsFault ? "Faulted" : "Cleared");
 
-  // Serial.printf("Commanded Torque: %d | Drive Mode: %d | Speed (MPH): %f | Direction: %d\n", carData.drivingData.commandedTorque, carData.drivingData.driveMode, carData.drivingData.currentSpeed, carData.drivingData.driveDirection);
+  Serial.printf("Commanded Torque: %d | Drive Mode: %d | Direction: %d\n", g_carData.executive.torqueCommand, g_carData.executive.driveMode, g_carData.executive.driveDirection);
 
   // // battery Status
   // Serial.printf("\n --- Battery Status ---\n");
@@ -796,18 +746,18 @@ void PrintRecieverDebug()
   // printf("Pump In Temp: %f\n", carData.sensors.pumpTempIn);
   // printf("Pump Out Temp: %f\n", carData.sensors.pumpTempOut);
 
-  // // Inputs
-  // Serial.printf("\n--- Inputs ---\n");
-  // printf("Pedal 0: %d | Pedal 1: %d\n", carData.inputs.pedal0, carData.inputs.pedal1);
-  // printf("Brake 0: %d | Brake 1: %d\n", carData.inputs.brakeFront, carData.inputs.brakeRear);
-  // printf("Coast Regen: %d | Brake Regen: %d\n", carData.inputs.coastRegen, carData.inputs.brakeRegen);
+  // Inputs
+  Serial.printf("\n--- Inputs ---\n");
+  printf("Pedal 0: %d | Pedal 1: %d\n", g_carData.gpio.pedal0, g_carData.gpio.pedal1);
+  printf("Brake 0: %d | Brake 1: %d\n", g_carData.gpio.frontBrake, g_carData.gpio.rearBrake);
+  // printf("Coast Regen: %d | Brake Regen: %d\n", g_carData.gpio.coastRegen, g_carData.gpio.brakeRegen);
 
-  // // Outputs
-  // Serial.printf("\n--- Outputs ---\n");
-  // printf("Buzzer: %s | Buzzer Counter: %d\n", carData.outputs.buzzerActive ? "Active" : "Inactive", carData.outputs.buzzerCounter);
-  // printf("Brake Light: %s\n", carData.outputs.brakeLight ? "On" : "Off");
-  // printf("Fans: %s\n", carData.outputs.fansActive ? "Running" : "Off");
-  // printf("Pump: %s\n", carData.outputs.pumpActive ? "Running" : "Off");
+  // Outputs
+  Serial.printf("\n--- Outputs ---\n");
+  printf("Buzzer: %s\n", g_carData.gpio.buzzerEnable ? "Active" : "Inactive");
+  printf("Brake Light: %s\n", g_carData.gpio.brakeLightEnable ? "On" : "Off");
+  printf("Fans: %s\n", g_carData.gpio.fansEnable ? "Running" : "Off");
+  // printf("Pump: %s\n", g_carData.gpio. ? "Running" : "Off");
 }
 
 /**
@@ -816,29 +766,11 @@ void PrintRecieverDebug()
 void PrintSchedulerDebug()
 {
   // inits
-  std::vector<eTaskState> taskStates;
-  std::vector<String> taskStatesStrings;
   std::vector<int> taskRefreshRate;
   int uptime = esp_rtc_get_time_us() / 1000000;
 
-  // gather task information
-  if (xHandleSerialWrite != NULL)
-  {
-    taskStates.push_back(eTaskGetState(xHandleSerialWrite));
-  }
-  if (xHandleArdanRead != NULL)
-  {
-    taskStates.push_back(eTaskGetState(xHandleArdanRead));
-  }
-
   taskRefreshRate.push_back(debugger.serialWriteTaskCount - debugger.serialWritePreviousTaskCount);
   taskRefreshRate.push_back(debugger.ardanReadTaskCount - debugger.ardanReadPreviousTaskCount);
-
-  // make it usable
-  for (int i = 0; i < taskStates.size() - 1; ++i)
-  {
-    taskStatesStrings.push_back(TaskStateToString(taskStates.at(i)));
-  }
 
   // print it
   Serial.printf("uptime: %d | write serial:<%d Hz> (%d) | read ardan:<%d Hz> (%d) \r", uptime, taskRefreshRate.at(0), debugger.serialWriteTaskCount, taskRefreshRate.at(1), debugger.ardanReadTaskCount);

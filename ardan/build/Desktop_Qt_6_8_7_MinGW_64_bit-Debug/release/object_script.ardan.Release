@@ -1,0 +1,11 @@
+release/AboutDlg.o
+release/CarData.o
+release/DataManager.o
+release/MainWindow.o
+release/PortSelectDialog.o
+release/main.o
+release/qrc_resources.o
+release/moc_AboutDlg.o
+release/moc_DataManager.o
+release/moc_MainWindow.o
+release/moc_PortSelectDialog.o

@@ -1,0 +1,14 @@
+debug/AboutDlg.o
+debug/DataLogger.o
+debug/ExecutiveData.o
+debug/GpioData.o
+debug/TwaiData.o
+debug/DataManager.o
+debug/MainWindow.o
+debug/PortSelectDialog.o
+debug/main.o
+debug/qrc_resources.o
+debug/moc_AboutDlg.o
+debug/moc_DataManager.o
+debug/moc_MainWindow.o
+debug/moc_PortSelectDialog.o

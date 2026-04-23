@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Installer>
+
+    <!-- General Information -->
+    <Name>ARDAN</Name>
+    <Version>1.0.0</Version>
+    <Title>ARDAN Installer</Title>
+    <TitleColor>Blue</TitleColor>
+    <Publisher>UVM AERO</Publisher>
+    <InstallerWindowIcon>bessie.png</InstallerWindowIcon>
+    <InstallerApplicationIcon>bessieIcon.ico</InstallerApplicationIcon>
+    <Logo>bessie.png</Logo>
+
+    <!-- Directory Settings -->
+    <AllowSpaceInPath>true</AllowSpaceInPath>
+    <StartMenuDir>aero</StartMenuDir>
+    <TargetDir>C:\Program Files (x86)\aero\ardan</TargetDir>
+
+    <!-- Window Settings -->
+    <WizardStyle>Modern</WizardStyle>
+    <WizardDefaultWidth>1000</WizardDefaultWidth>
+    <WizardDefaultHeight>750</WizardDefaultHeight>
+    <WizardShowPageList>true</WizardShowPageList>
+
+    <!-- Progam Settings -->
+    <RunProgram>@TargetDir@\ardan.exe</RunProgram>
+    <RunProgramDescription>Launch ARDAN</RunProgramDescription>
+
+
+</Installer>

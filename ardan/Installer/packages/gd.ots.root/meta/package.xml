@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Package>
+    <!-- General Information -->
+    <DisplayName>CUAS GCU Data Logger</DisplayName>
+    <Description>Data Logger for Counter UAS Guns</Description>
+    <Version>4.1.1</Version>
+    <ReleaseDate>2026-04-14</ReleaseDate>
+
+
+    <!-- License Agreements -->
+    
+
+    <!-- Installer Settings -->
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+
+</Package>
